@@ -1,14 +1,25 @@
 apiVersion: v1
 entries:
+  pyrescom:
+  - apiVersion: v2
+    appVersion: "2026"
+    created: "2026-04-02T09:21:59.020576791+02:00"
+    description: Déploiement du serveur TNSRV de pyrescom — passthrough NGINX
+    digest: 7a45a07221f098075362455a55465f4894a63c1b1a07138b84913a08b99e043a
+    name: pyrescom
+    type: application
+    urls:
+    - https://github.com/zolcano/Charts/pyrescom-1.0.0.tgz
+    version: 1.0.0
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-01T16:33:47.4036342+02:00"
+    created: "2026-04-02T09:21:59.028574337+02:00"
     description: Déploiement de la plateforme StaffNGO — tous les microservices
     digest: c20ab2902490286c3219caa8717f5fe2a43dc12c7abf8aa3aacf8100b39279de
     name: staffngo
     type: application
     urls:
-    - https://zolcano.github.io/Charts/staffngo-1.0.0.tgz
+    - https://github.com/zolcano/Charts/staffngo-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-01T16:33:47.396003206+02:00"
+generated: "2026-04-02T09:21:59.013347127+02:00"

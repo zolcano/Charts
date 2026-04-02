@@ -1,0 +1,24 @@
+---
+apiVersion: k8s.nginx.org/v1alpha1
+kind: TransportServer
+metadata:
+  name: pyrescom-tls-passthrough
+  namespace: default
+spec:
+  listener:
+    name: tls-passthrough
+    protocol: TLS_PASSTHROUGH
+  host: pyrescom.staffngo.com
+  upstreams:
+    - name: pyrescom-tls-passthrough
+      service: pyrescom
+      port: 443
+      healthCheck:
+        enable: true
+        interval: 10s
+        timeout: 3s
+        jitter: 3s
+        fails: 2
+        passes: 2
+  action:
+    pass: pyrescom-tls-passthrough
