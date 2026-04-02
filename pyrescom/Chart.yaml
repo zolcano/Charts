@@ -4,3 +4,8 @@ description: Déploiement du serveur TNSRV de pyrescom — passthrough NGINX
 type: application
 version: 1.0.0
 appVersion: "2026"
+dependencies:
+  - name: nginx-ingress
+    version: "2.5.1"
+    repository: "https://helm.nginx.com/stable"
+    condition: "true"
