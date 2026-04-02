@@ -1,2 +1,86 @@
+namespace: staffngo
+
+registry:
+  server: staffngoacr.azurecr.io
+  secretName: acr-pull-secret
+
 secret:
-  name: test
+  name: acr-pull-secret
+  username: ""
+  password: ""
+
+defaults:
+  replicaCount: 1
+  pullPolicy: IfNotPresent
+  port: 8080
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  service:
+    type: ClusterIP
+    port: 80
+
+services:
+  digidoc:
+    image: demo-digidoc.api
+    tag: "20260324.1915"
+    enabled: true
+
+  external:
+    image: demo-external.api
+    tag: "20260331.1610"
+    enabled: true
+
+  identity:
+    image: demo-identity.api
+    tag: "20260324.1919"
+    enabled: true
+
+  laborregister:
+    image: demo-laborregister.api
+    tag: "20260324.1905"
+    enabled: true
+
+  monitoring:
+    image: demo-monitoring.api
+    tag: "20251006.2114"
+    enabled: true
+
+  notification:
+    image: demo-notification.api
+    tag: "20260324.1910"
+    enabled: true
+
+  postal:
+    image: demo-postal.api
+    tag: "20260302.0955"
+    enabled: true
+
+  scheduler:
+    image: demo-scheduler.api
+    tag: "20260302.0754"
+    enabled: true
+
+  signature:
+    image: demo-signature.api
+    tag: "20260217.1734"
+    enabled: true
+
+  staffngo:
+    image: demo-staffngo.api
+    tag: "20260331.1614"
+    enabled: true
+
+  subscription:
+    image: demo-subscription.api
+    tag: "20260302.0946"
+    enabled: true
+
+  vault:
+    image: demo-vault.api
+    tag: "20260217.1605"
+    enabled: true

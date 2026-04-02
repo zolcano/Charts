@@ -1,0 +1,150 @@
+categories:
+  - StaffNGO
+
+questions:
+
+  # ── Namespace ────────────────────────────────────────────────
+  - variable: namespace
+    label: "Namespace Kubernetes"
+    description: "Namespace dans lequel tous les microservices seront déployés."
+    type: string
+    default: "staffngo"
+    required: true
+    group: "Déploiement"
+
+  # ── Registry ─────────────────────────────────────────────────
+  - variable: registry.server
+    label: "Serveur du registry Docker"
+    description: "URL de l'Azure Container Registry (ex: monacr.azurecr.io)."
+    type: string
+    default: "staffngoacr.azurecr.io"
+    required: true
+    group: "Registry"
+
+  - variable: secret.username
+    label: "Nom d'utilisateur ACR"
+    description: "Service principal ou nom d'utilisateur pour s'authentifier au registry."
+    type: string
+    required: true
+    group: "Registry"
+
+  - variable: secret.password
+    label: "Mot de passe ACR"
+    description: "Mot de passe ou secret du service principal ACR."
+    type: password
+    required: true
+    group: "Registry"
+
+  - variable: secret.name
+    label: "Nom du Secret Kubernetes"
+    description: "Nom donné au Secret docker-registry créé dans le namespace."
+    type: string
+    default: "acr-pull-secret"
+    required: true
+    group: "Registry"
+
+  # ── Versions des microservices ────────────────────────────────
+  - variable: services.digidoc.tag
+    label: "digidoc — tag image"
+    type: string
+    default: "20260324.1915"
+    group: "Versions des images"
+
+  - variable: services.external.tag
+    label: "external — tag image"
+    type: string
+    default: "20260331.1610"
+    group: "Versions des images"
+
+  - variable: services.identity.tag
+    label: "identity — tag image"
+    type: string
+    default: "20260324.1919"
+    group: "Versions des images"
+
+  - variable: services.laborregister.tag
+    label: "laborregister — tag image"
+    type: string
+    default: "20260324.1905"
+    group: "Versions des images"
+
+  - variable: services.monitoring.tag
+    label: "monitoring — tag image"
+    type: string
+    default: "20251006.2114"
+    group: "Versions des images"
+
+  - variable: services.notification.tag
+    label: "notification — tag image"
+    type: string
+    default: "20260324.1910"
+    group: "Versions des images"
+
+  - variable: services.postal.tag
+    label: "postal — tag image"
+    type: string
+    default: "20260302.0955"
+    group: "Versions des images"
+
+  - variable: services.scheduler.tag
+    label: "scheduler — tag image"
+    type: string
+    default: "20260302.0754"
+    group: "Versions des images"
+
+  - variable: services.signature.tag
+    label: "signature — tag image"
+    type: string
+    default: "20260217.1734"
+    group: "Versions des images"
+
+  - variable: services.staffngo.tag
+    label: "staffngo — tag image"
+    type: string
+    default: "20260331.1614"
+    group: "Versions des images"
+
+  - variable: services.subscription.tag
+    label: "subscription — tag image"
+    type: string
+    default: "20260302.0946"
+    group: "Versions des images"
+
+  - variable: services.vault.tag
+    label: "vault — tag image"
+    type: string
+    default: "20260217.1605"
+    group: "Versions des images"
+
+  # ── Ressources par défaut ─────────────────────────────────────
+  - variable: defaults.replicaCount
+    label: "Nombre de réplicas par défaut"
+    type: int
+    default: 1
+    min: 1
+    max: 10
+    group: "Ressources"
+
+  - variable: defaults.resources.requests.cpu
+    label: "CPU request (défaut)"
+    type: string
+    default: "100m"
+    group: "Ressources"
+
+  - variable: defaults.resources.requests.memory
+    label: "Mémoire request (défaut)"
+    type: string
+    default: "128Mi"
+    group: "Ressources"
+
+  - variable: defaults.resources.limits.cpu
+    label: "CPU limit (défaut)"
+    type: string
+    default: "500m"
+    group: "Ressources"
+
+  - variable: defaults.resources.limits.memory
+    label: "Mémoire limit (défaut)"
+    type: string
+    default: "512Mi"
+    group: "Ressources"

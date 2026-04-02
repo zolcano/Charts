@@ -1,30 +1,14 @@
 apiVersion: v1
 entries:
-  pyrescom:
-  - apiVersion: v2
-    appVersion: "2026"
-    created: "2026-04-02T10:02:22.003144003+02:00"
-    dependencies:
-    - condition: nginx.enabled
-      name: nginx-ingress
-      repository: https://helm.nginx.com/stable
-      version: 2.5.1
-    description: Déploiement du serveur TNSRV de pyrescom — passthrough NGINX
-    digest: b5bfd462c0723570d31a6c68643d166cbbbc2f94f1a106d5259506b5d64d5e86
-    name: pyrescom
-    type: application
-    urls:
-    - https://github.com/zolcano/Charts/pyrescom-1.0.0.tgz
-    version: 1.0.0
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-02T10:02:22.014575298+02:00"
+    created: "2026-04-02T10:50:28.377363464+02:00"
     description: Déploiement de la plateforme StaffNGO — tous les microservices
-    digest: c20ab2902490286c3219caa8717f5fe2a43dc12c7abf8aa3aacf8100b39279de
+    digest: fceaa7807211978ebadb83c354d7848abfbb528a7de31fc2077de437281e87d7
     name: staffngo
     type: application
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-02T10:02:21.975413991+02:00"
+generated: "2026-04-02T10:50:28.364584213+02:00"
