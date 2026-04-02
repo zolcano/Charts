@@ -8,4 +8,4 @@ dependencies:
   - name: nginx-ingress
     version: "2.5.1"
     repository: "https://helm.nginx.com/stable"
-    condition: "true"
+    condition: nginx.enabled
