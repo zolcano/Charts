@@ -20,6 +20,22 @@ common:
     AZURE_STORAGE_CONNECTION_STRING: ""
     SYNCFUSION_LISENCE: ""
 
+dbConnections:
+  name: database-connections
+  values:
+    digidoc: ""
+    external: ""
+    identity: ""
+    laborregister: ""
+    monitoring: ""
+    notification: ""
+    postal: ""
+    scheduler: ""
+    signature: ""
+    staffngo: ""
+    subscription: ""
+    vault: ""
+
 defaults:
   replicaCount: 1
   pullPolicy: IfNotPresent

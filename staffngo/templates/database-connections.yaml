@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.dbConnections.name}}
+data:
+  digidoc: {{ .Values.dbConnections.Values.digidoc}}
+  external: {{ .Values.dbConnections.Values.external}}
+  identity: {{ .Values.dbConnections.Values.identity}}
+  laborregister: {{ .Values.dbConnections.Values.laborregister}}
+  monitoring: {{ .Values.dbConnections.Values.monitoring}}
+  notification: {{ .Values.dbConnections.Values.notification}}
+  postal: {{ .Values.dbConnections.Values.postal}}
+  scheduler: {{ .Values.dbConnections.Values.scheduler}}
+  signature: {{ .Values.dbConnections.Values.signature}}
+  staffngo: {{ .Values.dbConnections.Values.staffngo}}
+  subscription: {{ .Values.dbConnections.Values.subscription}}
+  vault: {{ .Values.dbConnections.Values.vault}}

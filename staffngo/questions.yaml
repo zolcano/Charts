@@ -125,7 +125,7 @@ questions:
     max: 10
     group: "Ressources"
 
-  # ── Ressources par défaut ─────────────────────────────────────
+  # ── common secrets ────────────────────────────────────────────
 
   - variable: common.secretValues.API_BASE_URL
     label: "fqdn de résolution vers l'API"
@@ -158,3 +158,77 @@ questions:
     type: string
     required: true
     group: "Common secret"
+
+  #  ── database connection strings ───────────────────────────────
+
+  - variable: dbConnections.values.digidoc
+    label: "digidoc database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.external
+    label: "external database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.identity
+    label: "identity database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.laborregister
+    label: "laborregister database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.monitoring
+    label: "monitoring database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.notification
+    label: "notification database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.postal
+    label: "postal database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+  
+  - variable: dbConnections.values.scheduler
+    label: "scheduler database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.signature
+    label: "signature database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.staffngo
+    label: "staffngo database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.subscription
+    label: "subscription database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
+
+  - variable: dbConnections.values.vault
+    label: "vault database connection string"
+    type: string
+    required: true
+    group: "database connection strings"
