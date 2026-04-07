@@ -1,4 +1,5 @@
 namespace: staffngo
+environment: production
 
 registry:
   server: staffngoacr.azurecr.io
@@ -6,20 +7,23 @@ registry:
 
 secret:
   name: acr-pull-secret
-  username: ""
+  username: "staffngoacr"
   password: ""
+
+common:
+  name: common
+  secretValues:
+    API_BASE_URL: "https://api.staffngo.com"
+    ASPNETCORE_ENVIRONMENT: "Production"
+    ASPNETCORE_HTTP_PORTS: "80"
+    AZURE_SERVICEBUS_CONNECTION_STRING: ""
+    AZURE_STORAGE_CONNECTION_STRING: ""
+    SYNCFUSION_LISENCE: ""
 
 defaults:
   replicaCount: 1
   pullPolicy: IfNotPresent
-  port: 8080
-  resources:
-    requests:
-      cpu: "100m"
-      memory: "128Mi"
-    limits:
-      cpu: "500m"
-      memory: "512Mi"
+  port: 80
   service:
     type: ClusterIP
     port: 80
@@ -28,59 +32,143 @@ services:
   digidoc:
     image: demo-digidoc.api
     tag: "20260324.1915"
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "512Mi"
+      limits:
+        cpu: "200"
+        memory: "1024Mi"
     enabled: true
 
   external:
     image: demo-external.api
     tag: "20260331.1610"
+    resources:
+      requests:
+        cpu: "20"
+        memory: "128"
+      limits:
+        cpu: "40"
+        memory: "256"
     enabled: true
 
   identity:
     image: demo-identity.api
     tag: "20260324.1919"
+    resources:
+      requests:
+        cpu: "50"
+        memory: "256"
+      limits:
+        cpu: "100"
+        memory: "512"
     enabled: true
 
   laborregister:
     image: demo-laborregister.api
     tag: "20260324.1905"
+    resources:
+      requests:
+        cpu: "10"
+        memory: "128"
+      limits:
+        cpu: "20"
+        memory: "256"
     enabled: true
 
   monitoring:
     image: demo-monitoring.api
     tag: "20251006.2114"
+    resources:
+      requests:
+        cpu: "20"
+        memory: "256"
+      limits:
+        cpu: "40"
+        memory: "512"
     enabled: true
 
   notification:
     image: demo-notification.api
     tag: "20260324.1910"
+    resources:
+      requests:
+        cpu: "10"
+        memory: "512"
+      limits:
+        cpu: "20"
+        memory: "1024"
     enabled: true
 
   postal:
     image: demo-postal.api
     tag: "20260302.0955"
+    resources:
+      requests:
+        cpu: "10"
+        memory: "128"
+      limits:
+        cpu: "20"
+        memory: "256"
     enabled: true
 
   scheduler:
     image: demo-scheduler.api
     tag: "20260302.0754"
+    resources:
+      requests:
+        cpu: "10"
+        memory: "128"
+      limits:
+        cpu: "20"
+        memory: "256"
     enabled: true
 
   signature:
     image: demo-signature.api
     tag: "20260217.1734"
+    resources:
+      requests:
+        cpu: "10"
+        memory: "256"
+      limits:
+        cpu: "20"
+        memory: "512"
     enabled: true
 
   staffngo:
     image: demo-staffngo.api
     tag: "20260331.1614"
+    resources:
+      requests:
+        cpu: "250"
+        memory: "2048"
+      limits:
+        cpu: "500"
+        memory: "4096"
     enabled: true
 
   subscription:
     image: demo-subscription.api
     tag: "20260302.0946"
+    resources:
+      requests:
+        cpu: "10"
+        memory: "256"
+      limits:
+        cpu: "20"
+        memory: "512"
     enabled: true
 
   vault:
     image: demo-vault.api
     tag: "20260217.1605"
+    resources:
+      requests:
+        cpu: "10"
+        memory: "256"
+      limits:
+        cpu: "20"
+        memory: "512"
     enabled: true

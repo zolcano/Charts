@@ -1,8 +1,7 @@
 categories:
-  - StaffNGO
+  - staffngo
 
 questions:
-
   # ── Namespace ────────────────────────────────────────────────
   - variable: namespace
     label: "Namespace Kubernetes"
@@ -12,10 +11,18 @@ questions:
     required: true
     group: "Déploiement"
 
+  - variable: environment
+    label: "Namespace Kubernetes"
+    description: "Aspnetcore environment"
+    type: string
+    default: Production"
+    required: true
+    group: "Déploiement"
+
   # ── Registry ─────────────────────────────────────────────────
   - variable: registry.server
     label: "Serveur du registry Docker"
-    description: "URL de l'Azure Container Registry (ex: monacr.azurecr.io)."
+    description: "URL de l'Azure Container Registry."
     type: string
     default: "staffngoacr.azurecr.io"
     required: true
@@ -25,21 +32,14 @@ questions:
     label: "Nom d'utilisateur ACR"
     description: "Service principal ou nom d'utilisateur pour s'authentifier au registry."
     type: string
+    default: "staffngoacr"
     required: true
     group: "Registry"
 
   - variable: secret.password
     label: "Mot de passe ACR"
-    description: "Mot de passe ou secret du service principal ACR."
+    description: "Mot de passe ou secret du registry."
     type: password
-    required: true
-    group: "Registry"
-
-  - variable: secret.name
-    label: "Nom du Secret Kubernetes"
-    description: "Nom donné au Secret docker-registry créé dans le namespace."
-    type: string
-    default: "acr-pull-secret"
     required: true
     group: "Registry"
 
@@ -125,26 +125,36 @@ questions:
     max: 10
     group: "Ressources"
 
-  - variable: defaults.resources.requests.cpu
-    label: "CPU request (défaut)"
-    type: string
-    default: "100m"
-    group: "Ressources"
+  # ── Ressources par défaut ─────────────────────────────────────
 
-  - variable: defaults.resources.requests.memory
-    label: "Mémoire request (défaut)"
+  - variable: common.secretValues.API_BASE_URL
+    label: "fqdn de résolution vers l'API"
     type: string
-    default: "128Mi"
-    group: "Ressources"
+    default: "https://api.staffngo.com"
+    required: true
+    group: "Common secret"
 
-  - variable: defaults.resources.limits.cpu
-    label: "CPU limit (défaut)"
+  - variable: common.secretValues.ASPNETCORE_ENVIRONMENT
+    label: "environnement de déploiement"
     type: string
-    default: "500m"
-    group: "Ressources"
+    default: "Production"
+    required: true
+    group: "Common secret"
 
-  - variable: defaults.resources.limits.memory
-    label: "Mémoire limit (défaut)"
+  - variable: common.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
+    label: "azurePortal > namespace > servicebus > settings > SharedAccessPolicy > ConnexionString"
     type: string
-    default: "512Mi"
-    group: "Ressources"
+    required: true
+    group: "Common secret"
+
+  - variable: common.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
+    label: "azurePortal > namespace > (blob)storage > security > accessKeys > ConnexionString"
+    type: string
+    required: true
+    group: "Common secret"
+
+  - variable: common.secretValues.SYNCFUSION_LISENCE
+    label: "liscence syncfusion"
+    type: string
+    required: true
+    group: "Common secret"

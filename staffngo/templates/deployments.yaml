@@ -10,7 +10,7 @@ metadata:
     app: {{ $name }}
     chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
 spec:
-  replicas: {{ default $.Values.defaults.replicaCount $svc.replicaCount }}
+  replicas: {{ $.Values.defaults.replicaCount }}
   selector:
     matchLabels:
       app: {{ $name }}
@@ -28,6 +28,6 @@ spec:
           ports:
             - containerPort: {{ default $.Values.defaults.port $svc.port }}
           resources:
-            {{- toYaml (default $.Values.defaults.resources $svc.resources) | nindent 12 }}
+            {{- toYaml ($svc.resources) | nindent 12 }}
 {{- end }}
 {{- end }}
