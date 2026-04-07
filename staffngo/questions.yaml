@@ -2,7 +2,7 @@ categories:
   - staffngo
 
 questions:
-  # ── Namespace ────────────────────────────────────────────────
+  # ── Déploiement ────────────────────────────────────────────────
   - variable: namespace
     label: "Namespace Kubernetes"
     description: "Namespace dans lequel tous les microservices seront déployés."
@@ -12,10 +12,10 @@ questions:
     group: "Déploiement"
 
   - variable: environment
-    label: "environment"
-    description: "Aspnetcore environment"
+    label: "Environnement Applicatif"
+    description: "Environnement dans lequel tous les microservices seront déployés."
     type: string
-    default: Production"
+    default: production"
     required: true
     group: "Déploiement"
 
@@ -28,7 +28,7 @@ questions:
     required: true
     group: "Registry"
 
-  - variable: secret.username
+  - variable: acrSecret.username
     label: "Nom d'utilisateur ACR"
     description: "Service principal ou nom d'utilisateur pour s'authentifier au registry."
     type: string
@@ -36,97 +36,372 @@ questions:
     required: true
     group: "Registry"
 
-  - variable: secret.password
+  - variable: acrSecret.password
     label: "Mot de passe ACR"
     description: "Mot de passe ou secret du registry."
     type: password
     required: true
     group: "Registry"
 
-  # ── Versions des microservices ────────────────────────────────
+  # ── Digidoc ──────────────────────────────────────────────────
+  - variable: services.digidoc.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "digidoc"
+
+  - variable: services.digidoc.image
+    label: "digidoc - image name"
+    type: string
+    default: "demo-digidoc.api"
+    group: "digidoc"
+
   - variable: services.digidoc.tag
-    label: "digidoc — tag image"
+    label: "digidoc - tag image"
     type: string
     default: "20260324.1915"
-    group: "Versions des images"
+    group: "digidoc"
 
-  - variable: services.external.tag
-    label: "external — tag image"
-    type: string
-    default: "20260331.1610"
-    group: "Versions des images"
-
-  - variable: services.identity.tag
-    label: "identity — tag image"
-    type: string
-    default: "20260324.1919"
-    group: "Versions des images"
-
-  - variable: services.laborregister.tag
-    label: "laborregister — tag image"
-    type: string
-    default: "20260324.1905"
-    group: "Versions des images"
-
-  - variable: services.monitoring.tag
-    label: "monitoring — tag image"
-    type: string
-    default: "20251006.2114"
-    group: "Versions des images"
-
-  - variable: services.notification.tag
-    label: "notification — tag image"
-    type: string
-    default: "20260324.1910"
-    group: "Versions des images"
-
-  - variable: services.postal.tag
-    label: "postal — tag image"
-    type: string
-    default: "20260302.0955"
-    group: "Versions des images"
-
-  - variable: services.scheduler.tag
-    label: "scheduler — tag image"
-    type: string
-    default: "20260302.0754"
-    group: "Versions des images"
-
-  - variable: services.signature.tag
-    label: "signature — tag image"
-    type: string
-    default: "20260217.1734"
-    group: "Versions des images"
-
-  - variable: services.staffngo.tag
-    label: "staffngo — tag image"
-    type: string
-    default: "20260331.1614"
-    group: "Versions des images"
-
-  - variable: services.subscription.tag
-    label: "subscription — tag image"
-    type: string
-    default: "20260302.0946"
-    group: "Versions des images"
-
-  - variable: services.vault.tag
-    label: "vault — tag image"
-    type: string
-    default: "20260217.1605"
-    group: "Versions des images"
-
-  # ── Ressources par défaut ─────────────────────────────────────
-  - variable: defaults.replicaCount
-    label: "Nombre de réplicas par défaut"
+  - variable: services.digidoc.replicaCount
+    label: "digidoc - replicas"
     type: int
     default: 1
-    min: 1
-    max: 10
-    group: "Ressources"
+    group: "digidoc"
+
+  # ── External ──────────────────────────────────────────────────
+  - variable: services.external.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "external"
+
+  - variable: services.external.image
+    label: "external - image name"
+    type: string
+    default: "demo-external.api"
+    group: "external"
+
+  - variable: services.external.tag
+    label: "external - tag image"
+    type: string
+    default: "20260331.1610"
+    group: "external"
+
+  - variable: services.external.replicaCount
+    label: "external - replicas"
+    type: int
+    default: 1
+    group: "external"
+
+  # ── Identity ──────────────────────────────────────────────────
+  - variable: services.identity.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "identity"
+
+  - variable: services.identity.image
+    label: "identity - image name"
+    type: string
+    default: "demo-identity.api"
+    group: "identity"
+
+  - variable: services.identity.tag
+    label: "identity - tag image"
+    type: string
+    default: "20260324.1919"
+    group: "identity"
+
+  - variable: services.identity.replicaCount
+    label: "identity - replicas"
+    type: int
+    default: 1
+    group: "identity"
+
+  - variable: services.identity.env.AZURE_CLIENT_ID
+    label: "environment var - azure client id"
+    type: string
+    default: ""
+    group: "identity"
+
+  - variable: services.identity.env.REDIS_CONNECTION_STRING
+    label: "environment var - redis connection string"
+    type: string
+    group: "identity"
+
+  - variable: services.identity.env.AZURE_TENANT_ID
+    label: "environment var - azure tenant id"
+    type: string
+    default: ""
+    group: "identity"
+  
+  - variable: services.identity.env.AZURE_CLIENT_SECRET
+    label: "environment var - azure client secret"
+    type: string
+    default: ""
+    group: "identity"
+
+  # ── LaborRegister ─────────────────────────────────────────────
+  - variable: services.laborregister.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "laborregister"
+
+  - variable: services.laborregister.image
+    label: "laborregister - image name"
+    type: string
+    default: "demo-laborregister.api"
+    group: "laborregister"
+
+  - variable: services.laborregister.tag
+    label: "laborregister - tag image"
+    type: string
+    default: "20260324.1905"
+    group: "laborregister"
+
+  - variable: services.laborregister.replicaCount
+    label: "laborregister - replicas"
+    type: int
+    default: 1
+    group: "laborregister"
+
+  # ── Monitoring ────────────────────────────────────────────────
+  - variable: services.monitoring.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "monitoring"
+
+  - variable: services.monitoring.image
+    label: "monitoring - image name"
+    type: string
+    default: "demo-monitoring.api"
+    group: "monitoring"
+
+  - variable: services.monitoring.tag
+    label: "monitoring - tag image"
+    type: string
+    default: "20251006.2114"
+    group: "monitoring"
+
+  - variable: services.monitoring.replicaCount
+    label: "monitoring - replicas"
+    type: int
+    default: 1
+    group: "monitoring"
+
+  # ── Notification ──────────────────────────────────────────────
+  - variable: services.notification.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "notification"
+
+  - variable: services.notification.image
+    label: "notification - image name"
+    type: string
+    default: "demo-notification.api"
+    group: "notification"
+
+  - variable: services.notification.tag
+    label: "notification - tag image"
+    type: string
+    default: "20260324.1910"
+    group: "notification"
+
+  - variable: services.notification.replicaCount
+    label: "notification - replicas"
+    type: int
+    default: 1
+    group: "notification"
+  
+  - variable: services.notification.env.NDR_CREDENTIALS
+    label: "notification - ndr credentials"
+    type: string
+    group: "notification"
+
+  - variable: services.notification.env.BREVO_API_KEY
+    label: "notification - brevo api key"
+    type: string
+    group: "notification"
+
+  # ── Postal ────────────────────────────────────────────────────
+  - variable: services.postal.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "postal"
+
+  - variable: services.postal.image
+    label: "postal - image name"
+    type: string
+    default: "demo-postal.api"
+    group: "postal"
+
+  - variable: services.postal.tag
+    label: "postal - tag image"
+    type: string
+    default: "20260302.0955"
+    group: "postal"
+
+  - variable: services.postal.replicaCount
+    label: "postal - replicas"
+    type: int
+    default: 1
+    group: "postal"
+
+  # ── Scheduler ─────────────────────────────────────────────────
+  - variable: services.scheduler.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "scheduler"
+
+  - variable: services.scheduler.image
+    label: "scheduler - image name"
+    type: string
+    default: "demo-scheduler.api"
+    group: "scheduler"
+
+  - variable: services.scheduler.tag
+    label: "scheduler - tag image"
+    type: string
+    default: "20260302.0754"
+    group: "scheduler"
+
+  - variable: services.scheduler.replicaCount
+    label: "scheduler - replicas"
+    type: int
+    default: 1
+    group: "scheduler"
+
+  # ── Signature ─────────────────────────────────────────────────
+  - variable: services.signature.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "signature"
+
+  - variable: services.signature.image
+    label: "signature - image name"
+    type: string
+    default: "demo-signature.api"
+    group: "signature"
+    
+  - variable: services.signature.tag
+    label: "signature - tag image"
+    type: string
+    default: "20260217.1734"
+    group: "signature"
+
+  - variable: services.signature.replicaCount
+    label: "signature - replicas"
+    type: int
+    default: 1
+    group: "signature"
+
+  # ── Staffngo ─────────────────────────────────────────────────
+  - variable: services.staffngo.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "staffngo"
+
+  - variable: services.staffngo.image
+    label: "staffngo - image name"
+    type: string
+    default: "demo-staffngo.api"
+    group: "staffngo"
+
+  - variable: services.staffngo.tag
+    label: "staffngo - tag image"
+    type: string
+    default: "20260331.1614"
+    group: "staffngo"
+
+  - variable: services.staffngo.replicaCount
+    label: "staffngo - replicas"
+    type: int
+    default: 1
+    group: "staffngo"
+
+  - variable: services.staffngo.env.OODRIVE_TOKEN
+    label: "staffngo - ooDrive token"
+    type: string
+    group: "staffngo"
+
+  - variable: services.staffngo.env.REDIS_CONNECTION_STRING
+    label: "staffngo - redis connection string"
+    type: string
+    group: "staffngo"
+
+  - variable: services.staffngo.env.UBIQOD_API_KEY
+    label: "staffngo - ubiqod api key"
+    type: string
+    group: "staffngo"
+
+  - variable: services.staffngo.env.REDIS_WS_CONNECTION_STRING
+    label: "staffngo - redis ws connection string"
+    type: string
+    group: "staffngo"
+
+  - variable: services.staffngo.env.SPEECH_TO_ACTION_API_KEY
+    label: "staffngo - speech to action api key"
+    type: string
+    group: "staffngo"
+
+  # ── Subscription ─────────────────────────────────────────────
+  - variable: services.subscription.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "subscription"
+
+  - variable: services.subscription.image
+    label: "subscription - image name"
+    type: string
+    default: "demo-subscription.api"
+    group: "subscription"
+
+  - variable: services.subscription.tag
+    label: "subscription - tag image"
+    type: string
+    default: "20260302.0946"
+    group: "subscription"
+
+  - variable: services.subscription.replicaCount
+    label: "subscription - replicas"
+    type: int
+    default: 1
+    group: "subscription"
+
+  # ── Vault ────────────────────────────────────────────────────
+  - variable: services.vault.enabled
+    label: "deploy ?"
+    type: bool
+    default: true
+    group: "vault"
+
+  - variable: services.vault.image
+    label: "vault - image name"
+    type: string
+    default: "demo-vault.api"
+    group: "vault"
+
+  - variable: services.vault.tag
+    label: "vault - tag image"
+    type: string
+    default: "20260217.1605"
+    group: "vault"
+
+  - variable: services.vault.replicaCount
+    label: "vault - replicas"
+    type: int
+    default: 1
+    group: "vault"
 
   # ── common secrets ────────────────────────────────────────────
-
   - variable: common.secretValues.API_BASE_URL
     label: "fqdn de résolution vers l'API"
     type: string

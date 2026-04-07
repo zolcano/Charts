@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configMap.name}}
+data:
+  digidoc: {{ .Values.configMap.values.digidoc }}
+  external: {{ .Values.configMap.values.external }}
+  identity: {{ .Values.configMap.values.identity }}
+  laborregister: {{ .Values.configMap.values.laborregister }}
+  monitoring: {{ .Values.configMap.values.monitoring }}
+  notification: {{ .Values.configMap.values.notification }}
+  postal: {{ .Values.configMap.values.postal }}
+  scheduler: {{ .Values.configMap.values.scheduler }}
+  signature: {{ .Values.configMap.values.signature }}
+  staffngo: {{ .Values.configMap.values.staffngo }}
+  subscription: {{ .Values.configMap.values.subscription }}
+  vault: {{ .Values.configMap.values.vault }}

@@ -1,16 +1,20 @@
 namespace: staffngo
 environment: production
 
+#----------------------------------------------------
+
 registry:
   server: staffngoacr.azurecr.io
   secretName: acr-pull-secret
 
-secret:
+acrSecret:
   name: acr-pull-secret
   username: "staffngoacr"
   password: ""
 
-common:
+#----------------------------------------------------
+
+secret:
   name: common
   secretValues:
     API_BASE_URL: "https://api.staffngo.com"
@@ -19,7 +23,7 @@ common:
     AZURE_STORAGE_CONNECTION_STRING: ""
     SYNCFUSION_LISENCE: ""
 
-dbConnections:
+configMap:
   name: database-connections
   values:
     digidoc: ""
@@ -35,18 +39,17 @@ dbConnections:
     subscription: ""
     vault: ""
 
-defaults:
-  replicaCount: 1
-  pullPolicy: IfNotPresent
-  port: 80
-  service:
-    type: ClusterIP
-    port: 80
-
+#----------------------------------------------------
 services:
   digidoc:
     image: demo-digidoc.api
     tag: "20260324.1915"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "100m"
@@ -54,11 +57,23 @@ services:
       limits:
         cpu: "200m"
         memory: "1024Mi"
+    env:
+      API_BASE_PATH: digidoc
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: digidoc
     enabled: true
 
   external:
     image: demo-external.api
     tag: "20260331.1610"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "20m"
@@ -66,11 +81,23 @@ services:
       limits:
         cpu: "40m"
         memory: "256Mi"
+    env:
+      API_BASE_PATH: external
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: external
     enabled: true
 
   identity:
     image: demo-identity.api
     tag: "20260324.1919"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "50m"
@@ -78,11 +105,27 @@ services:
       limits:
         cpu: "100m"
         memory: "512Mi"
+    env:
+      AZURE_CLIENT_ID: ""
+      AZURE_TENANT_ID: ""
+      AZURE_CLIENT_SECRET: ""
+      REDIS_CONNECTION_STRING: ""
+      API_BASE_PATH: identity
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: identity
     enabled: true
 
   laborregister:
     image: demo-laborregister.api
     tag: "20260324.1905"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "10m"
@@ -90,11 +133,23 @@ services:
       limits:
         cpu: "20m"
         memory: "256Mi"
+    env:
+      API_BASE_PATH: laborregister
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: laborregister
     enabled: true
 
   monitoring:
     image: demo-monitoring.api
     tag: "20251006.2114"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "20m"
@@ -102,11 +157,23 @@ services:
       limits:
         cpu: "40m"
         memory: "512Mi"
+    env:
+      API_BASE_PATH: monitoring
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: monitoring
     enabled: true
 
   notification:
     image: demo-notification.api
     tag: "20260324.1910"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "10m"
@@ -114,11 +181,25 @@ services:
       limits:
         cpu: "20m"
         memory: "1024Mi"
+    env:
+      API_BASE_PATH: notification
+      ENABLE_INSTALLERS: "false"
+      NDR_CREDENTIALS: ""
+      BREVO_API_KEY: ""
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: notification
     enabled: true
 
   postal:
     image: demo-postal.api
     tag: "20260302.0955"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "10m"
@@ -126,11 +207,23 @@ services:
       limits:
         cpu: "20m"
         memory: "256Mi"
+    env:
+      API_BASE_PATH: postal
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: postal
     enabled: true
 
   scheduler:
     image: demo-scheduler.api
     tag: "20260302.0754"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "10m"
@@ -138,11 +231,23 @@ services:
       limits:
         cpu: "20m"
         memory: "256Mi"
+    env:
+      API_BASE_PATH: scheduler
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: scheduler
     enabled: true
 
   signature:
     image: demo-signature.api
     tag: "20260217.1734"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "10m"
@@ -150,11 +255,23 @@ services:
       limits:
         cpu: "20m"
         memory: "512Mi"
+    env:
+      API_BASE_PATH: signature
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: signature
     enabled: true
 
   staffngo:
     image: demo-staffngo.api
     tag: "20260331.1614"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "250m"
@@ -162,11 +279,28 @@ services:
       limits:
         cpu: "500m"
         memory: "4096Mi"
+    env:
+      API_BASE_PATH: staffngo
+      ENABLE_INSTALLERS: "false"
+      OODRIVE_TOKEN: ""
+      REDIS_CONNECTION_STRING: ""
+      UBIQOD_API_KEY: ""
+      REDIS_WS_CONNECTION_STRING: ""
+      SPEECH_TO_ACTION_API_KEY: ""
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: staffngo
     enabled: true
 
   subscription:
     image: demo-subscription.api
     tag: "20260302.0946"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "10m"
@@ -174,11 +308,23 @@ services:
       limits:
         cpu: "20m"
         memory: "512Mi"
+    env:
+      API_BASE_PATH: signature
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: signature
     enabled: true
 
   vault:
     image: demo-vault.api
     tag: "20260217.1605"
+    replicaCount: 1
+    pullPolicy: IfNotPresent
+    port: 80
+    service:
+      type: ClusterIP
+      port: 80
     resources:
       requests:
         cpu: "10m"
@@ -186,4 +332,10 @@ services:
       limits:
         cpu: "20m"
         memory: "512Mi"
+    env:
+      API_BASE_PATH: signature
+      ENABLE_INSTALLERS: "false"
+    configKeys:
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: signature
     enabled: true

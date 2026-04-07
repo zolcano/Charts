@@ -1,6 +1,6 @@
 apiVersion: v2
 name: staffngo
-description: Déploiement de la plateforme StaffNGO — tous les microservices
+description: Déploiement de la plateforme StaffNGO - tous les microservices
 type: application
 version: 1.0.0
 appVersion: "2026"

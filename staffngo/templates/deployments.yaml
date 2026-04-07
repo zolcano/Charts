@@ -10,7 +10,7 @@ metadata:
     app: {{ $name }}
     chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
 spec:
-  replicas: {{ $.Values.defaults.replicaCount }}
+  replicas: {{ $svc.replicaCount }}
   selector:
     matchLabels:
       app: {{ $name }}
@@ -27,6 +27,27 @@ spec:
           imagePullPolicy: {{ default $.Values.defaults.pullPolicy $svc.pullPolicy }}
           ports:
             - containerPort: {{ default $.Values.defaults.port $svc.port }}
+          envFrom:
+            - secretRef:
+                name: {{ $.Values.secret.name }}
+          {{- if or $svc.env $svc.configKeys }}
+          env:
+            {{- if $svc.env }}
+            {{- range $key, $value := $svc.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- end }}
+            {{- if $svc.configKeys }}
+            {{- range $svc.configKeys }}
+            - name: {{ .envVar }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ $.Values.configMap.name }}
+                  key: {{ .configMapKey }}
+            {{- end }}
+            {{- end }}
+          {{- end }}
           resources:
             {{- toYaml ($svc.resources) | nindent 12 }}
 {{- end }}
