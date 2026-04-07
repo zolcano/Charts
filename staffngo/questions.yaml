@@ -12,7 +12,7 @@ questions:
     group: "Déploiement"
 
   - variable: environment
-    label: "Namespace Kubernetes"
+    label: "environment"
     description: "Aspnetcore environment"
     type: string
     default: Production"
@@ -142,13 +142,15 @@ questions:
     group: "Common secret"
 
   - variable: common.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
-    label: "azurePortal > namespace > servicebus > settings > SharedAccessPolicy > ConnexionString"
+    label: "azure servicebus connection string"
+    description: "azurePortal > namespace > servicebus > settings > SharedAccessPolicy > ConnexionString"
     type: string
     required: true
     group: "Common secret"
 
-  - variable: common.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
-    label: "azurePortal > namespace > (blob)storage > security > accessKeys > ConnexionString"
+  - variable: common.secretValues.AZURE_STORAGE_CONNECTION_STRING
+    label: "azure storage connection string :"
+    description: "azurePortal > namespace > (blob)storage > security > accessKeys > ConnexionString"
     type: string
     required: true
     group: "Common secret"
