@@ -4,15 +4,15 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.dbConnections.name}}
 data:
-  digidoc: {{ .Values.dbConnections.Values.digidoc}}
-  external: {{ .Values.dbConnections.Values.external}}
-  identity: {{ .Values.dbConnections.Values.identity}}
-  laborregister: {{ .Values.dbConnections.Values.laborregister}}
-  monitoring: {{ .Values.dbConnections.Values.monitoring}}
-  notification: {{ .Values.dbConnections.Values.notification}}
+  digidoc: {{ .Values.dbConnections.values.digidoc}}
+  external: {{ .Values.dbConnections.values.external}}
+  identity: {{ .Values.dbConnections.values.identity}}
+  laborregister: {{ .Values.dbConnections.values.laborregister}}
+  monitoring: {{ .Values.dbConnections.values.monitoring}}
+  notification: {{ .Values.dbConnections.values.notification}}
   postal: {{ .Values.dbConnections.Values.postal}}
-  scheduler: {{ .Values.dbConnections.Values.scheduler}}
-  signature: {{ .Values.dbConnections.Values.signature}}
-  staffngo: {{ .Values.dbConnections.Values.staffngo}}
-  subscription: {{ .Values.dbConnections.Values.subscription}}
-  vault: {{ .Values.dbConnections.Values.vault}}
+  scheduler: {{ .Values.dbConnections.values.scheduler}}
+  signature: {{ .Values.dbConnections.values.signature}}
+  staffngo: {{ .Values.dbConnections.values.staffngo}}
+  subscription: {{ .Values.dbConnections.values.subscription}}
+  vault: {{ .Values.dbConnections.values.vault}}
