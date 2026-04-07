@@ -134,13 +134,6 @@ questions:
     required: true
     group: "Common secret"
 
-  - variable: common.secretValues.ASPNETCORE_ENVIRONMENT
-    label: "environnement de déploiement"
-    type: string
-    default: "Production"
-    required: true
-    group: "Common secret"
-
   - variable: common.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
     label: "azure servicebus connection string"
     description: "azurePortal > namespace > servicebus > settings > SharedAccessPolicy > ConnexionString"

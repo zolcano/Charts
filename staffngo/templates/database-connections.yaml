@@ -10,7 +10,7 @@ data:
   laborregister: {{ .Values.dbConnections.values.laborregister | b64enc }}
   monitoring: {{ .Values.dbConnections.values.monitoring | b64enc }}
   notification: {{ .Values.dbConnections.values.notification | b64enc }}
-  postal: {{ .Values.dbConnections.Values.postal | b64enc }}
+  postal: {{ .Values.dbConnections.values.postal | b64enc }}
   scheduler: {{ .Values.dbConnections.values.scheduler | b64enc }}
   signature: {{ .Values.dbConnections.values.signature | b64enc }}
   staffngo: {{ .Values.dbConnections.values.staffngo | b64enc }}

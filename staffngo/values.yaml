@@ -14,7 +14,6 @@ common:
   name: common
   secretValues:
     API_BASE_URL: "https://api.staffngo.com"
-    ASPNETCORE_ENVIRONMENT: "Production"
     ASPNETCORE_HTTP_PORTS: "80"
     AZURE_SERVICEBUS_CONNECTION_STRING: ""
     AZURE_STORAGE_CONNECTION_STRING: ""
