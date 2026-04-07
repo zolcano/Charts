@@ -4,15 +4,15 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.dbConnections.name}}
 data:
-  digidoc: {{ .Values.dbConnections.values.digidoc | b64enc }}
-  external: {{ .Values.dbConnections.values.external | b64enc }}
-  identity: {{ .Values.dbConnections.values.identity | b64enc }}
-  laborregister: {{ .Values.dbConnections.values.laborregister | b64enc }}
-  monitoring: {{ .Values.dbConnections.values.monitoring | b64enc }}
-  notification: {{ .Values.dbConnections.values.notification | b64enc }}
-  postal: {{ .Values.dbConnections.values.postal | b64enc }}
-  scheduler: {{ .Values.dbConnections.values.scheduler | b64enc }}
-  signature: {{ .Values.dbConnections.values.signature | b64enc }}
-  staffngo: {{ .Values.dbConnections.values.staffngo | b64enc }}
-  subscription: {{ .Values.dbConnections.values.subscription | b64enc }}
-  vault: {{ .Values.dbConnections.values.vault | b64enc }}
+  digidoc: {{ .Values.dbConnections.values.digidoc }}
+  external: {{ .Values.dbConnections.values.external }}
+  identity: {{ .Values.dbConnections.values.identity }}
+  laborregister: {{ .Values.dbConnections.values.laborregister }}
+  monitoring: {{ .Values.dbConnections.values.monitoring }}
+  notification: {{ .Values.dbConnections.values.notification }}
+  postal: {{ .Values.dbConnections.values.postal }}
+  scheduler: {{ .Values.dbConnections.values.scheduler }}
+  signature: {{ .Values.dbConnections.values.signature }}
+  staffngo: {{ .Values.dbConnections.values.staffngo }}
+  subscription: {{ .Values.dbConnections.values.subscription }}
+  vault: {{ .Values.dbConnections.values.vault }}

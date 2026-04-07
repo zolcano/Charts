@@ -52,7 +52,7 @@ services:
         cpu: "100m"
         memory: "512Mi"
       limits:
-        cpu: "200"
+        cpu: "200m"
         memory: "1024Mi"
     enabled: true
 
@@ -61,11 +61,11 @@ services:
     tag: "20260331.1610"
     resources:
       requests:
-        cpu: "20"
-        memory: "128"
+        cpu: "20m"
+        memory: "128Mi"
       limits:
-        cpu: "40"
-        memory: "256"
+        cpu: "40m"
+        memory: "256Mi"
     enabled: true
 
   identity:
@@ -73,11 +73,11 @@ services:
     tag: "20260324.1919"
     resources:
       requests:
-        cpu: "50"
-        memory: "256"
+        cpu: "50m"
+        memory: "256Mi"
       limits:
-        cpu: "100"
-        memory: "512"
+        cpu: "100m"
+        memory: "512Mi"
     enabled: true
 
   laborregister:
@@ -85,11 +85,11 @@ services:
     tag: "20260324.1905"
     resources:
       requests:
-        cpu: "10"
-        memory: "128"
+        cpu: "10m"
+        memory: "128Mi"
       limits:
-        cpu: "20"
-        memory: "256"
+        cpu: "20m"
+        memory: "256Mi"
     enabled: true
 
   monitoring:
@@ -97,11 +97,11 @@ services:
     tag: "20251006.2114"
     resources:
       requests:
-        cpu: "20"
-        memory: "256"
+        cpu: "20m"
+        memory: "256Mi"
       limits:
-        cpu: "40"
-        memory: "512"
+        cpu: "40m"
+        memory: "512Mi"
     enabled: true
 
   notification:
@@ -109,11 +109,11 @@ services:
     tag: "20260324.1910"
     resources:
       requests:
-        cpu: "10"
-        memory: "512"
+        cpu: "10m"
+        memory: "512Mi"
       limits:
-        cpu: "20"
-        memory: "1024"
+        cpu: "20m"
+        memory: "1024Mi"
     enabled: true
 
   postal:
@@ -121,11 +121,11 @@ services:
     tag: "20260302.0955"
     resources:
       requests:
-        cpu: "10"
-        memory: "128"
+        cpu: "10m"
+        memory: "128Mi"
       limits:
-        cpu: "20"
-        memory: "256"
+        cpu: "20m"
+        memory: "256Mi"
     enabled: true
 
   scheduler:
@@ -133,11 +133,11 @@ services:
     tag: "20260302.0754"
     resources:
       requests:
-        cpu: "10"
-        memory: "128"
+        cpu: "10m"
+        memory: "128Mi"
       limits:
-        cpu: "20"
-        memory: "256"
+        cpu: "20m"
+        memory: "256Mi"
     enabled: true
 
   signature:
@@ -145,11 +145,11 @@ services:
     tag: "20260217.1734"
     resources:
       requests:
-        cpu: "10"
-        memory: "256"
+        cpu: "10m"
+        memory: "256Mi"
       limits:
-        cpu: "20"
-        memory: "512"
+        cpu: "20m"
+        memory: "512Mi"
     enabled: true
 
   staffngo:
@@ -157,11 +157,11 @@ services:
     tag: "20260331.1614"
     resources:
       requests:
-        cpu: "250"
-        memory: "2048"
+        cpu: "250m"
+        memory: "2048Mi"
       limits:
-        cpu: "500"
-        memory: "4096"
+        cpu: "500m"
+        memory: "4096Mi"
     enabled: true
 
   subscription:
@@ -169,11 +169,11 @@ services:
     tag: "20260302.0946"
     resources:
       requests:
-        cpu: "10"
-        memory: "256"
+        cpu: "10m"
+        memory: "256Mi"
       limits:
-        cpu: "20"
-        memory: "512"
+        cpu: "20m"
+        memory: "512Mi"
     enabled: true
 
   vault:
@@ -181,9 +181,9 @@ services:
     tag: "20260217.1605"
     resources:
       requests:
-        cpu: "10"
-        memory: "256"
+        cpu: "10m"
+        memory: "256Mi"
       limits:
-        cpu: "20"
-        memory: "512"
+        cpu: "20m"
+        memory: "512Mi"
     enabled: true
