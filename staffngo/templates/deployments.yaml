@@ -24,9 +24,9 @@ spec:
       containers:
         - name: {{ $name }}
           image: "{{ $.Values.registry.server }}/{{ $svc.image }}:{{ $svc.tag }}"
-          imagePullPolicy: {{ default $.Values.defaults.pullPolicy $svc.pullPolicy }}
+          imagePullPolicy: {{ $svc.pullPolicy }}
           ports:
-            - containerPort: {{ default $.Values.defaults.port $svc.port }}
+            - containerPort: {{ $svc.port }}
           envFrom:
             - secretRef:
                 name: {{ $.Values.secret.name }}
