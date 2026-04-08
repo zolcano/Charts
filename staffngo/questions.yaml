@@ -433,13 +433,13 @@ questions:
 
   - variable: secret.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
     label: "Azure ServiceBus"
-    description: "azurePortal > namespace > servicebus > settings > SharedAccessPolicy > ConnexionString"
+    description: "azurePortal > namespace > servicebus > settings > SharedAccessPolicy > ConnectionString"
     type: string
     required: true
     group: "Secrets"
 
   - variable: secret.secretValues.AZURE_STORAGE_CONNECTION_STRING
-    description: "azurePortal > namespace > (blob)storage > security > accessKeys > ConnexionString"
+    description: "azurePortal > namespace > (blob)storage > security > accessKeys > ConnectionString"
     label: "Azure Storage"
     type: string
     required: true
@@ -453,73 +453,73 @@ questions:
 
   # DATABASE CONNECTIONS ----------------------------------------------------
   - variable: configMap.values.digidoc
-    label: "Digidoc DB access credentials"
+    label: "Digidoc DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.external
-    label: "External DB access credentials"
+    label: "External DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.identity
-    label: "Identity DB access credentials"
+    label: "Identity DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.laborregister
-    label: "LaborRegister DB access credentials"
+    label: "LaborRegister DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.monitoring
-    label: "Monitoring DB access credentials"
+    label: "Monitoring DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.notification
-    label: "Notification DB access credentials"
+    label: "Notification DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.postal
-    label: "Postal DB access credentials"
+    label: "Postal DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.scheduler
-    label: "Scheduler DB access credentials"
+    label: "Scheduler DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.signature
-    label: "Signature DB access credentials"
+    label: "Signature DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.staffngo
-    label: "Staffngo DB access credentials"
+    label: "Staffngo DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.subscription
-    label: "Subscription DB access credentials"
+    label: "Subscription DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
 
   - variable: configMap.values.vault
-    label: "Vault DB access credentials"
+    label: "Vault DB access ConnexionString"
     type: string
     required: true
-    group: "Databases"
+    group: "Database"
