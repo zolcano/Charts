@@ -24,9 +24,9 @@ spec:
             - name: NAMESPACE
               value: {{ .Values.namespace }}
             - name: REPLICA_COUNT
-              value: {{ .Values.redis.replicaCount }}
+              value: {{ .Values.redis.replicaCount | quote }}
             - name: CLUSTER_REPLICAS
-              value: {{ .Values.redis.clusterReplicas }}
+              value: {{ .Values.redis.clusterReplicas | quote }}
           command:
             - sh
             - -c
