@@ -1,0 +1,64 @@
+{{- if .Values.redis.enabled }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: redis-init
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-weight: "5"
+    helm.sh/hook-delete-policy: hook-succeeded
+spec:
+  backoffLimit: 10
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: redis-init
+          image: redis:{{ .Values.redis.tag | default "8.0" }}
+          env:
+            - name: NAMESPACE
+              value: {{ .Values.namespace }}
+            - name: REPLICA_COUNT
+              value: {{ .Values.redis.replicaCount }}
+            - name: CLUSTER_REPLICAS
+              value: {{ .Values.redis.clusterReplicas }}
+          command:
+            - sh
+            - -c
+            - |
+              # Attendre que tous les noeuds répondent
+              i=0
+              while [ $i -lt $REPLICA_COUNT ]; do
+                until redis-cli -h redis-${i}.redis.${NAMESPACE}.svc.cluster.local ping | grep -q PONG; do
+                  echo "Waiting for redis-${i}..."; sleep 3;
+                done
+                echo "redis-${i} ready."
+                i=$((i + 1))
+              done
+
+              # Construire la liste des noeuds
+              NODES=""
+              i=0
+              while [ $i -lt $REPLICA_COUNT ]; do
+                NODES="$NODES redis-${i}.redis.${NAMESPACE}.svc.cluster.local:6379"
+                i=$((i + 1))
+              done
+
+              echo "Creating cluster with nodes:$NODES"
+              echo "Cluster replicas: $CLUSTER_REPLICAS"
+
+              # Valider : il faut au moins (replicas + 1) * 3 noeuds
+              MIN_NODES=$(( (CLUSTER_REPLICAS + 1) * 3 ))
+              if [ $REPLICA_COUNT -lt $MIN_NODES ]; then
+                echo "ERROR: $REPLICA_COUNT nodes is not enough for --cluster-replicas $CLUSTER_REPLICAS (minimum $MIN_NODES required)"
+                exit 1
+              fi
+
+              redis-cli --cluster create $NODES \
+                --cluster-replicas $CLUSTER_REPLICAS --cluster-yes
+{{- end }}

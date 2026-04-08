@@ -41,6 +41,20 @@ configMap:
 
 #----------------------------------------------------
 services:
+  redis:
+    enabled: true
+    tag: "8.0"
+    replicaCount: 6
+    storageClassName: managed-csi
+    storage: 5Gi
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+
   digidoc:
     image: demo-digidoc.api
     tag: "20260324.1915"

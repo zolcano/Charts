@@ -21,6 +21,20 @@ spec:
     spec:
       imagePullSecrets:
         - name: {{ $.Values.registry.secretName }}
+      {{- if $.Values.redis.enabled }}
+      initContainers:
+        - name: wait-for-redis
+          image: redis:{{ $.Values.redis.tag }}
+          command:
+            - sh
+            - -c
+            - |
+              until redis-cli -c \
+                -h redis-0.redis.{{ $.Values.namespace }}.svc.cluster.local \
+                ping | grep -q PONG; do
+                echo "Waiting for Redis cluster..."; sleep 3;
+              done
+      {{- end }}
       containers:
         - name: {{ $name }}
           image: "{{ $.Values.registry.server }}/{{ $svc.image }}:{{ $svc.tag }}"

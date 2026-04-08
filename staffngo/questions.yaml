@@ -43,6 +43,46 @@ questions:
     group: "Registry"
 
   # SERVICES ----------------------------------------------------------------
+  # ---------------- REDIS-CLUSTER ----------
+
+  - variable: services.redis.enabled
+    label: "Activer"
+    type: bool
+    default: true
+    group: "Redis Cluster"
+
+  - variable: services.redis.tag
+    label: "Tag"
+    type: string
+    default: "8.6"
+    group: "Redis Cluster"
+
+  - variable: services.redis.replicaCount
+    label: "nombre de noeud total redis"
+    description: "3 (3masters); 6 (3masters+3replicas)"
+    type: int
+    default: 3
+    group: "Redis Cluster"
+
+  - variable: services.redis.replicaCount
+    label: "nombre de replicas par master"
+    description: "3 (3masters); 6 (3masters+3replicas)"
+    type: int
+    default: 0
+    group: "Redis Cluster"
+  
+  - variable: services.redis.storageClassName
+    label: "type de disque attachés"
+    type: string
+    default: "managed-csi"
+    group: "Redis Cluster"
+
+  - variable: services.redis.storage
+    label: "quantité de stockage"
+    type: string
+    default: "5Gi"
+    group: "Redis Cluster"
+
   # ---------------- DIGIDOC ----------------
   - variable: services.digidoc.enabled
     label: "Activer"

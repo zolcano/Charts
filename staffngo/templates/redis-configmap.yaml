@@ -1,0 +1,19 @@
+{{- if .Values.redis.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+data:
+  redis.conf: |
+    appendonly yes
+    port 6379
+    cluster-enabled yes
+    cluster-config-file nodes.conf
+    appendfsync everysec
+    cluster-node-timeout 5000
+{{- end }}
