@@ -64,7 +64,7 @@ questions:
     default: 3
     group: "Redis Cluster"
 
-  - variable: services.redis.replicaCount
+  - variable: services.redis.clusterReplicas
     label: "nombre de replicas par master"
     description: "3 (3masters); 6 (3masters+3replicas)"
     type: int
