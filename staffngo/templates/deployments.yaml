@@ -24,7 +24,7 @@ spec:
       {{- if $.Values.services.redis.enabled }}
       initContainers:
         - name: wait-for-redis
-          image: redis:{{ $.Values.redis.tag }}
+          image: redis:{{ $.Values.services.redis.tag }}
           command:
             - sh
             - -c
