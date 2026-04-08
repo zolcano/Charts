@@ -1,4 +1,4 @@
-{{- if .Values.redis.enabled }}
+{{- if .Values.services.redis.enabled }}
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -11,7 +11,7 @@ metadata:
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 spec:
   serviceName: redis
-  replicas: {{ .Values.redis.replicaCount }}
+  replicas: {{ .Values.services.redis.replicaCount }}
   selector:
     matchLabels:
       app: redis
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:{{ .Values.redis.tag }}
+          image: redis:{{ .Values.services.redis.tag }}
           command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
           ports:
             - containerPort: 6379
@@ -30,7 +30,7 @@ spec:
             - containerPort: 16379
               name: bus
           resources:
-            {{- toYaml .Values.redis.resources | nindent 12 }}
+            {{- toYaml .Values.services.redis.resources | nindent 12 }}
           volumeMounts:
             - name: data
               mountPath: /data
@@ -45,8 +45,8 @@ spec:
         name: data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: {{ .Values.redis.storageClassName }}
+        storageClassName: {{ .Values.services.redis.storageClassName }}
         resources:
           requests:
-            storage: {{ .Values.redis.storage }}
+            storage: {{ .Values.services.redis.storage }}
 {{- end }}

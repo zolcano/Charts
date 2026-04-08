@@ -1,5 +1,5 @@
 namespace: staffngo
-environment: production
+environment: Demo
 
 #----------------------------------------------------
 
@@ -43,8 +43,9 @@ configMap:
 services:
   redis:
     enabled: true
-    tag: "8.0"
-    replicaCount: 6
+    tag: "8.6"
+    replicaCount: 3
+    clusterReplicas: 0
     storageClassName: managed-csi
     storage: 5Gi
     resources:

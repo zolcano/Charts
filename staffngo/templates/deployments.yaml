@@ -21,7 +21,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: {{ $.Values.registry.secretName }}
-      {{- if $.Values.redis.enabled }}
+      {{- if $.Values.services.redis.enabled }}
       initContainers:
         - name: wait-for-redis
           image: redis:{{ $.Values.redis.tag }}

@@ -16,7 +16,7 @@ questions:
     label: "Environnement"
     description: "Environnement applicatif (dev, staging, production)."
     type: string
-    default: "production"
+    default: "Demo"
     required: true
     group: "Déploiement"
 
@@ -46,7 +46,7 @@ questions:
   # ---------------- REDIS-CLUSTER ----------
 
   - variable: services.redis.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Redis Cluster"
@@ -85,7 +85,7 @@ questions:
 
   # ---------------- DIGIDOC ----------------
   - variable: services.digidoc.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Digidoc"
@@ -110,7 +110,7 @@ questions:
 
   # ---------------- EXTERNAL ----------------
   - variable: services.external.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "External"
@@ -135,7 +135,7 @@ questions:
 
   # ---------------- IDENTITY ----------------
   - variable: services.identity.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Identity"
@@ -180,7 +180,7 @@ questions:
 
   # ---------------- LABORREGISTER ----------------
   - variable: services.laborregister.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "LaborRegister"
@@ -205,7 +205,7 @@ questions:
 
   # ---------------- MONITORING ----------------
   - variable: services.monitoring.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Monitoring"
@@ -230,7 +230,7 @@ questions:
 
   # ---------------- NOTIFICATION ----------------
   - variable: services.notification.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Notification"
@@ -265,7 +265,7 @@ questions:
 
   # ---------------- POSTAL ----------------
   - variable: services.postal.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Postal"
@@ -290,7 +290,7 @@ questions:
 
   # ---------------- SCHEDULER ----------------
   - variable: services.scheduler.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Scheduler"
@@ -315,7 +315,7 @@ questions:
 
   # ---------------- SIGNATURE ----------------
   - variable: services.signature.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Signature"
@@ -340,7 +340,7 @@ questions:
 
   # ---------------- STAFFNGO ----------------
   - variable: services.staffngo.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Staffngo"
@@ -390,7 +390,7 @@ questions:
 
   # ---------------- SUBSCRIPTION ----------------
   - variable: services.subscription.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Subscription"
@@ -415,7 +415,7 @@ questions:
 
   # ---------------- VAULT ----------------
   - variable: services.vault.enabled
-    label: "Activer"
+    label: "Déployer ?"
     type: bool
     default: true
     group: "Vault"
@@ -466,73 +466,73 @@ questions:
 
   # DATABASE CONNECTIONS ----------------------------------------------------
   - variable: configMap.values.digidoc
-    label: "Digidoc DB"
+    label: "Digidoc DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.external
-    label: "External DB"
+    label: "External DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.identity
-    label: "Identity DB"
+    label: "Identity DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.laborregister
-    label: "LaborRegister DB"
+    label: "LaborRegister DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.monitoring
-    label: "Monitoring DB"
+    label: "Monitoring DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.notification
-    label: "Notification DB"
+    label: "Notification DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.postal
-    label: "Postal DB"
+    label: "Postal DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.scheduler
-    label: "Scheduler DB"
+    label: "Scheduler DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.signature
-    label: "Signature DB"
+    label: "Signature DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.staffngo
-    label: "Staffngo DB"
+    label: "Staffngo DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.subscription
-    label: "Subscription DB"
+    label: "Subscription DB access credentials"
     type: string
     required: true
     group: "Databases"
 
   - variable: configMap.values.vault
-    label: "Vault DB"
+    label: "Vault DB access credentials"
     type: string
     required: true
     group: "Databases"
