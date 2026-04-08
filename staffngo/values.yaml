@@ -125,7 +125,7 @@ services:
       AZURE_TENANT_ID: ""
       AZURE_CLIENT_SECRET: ""
       REDIS_CONNECTION_STRING: ""
-      API_BASE_PATH: identity
+      API_BASE_PATH: "identity"
       ENABLE_INSTALLERS: "false"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
