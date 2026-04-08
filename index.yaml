@@ -3,12 +3,12 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-08T14:42:04.988846102+02:00"
+    created: "2026-04-08T14:55:00.178417014+02:00"
     description: Déploiement de la plateforme StaffNGO - tous les microservices
-    digest: d5631eff194f7f7e0a6aa3d21d6faaf7db23c2c431cf555b2f2723416fa4284f
+    digest: 428fa05734514c49a1c4662ee09b5dbebb2563a939fd526d226e4badaf161255
     name: staffngo
     type: application
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-08T14:42:04.973732377+02:00"
+generated: "2026-04-08T14:55:00.167697583+02:00"
