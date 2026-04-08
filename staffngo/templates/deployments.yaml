@@ -52,7 +52,7 @@ spec:
             {{- range $key, $value := $svc.env }}
             {{- if or (eq $key "REDIS_CONNECTION_STRING") (eq $key "REDIS_WS_CONNECTION_STRING") }}
             - name: {{ $key }}
-              value: {{ printf "redis.%s.svc.cluster.local:6379" .Values.namespace | quote }}
+              value: {{ printf "redis.%s.svc.cluster.local:6379" $.Values.namespace | quote }}
             {{- else}}
             - name: {{ $key }}
               value: {{ $value }}
