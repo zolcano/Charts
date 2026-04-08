@@ -40,7 +40,6 @@ configMap:
     vault: ""
 
 #----------------------------------------------------
-services:
   redis:
     enabled: true
     tag: "8.6"
@@ -56,6 +55,7 @@ services:
         cpu: "500m"
         memory: "512Mi"
 
+services:
   digidoc:
     image: demo-digidoc.api
     tag: "20260324.1915"

@@ -45,39 +45,39 @@ questions:
   # SERVICES ----------------------------------------------------------------
   # ---------------- REDIS-CLUSTER ----------
 
-  - variable: services.redis.enabled
+  - variable: redis.enabled
     label: "Déployer ?"
     type: bool
     default: true
     group: "Redis Cluster"
 
-  - variable: services.redis.tag
+  - variable: redis.tag
     label: "Tag"
     type: string
     default: "8.6"
     group: "Redis Cluster"
 
-  - variable: services.redis.replicaCount
+  - variable: redis.replicaCount
     label: "nombre de noeud total redis"
     description: "3 (3masters); 6 (3masters+3replicas)"
     type: int
     default: 3
     group: "Redis Cluster"
 
-  - variable: services.redis.clusterReplicas
+  - variable: redis.clusterReplicas
     label: "nombre de replicas par master"
     description: "3 (3masters); 6 (3masters+3replicas)"
     type: int
     default: 0
     group: "Redis Cluster"
   
-  - variable: services.redis.storageClassName
+  - variable: redis.storageClassName
     label: "type de disque attachés"
     type: string
     default: "managed-csi"
     group: "Redis Cluster"
 
-  - variable: services.redis.storage
+  - variable: redis.storage
     label: "quantité de stockage"
     type: string
     default: "5Gi"
@@ -170,11 +170,6 @@ questions:
 
   - variable: services.identity.env.AZURE_CLIENT_SECRET
     label: "Azure Client Secret"
-    type: string
-    group: "Identity"
-
-  - variable: services.identity.env.REDIS_CONNECTION_STRING
-    label: "Redis Connection String"
     type: string
     group: "Identity"
 
@@ -368,18 +363,8 @@ questions:
     type: string
     group: "Staffngo"
 
-  - variable: services.staffngo.env.REDIS_CONNECTION_STRING
-    label: "Redis Connection String"
-    type: string
-    group: "Staffngo"
-
   - variable: services.staffngo.env.UBIQOD_API_KEY
     label: "Ubiqod API Key"
-    type: string
-    group: "Staffngo"
-
-  - variable: services.staffngo.env.REDIS_WS_CONNECTION_STRING
-    label: "Redis WS Connection String"
     type: string
     group: "Staffngo"
 
@@ -448,11 +433,13 @@ questions:
 
   - variable: secret.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
     label: "Azure ServiceBus"
+    description: "azurePortal > namespace > servicebus > settings > SharedAccessPolicy > ConnexionString"
     type: string
     required: true
     group: "Secrets"
 
   - variable: secret.secretValues.AZURE_STORAGE_CONNECTION_STRING
+    description: "azurePortal > namespace > (blob)storage > security > accessKeys > ConnexionString"
     label: "Azure Storage"
     type: string
     required: true

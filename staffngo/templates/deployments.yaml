@@ -21,10 +21,10 @@ spec:
     spec:
       imagePullSecrets:
         - name: {{ $.Values.registry.secretName }}
-      {{- if $.Values.services.redis.enabled }}
+      {{- if $.Values.redis.enabled }}
       initContainers:
         - name: wait-for-redis
-          image: redis:{{ $.Values.services.redis.tag }}
+          image: redis:{{ $.Values.redis.tag }}
           command:
             - sh
             - -c
@@ -50,8 +50,13 @@ spec:
           env:
             {{- if $svc.env }}
             {{- range $key, $value := $svc.env }}
+            {{- if or (eq $key "REDIS_CONNECTION_STRING") (eq $key "REDIS_WS_CONNECTION_STRING") }}
             - name: {{ $key }}
-              value: {{ $value | quote }}
+              value: {{ printf "redis.%s.svc.cluster.local:6379" .Values.namespace | quote }}
+            {{- else}}
+            - name: {{ $key }}
+              value: {{ $value }}
+            {{- end }}
             {{- end }}
             {{- end }}
             {{- if $svc.configKeys }}

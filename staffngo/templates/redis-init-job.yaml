@@ -1,4 +1,4 @@
-{{- if .Values.services.redis.enabled }}
+{{- if .Values.redis.enabled }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -19,14 +19,14 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: redis-init
-          image: redis:{{ .Values.services.redis.tag }}
+          image: redis:{{ .Values.redis.tag }}
           env:
             - name: NAMESPACE
               value: {{ .Values.namespace }}
             - name: REPLICA_COUNT
-              value: {{ .Values.services.redis.replicaCount }}
+              value: {{ .Values.redis.replicaCount }}
             - name: CLUSTER_REPLICAS
-              value: {{ .Values.services.redis.clusterReplicas }}
+              value: {{ .Values.redis.clusterReplicas }}
           command:
             - sh
             - -c
