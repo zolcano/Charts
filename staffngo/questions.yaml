@@ -1,27 +1,28 @@
 categories:
-  - staffngo
+  - Staffngo
 
 questions:
-  # ── Déploiement ────────────────────────────────────────────────
+  # DÉPLOIEMENT -------------------------------------------------------------
+
   - variable: namespace
-    label: "Namespace Kubernetes"
-    description: "Namespace dans lequel tous les microservices seront déployés."
+    label: "Namespace"
+    description: "Namespace Kubernetes pour le déploiement."
     type: string
     default: "staffngo"
     required: true
     group: "Déploiement"
 
   - variable: environment
-    label: "Environnement Applicatif"
-    description: "Environnement dans lequel tous les microservices seront déployés."
+    label: "Environnement"
+    description: "Environnement applicatif (dev, staging, production)."
     type: string
-    default: production"
+    default: "production"
     required: true
     group: "Déploiement"
 
-  # ── Registry ─────────────────────────────────────────────────
+  # REGISTRY ---------------------------------------------------------
   - variable: registry.server
-    label: "Serveur du registry Docker"
+    label: "Registry Docker"
     description: "URL de l'Azure Container Registry."
     type: string
     default: "staffngoacr.azurecr.io"
@@ -29,476 +30,469 @@ questions:
     group: "Registry"
 
   - variable: acrSecret.username
-    label: "Nom d'utilisateur ACR"
-    description: "Service principal ou nom d'utilisateur pour s'authentifier au registry."
+    label: "ACR - Username"
     type: string
     default: "staffngoacr"
     required: true
     group: "Registry"
 
   - variable: acrSecret.password
-    label: "Mot de passe ACR"
-    description: "Mot de passe ou secret du registry."
+    label: "ACR - Password"
     type: password
     required: true
     group: "Registry"
 
-  # ── Digidoc ──────────────────────────────────────────────────
+  # SERVICES ----------------------------------------------------------------
+  # ---------------- DIGIDOC ----------------
   - variable: services.digidoc.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "digidoc"
+    group: "Digidoc"
 
   - variable: services.digidoc.image
-    label: "digidoc - image name"
+    label: "Image"
     type: string
     default: "demo-digidoc.api"
-    group: "digidoc"
+    group: "Digidoc"
 
   - variable: services.digidoc.tag
-    label: "digidoc - tag image"
+    label: "Tag"
     type: string
     default: "20260324.1915"
-    group: "digidoc"
+    group: "Digidoc"
 
   - variable: services.digidoc.replicaCount
-    label: "digidoc - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "digidoc"
+    group: "Digidoc"
 
-  # ── External ──────────────────────────────────────────────────
+  # ---------------- EXTERNAL ----------------
   - variable: services.external.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "external"
+    group: "External"
 
   - variable: services.external.image
-    label: "external - image name"
+    label: "Image"
     type: string
     default: "demo-external.api"
-    group: "external"
+    group: "External"
 
   - variable: services.external.tag
-    label: "external - tag image"
+    label: "Tag"
     type: string
     default: "20260331.1610"
-    group: "external"
+    group: "External"
 
   - variable: services.external.replicaCount
-    label: "external - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "external"
+    group: "External"
 
-  # ── Identity ──────────────────────────────────────────────────
+  # ---------------- IDENTITY ----------------
   - variable: services.identity.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "identity"
+    group: "Identity"
 
   - variable: services.identity.image
-    label: "identity - image name"
+    label: "Image"
     type: string
     default: "demo-identity.api"
-    group: "identity"
+    group: "Identity"
 
   - variable: services.identity.tag
-    label: "identity - tag image"
+    label: "Tag"
     type: string
     default: "20260324.1919"
-    group: "identity"
+    group: "Identity"
 
   - variable: services.identity.replicaCount
-    label: "identity - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "identity"
+    group: "Identity"
 
   - variable: services.identity.env.AZURE_CLIENT_ID
-    label: "environment var - azure client id"
+    label: "Azure Client ID"
     type: string
-    default: ""
-    group: "identity"
-
-  - variable: services.identity.env.REDIS_CONNECTION_STRING
-    label: "environment var - redis connection string"
-    type: string
-    group: "identity"
+    group: "Identity"
 
   - variable: services.identity.env.AZURE_TENANT_ID
-    label: "environment var - azure tenant id"
+    label: "Azure Tenant ID"
     type: string
-    default: ""
-    group: "identity"
-  
-  - variable: services.identity.env.AZURE_CLIENT_SECRET
-    label: "environment var - azure client secret"
-    type: string
-    default: ""
-    group: "identity"
+    group: "Identity"
 
-  # ── LaborRegister ─────────────────────────────────────────────
+  - variable: services.identity.env.AZURE_CLIENT_SECRET
+    label: "Azure Client Secret"
+    type: string
+    group: "Identity"
+
+  - variable: services.identity.env.REDIS_CONNECTION_STRING
+    label: "Redis Connection String"
+    type: string
+    group: "Identity"
+
+  # ---------------- LABORREGISTER ----------------
   - variable: services.laborregister.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "laborregister"
+    group: "LaborRegister"
 
   - variable: services.laborregister.image
-    label: "laborregister - image name"
+    label: "Image"
     type: string
     default: "demo-laborregister.api"
-    group: "laborregister"
+    group: "LaborRegister"
 
   - variable: services.laborregister.tag
-    label: "laborregister - tag image"
+    label: "Tag"
     type: string
     default: "20260324.1905"
-    group: "laborregister"
+    group: "LaborRegister"
 
   - variable: services.laborregister.replicaCount
-    label: "laborregister - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "laborregister"
+    group: "LaborRegister"
 
-  # ── Monitoring ────────────────────────────────────────────────
+  # ---------------- MONITORING ----------------
   - variable: services.monitoring.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "monitoring"
+    group: "Monitoring"
 
   - variable: services.monitoring.image
-    label: "monitoring - image name"
+    label: "Image"
     type: string
     default: "demo-monitoring.api"
-    group: "monitoring"
+    group: "Monitoring"
 
   - variable: services.monitoring.tag
-    label: "monitoring - tag image"
+    label: "Tag"
     type: string
     default: "20251006.2114"
-    group: "monitoring"
+    group: "Monitoring"
 
   - variable: services.monitoring.replicaCount
-    label: "monitoring - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "monitoring"
+    group: "Monitoring"
 
-  # ── Notification ──────────────────────────────────────────────
+  # ---------------- NOTIFICATION ----------------
   - variable: services.notification.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "notification"
+    group: "Notification"
 
   - variable: services.notification.image
-    label: "notification - image name"
+    label: "Image"
     type: string
     default: "demo-notification.api"
-    group: "notification"
+    group: "Notification"
 
   - variable: services.notification.tag
-    label: "notification - tag image"
+    label: "Tag"
     type: string
     default: "20260324.1910"
-    group: "notification"
+    group: "Notification"
 
   - variable: services.notification.replicaCount
-    label: "notification - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "notification"
-  
+    group: "Notification"
+
   - variable: services.notification.env.NDR_CREDENTIALS
-    label: "notification - ndr credentials"
+    label: "NDR Credentials"
     type: string
-    group: "notification"
+    group: "Notification"
 
   - variable: services.notification.env.BREVO_API_KEY
-    label: "notification - brevo api key"
+    label: "Brevo API Key"
     type: string
-    group: "notification"
+    group: "Notification"
 
-  # ── Postal ────────────────────────────────────────────────────
+  # ---------------- POSTAL ----------------
   - variable: services.postal.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "postal"
+    group: "Postal"
 
   - variable: services.postal.image
-    label: "postal - image name"
+    label: "Image"
     type: string
     default: "demo-postal.api"
-    group: "postal"
+    group: "Postal"
 
   - variable: services.postal.tag
-    label: "postal - tag image"
+    label: "Tag"
     type: string
     default: "20260302.0955"
-    group: "postal"
+    group: "Postal"
 
   - variable: services.postal.replicaCount
-    label: "postal - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "postal"
+    group: "Postal"
 
-  # ── Scheduler ─────────────────────────────────────────────────
+  # ---------------- SCHEDULER ----------------
   - variable: services.scheduler.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "scheduler"
+    group: "Scheduler"
 
   - variable: services.scheduler.image
-    label: "scheduler - image name"
+    label: "Image"
     type: string
     default: "demo-scheduler.api"
-    group: "scheduler"
+    group: "Scheduler"
 
   - variable: services.scheduler.tag
-    label: "scheduler - tag image"
+    label: "Tag"
     type: string
     default: "20260302.0754"
-    group: "scheduler"
+    group: "Scheduler"
 
   - variable: services.scheduler.replicaCount
-    label: "scheduler - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "scheduler"
+    group: "Scheduler"
 
-  # ── Signature ─────────────────────────────────────────────────
+  # ---------------- SIGNATURE ----------------
   - variable: services.signature.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "signature"
+    group: "Signature"
 
   - variable: services.signature.image
-    label: "signature - image name"
+    label: "Image"
     type: string
     default: "demo-signature.api"
-    group: "signature"
-    
+    group: "Signature"
+
   - variable: services.signature.tag
-    label: "signature - tag image"
+    label: "Tag"
     type: string
     default: "20260217.1734"
-    group: "signature"
+    group: "Signature"
 
   - variable: services.signature.replicaCount
-    label: "signature - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "signature"
+    group: "Signature"
 
-  # ── Staffngo ─────────────────────────────────────────────────
+  # ---------------- STAFFNGO ----------------
   - variable: services.staffngo.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "staffngo"
+    group: "Staffngo"
 
   - variable: services.staffngo.image
-    label: "staffngo - image name"
+    label: "Image"
     type: string
     default: "demo-staffngo.api"
-    group: "staffngo"
+    group: "Staffngo"
 
   - variable: services.staffngo.tag
-    label: "staffngo - tag image"
+    label: "Tag"
     type: string
     default: "20260331.1614"
-    group: "staffngo"
+    group: "Staffngo"
 
   - variable: services.staffngo.replicaCount
-    label: "staffngo - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "staffngo"
+    group: "Staffngo"
 
   - variable: services.staffngo.env.OODRIVE_TOKEN
-    label: "staffngo - ooDrive token"
+    label: "Oodrive Token"
     type: string
-    group: "staffngo"
+    group: "Staffngo"
 
   - variable: services.staffngo.env.REDIS_CONNECTION_STRING
-    label: "staffngo - redis connection string"
+    label: "Redis Connection String"
     type: string
-    group: "staffngo"
+    group: "Staffngo"
 
   - variable: services.staffngo.env.UBIQOD_API_KEY
-    label: "staffngo - ubiqod api key"
+    label: "Ubiqod API Key"
     type: string
-    group: "staffngo"
+    group: "Staffngo"
 
   - variable: services.staffngo.env.REDIS_WS_CONNECTION_STRING
-    label: "staffngo - redis ws connection string"
+    label: "Redis WS Connection String"
     type: string
-    group: "staffngo"
+    group: "Staffngo"
 
   - variable: services.staffngo.env.SPEECH_TO_ACTION_API_KEY
-    label: "staffngo - speech to action api key"
+    label: "Speech-to-Action API Key"
     type: string
-    group: "staffngo"
+    group: "Staffngo"
 
-  # ── Subscription ─────────────────────────────────────────────
+  # ---------------- SUBSCRIPTION ----------------
   - variable: services.subscription.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "subscription"
+    group: "Subscription"
 
   - variable: services.subscription.image
-    label: "subscription - image name"
+    label: "Image"
     type: string
     default: "demo-subscription.api"
-    group: "subscription"
+    group: "Subscription"
 
   - variable: services.subscription.tag
-    label: "subscription - tag image"
+    label: "Tag"
     type: string
     default: "20260302.0946"
-    group: "subscription"
+    group: "Subscription"
 
   - variable: services.subscription.replicaCount
-    label: "subscription - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "subscription"
+    group: "Subscription"
 
-  # ── Vault ────────────────────────────────────────────────────
+  # ---------------- VAULT ----------------
   - variable: services.vault.enabled
-    label: "deploy ?"
+    label: "Activer"
     type: bool
     default: true
-    group: "vault"
+    group: "Vault"
 
   - variable: services.vault.image
-    label: "vault - image name"
+    label: "Image"
     type: string
     default: "demo-vault.api"
-    group: "vault"
+    group: "Vault"
 
   - variable: services.vault.tag
-    label: "vault - tag image"
+    label: "Tag"
     type: string
     default: "20260217.1605"
-    group: "vault"
+    group: "Vault"
 
   - variable: services.vault.replicaCount
-    label: "vault - replicas"
+    label: "Réplicas"
     type: int
     default: 1
-    group: "vault"
+    group: "Vault"
 
-  # ── common secrets ────────────────────────────────────────────
+  # SECRETS COMMUNS ---------------------------------------------------------
   - variable: secret.secretValues.API_BASE_URL
-    label: "fqdn de résolution vers l'API"
+    label: "API Base URL"
     type: string
     default: "https://api.staffngo.com"
     required: true
-    group: "secret"
+    group: "Secrets"
 
   - variable: secret.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
-    label: "azure servicebus connection string"
-    description: "azurePortal > namespace > servicebus > settings > SharedAccessPolicy > ConnexionString"
+    label: "Azure ServiceBus"
     type: string
     required: true
-    group: "secret"
+    group: "Secrets"
 
   - variable: secret.secretValues.AZURE_STORAGE_CONNECTION_STRING
-    label: "azure storage connection string :"
-    description: "azurePortal > namespace > (blob)storage > security > accessKeys > ConnexionString"
+    label: "Azure Storage"
     type: string
     required: true
-    group: "secret"
+    group: "Secrets"
 
   - variable: secret.secretValues.SYNCFUSION_LISENCE
-    label: "liscence syncfusion"
+    label: "Syncfusion Licence"
     type: string
     required: true
-    group: "secret"
+    group: "Secrets"
 
-  #  ── database connection strings ───────────────────────────────
-
+  # DATABASE CONNECTIONS ----------------------------------------------------
   - variable: configMap.values.digidoc
-    label: "digidoc database connection string"
+    label: "Digidoc DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.external
-    label: "external database connection string"
+    label: "External DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.identity
-    label: "identity database connection string"
+    label: "Identity DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.laborregister
-    label: "laborregister database connection string"
+    label: "LaborRegister DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.monitoring
-    label: "monitoring database connection string"
+    label: "Monitoring DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.notification
-    label: "notification database connection string"
+    label: "Notification DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.postal
-    label: "postal database connection string"
+    label: "Postal DB"
     type: string
     required: true
-    group: "database connection strings"
-  
+    group: "Databases"
+
   - variable: configMap.values.scheduler
-    label: "scheduler database connection string"
+    label: "Scheduler DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.signature
-    label: "signature database connection string"
+    label: "Signature DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.staffngo
-    label: "staffngo database connection string"
+    label: "Staffngo DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.subscription
-    label: "subscription database connection string"
+    label: "Subscription DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
 
   - variable: configMap.values.vault
-    label: "vault database connection string"
+    label: "Vault DB"
     type: string
     required: true
-    group: "database connection strings"
+    group: "Databases"
