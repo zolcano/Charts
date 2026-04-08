@@ -39,10 +39,8 @@ spec:
         - name: {{ $name }}
           image: "{{ $.Values.registry.server }}/{{ $svc.image }}:{{ $svc.tag }}"
           imagePullPolicy: {{ $svc.pullPolicy }}
-          {{- if $svc.port }}
           ports:
-            - containerPort: {{ $svc.port }}
-          {{- end }}
+            - containerPort: {{ $svc.service.port }}
           envFrom:
             - secretRef:
                 name: {{ $.Values.secret.name }}
@@ -71,5 +69,22 @@ spec:
           {{- end }}
           resources:
             {{- toYaml ($svc.resources) | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app: {{ $name }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: {{ $svc.service.port }}
+      targetPort: {{ $svc.port }}
+      protocol: TCP
+  selector:
+    app: {{ $name }}
 {{- end }}
 {{- end }}
