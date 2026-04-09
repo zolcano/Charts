@@ -1,5 +1,6 @@
 namespace: "staffngo"
 environment: "Demo"
+ENABLE_INSTALLERS: "false"
 
 #----------------------------------------------------
 
@@ -73,7 +74,6 @@ services:
         memory: "1024Mi"
     env:
       API_BASE_PATH: "digidoc"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "digidoc"
@@ -96,7 +96,6 @@ services:
         memory: "256Mi"
     env:
       API_BASE_PATH: "external"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: DB_CONNECTION_STRING
         configMapKey: "external"
@@ -123,7 +122,6 @@ services:
       AZURE_CLIENT_SECRET: ""
       REDIS_CONNECTION_STRING: ""
       API_BASE_PATH: "identity"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "identity"
@@ -146,7 +144,6 @@ services:
         memory: "256Mi"
     env:
       API_BASE_PATH: "laborregister"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "laborregister"
@@ -169,7 +166,6 @@ services:
         memory: "512Mi"
     env:
       API_BASE_PATH: "monitoring"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "monitoring"
@@ -192,7 +188,6 @@ services:
         memory: "1024Mi"
     env:
       API_BASE_PATH: "notification"
-      ENABLE_INSTALLERS: "true"
       NDR_CREDENTIALS: ""
       BREVO_API_KEY: ""
     configKeys:
@@ -217,7 +212,6 @@ services:
         memory: "256Mi"
     env:
       API_BASE_PATH: "postal"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "postal"
@@ -240,7 +234,6 @@ services:
         memory: "256Mi"
     env:
       API_BASE_PATH: "scheduler"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "scheduler"
@@ -263,7 +256,6 @@ services:
         memory: "512Mi"
     env:
       API_BASE_PATH: "signature"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "signature"
@@ -286,7 +278,6 @@ services:
         memory: "4096Mi"
     env:
       API_BASE_PATH: "staffngo"
-      ENABLE_INSTALLERS: "true"
       OODRIVE_TOKEN: ""
       REDIS_CONNECTION_STRING: ""
       UBIQOD_API_KEY: ""
@@ -314,7 +305,6 @@ services:
         memory: "512Mi"
     env:
       API_BASE_PATH: "signature"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "signature"
@@ -337,7 +327,6 @@ services:
         memory: "512Mi"
     env:
       API_BASE_PATH: "signature"
-      ENABLE_INSTALLERS: "true"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "signature"

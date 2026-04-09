@@ -20,6 +20,14 @@ questions:
     required: true
     group: "Déploiement"
 
+  - variable: ENABLE_INSTALLERS
+    label: "enable installers"
+    description: "set to true if it is the first deployment."
+    type: string
+    default: "false"
+    required: true
+    group: "Déploiement"
+
   # REGISTRY ---------------------------------------------------------
   - variable: registry.server
     label: "Registry Docker"

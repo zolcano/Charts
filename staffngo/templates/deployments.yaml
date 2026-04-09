@@ -46,6 +46,8 @@ spec:
                 name: {{ $.Values.secret.name }}
           {{- if or $svc.env $svc.configKeys }}
           env:
+          - name: ENABLE_INSTALLERS
+            value: {{ $.Values.ENABLE_INSTALLERS | quote }}
             {{- if $svc.env }}
             {{- range $key, $value := $svc.env }}
             {{- if or (eq $key "REDIS_CONNECTION_STRING") (eq $key "REDIS_WS_CONNECTION_STRING") }}
