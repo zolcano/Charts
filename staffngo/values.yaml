@@ -1,5 +1,5 @@
 namespace: "staffngo"
-environment: "Demo"
+environment: "demo"
 ENABLE_INSTALLERS: "false"
 
 #----------------------------------------------------
@@ -58,10 +58,11 @@ redis:
 
 services:
   digidoc:
-    image: "demo-digidoc.api"
-    tag: "20260324.1915"
+    image: "digidoc.api"
+    tag: "20260420.1719"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -80,10 +81,11 @@ services:
     enabled: true
 
   external:
-    image: "demo-external.api"
+    image: "external.api"
     tag: "20260331.1610"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -102,10 +104,11 @@ services:
     enabled: true
 
   identity:
-    image: "demo-identity.api"
+    image: "identity.api"
     tag: "20260324.1919"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -128,10 +131,11 @@ services:
     enabled: true
 
   laborregister:
-    image: "demo-laborregister.api"
+    image: "laborregister.api"
     tag: "20260324.1905"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -150,10 +154,11 @@ services:
     enabled: true
 
   monitoring:
-    image: "demo-monitoring.api"
+    image: "monitoring.api"
     tag: "20251006.2114"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -172,19 +177,20 @@ services:
     enabled: true
 
   notification:
-    image: "demo-notification.api"
+    image: "notification.api"
     tag: "20260324.1910"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
     resources:
       requests:
-        cpu: "10m"
+        cpu: "50m"
         memory: "512Mi"
       limits:
-        cpu: "20m"
+        cpu: "100m"
         memory: "1024Mi"
     env:
       API_BASE_PATH: "notification"
@@ -196,10 +202,11 @@ services:
     enabled: true
 
   postal:
-    image: "demo-postal.api"
+    image: "postal.api"
     tag: "20260302.0955"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -218,10 +225,11 @@ services:
     enabled: true
 
   scheduler:
-    image: "demo-scheduler.api"
+    image: "scheduler.api"
     tag: "20260302.0754"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -240,10 +248,11 @@ services:
     enabled: true
 
   signature:
-    image: "demo-signature.api"
+    image: "signature.api"
     tag: "20260217.1734"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -262,10 +271,11 @@ services:
     enabled: true
 
   staffngo:
-    image: "demo-staffngo.api"
+    image: "staffngo.api"
     tag: "20260331.1614"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -289,10 +299,11 @@ services:
     enabled: true
 
   subscription:
-    image: "demo-subscription.api"
+    image: "subscription.api"
     tag: "20260302.0946"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80
@@ -311,10 +322,11 @@ services:
     enabled: true
 
   vault:
-    image: "demo-vault.api"
+    image: "vault.api"
     tag: "20260217.1605"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
+    healthCheckPath: "/api/v1/health"
     service:
       type: "ClusterIP"
       port: 80

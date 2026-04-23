@@ -37,7 +37,7 @@ spec:
       {{- end }}
       containers:
         - name: {{ $name }}
-          image: "{{ $.Values.registry.server }}/{{ $svc.image }}:{{ $svc.tag }}"
+          image: "{{ $.Values.registry.server }}/{{ $.Values.environment }}-{{ $svc.image }}:{{ $svc.tag }}"
           imagePullPolicy: {{ $svc.pullPolicy }}
           ports:
             - containerPort: {{ $svc.service.port }}
@@ -69,6 +69,24 @@ spec:
             {{- end }}
             {{- end }}
           {{- end }}
+          livenessProbe:
+            httpGet:
+              path: {{ $svc.healthCheckPath | default $.Values.defaultHealthCheckPath }}
+              port: {{ $svc.service.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 10
+          readinessProbe:
+            httpGet:
+              path: {{ $svc.healthCheckPath | default $.Values.defaultHealthCheckPath }}
+              port: {{ $svc.service.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 10
           resources:
             {{- toYaml ($svc.resources) | nindent 12 }}
 ---

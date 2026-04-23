@@ -16,7 +16,7 @@ questions:
     label: "Environnement"
     description: "Environnement applicatif (dev, staging, production)."
     type: string
-    default: "Demo"
+    default: "demo"
     required: true
     group: "Déploiement"
 
@@ -78,7 +78,7 @@ questions:
     type: int
     default: 0
     group: "Redis Cluster"
-  
+
   - variable: redis.storageClassName
     label: "type de disque attachés"
     type: string
@@ -101,7 +101,7 @@ questions:
   - variable: services.digidoc.image
     label: "Image"
     type: string
-    default: "demo-digidoc.api"
+    default: "digidoc.api"
     group: "Digidoc"
 
   - variable: services.digidoc.tag
@@ -116,6 +116,13 @@ questions:
     default: 1
     group: "Digidoc"
 
+  - variable: services.digidoc.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Digidoc"
+
   # ---------------- EXTERNAL ----------------
   - variable: services.external.enabled
     label: "Déployer ?"
@@ -126,7 +133,7 @@ questions:
   - variable: services.external.image
     label: "Image"
     type: string
-    default: "demo-external.api"
+    default: "external.api"
     group: "External"
 
   - variable: services.external.tag
@@ -141,6 +148,13 @@ questions:
     default: 1
     group: "External"
 
+  - variable: services.external.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "External"
+
   # ---------------- IDENTITY ----------------
   - variable: services.identity.enabled
     label: "Déployer ?"
@@ -151,7 +165,7 @@ questions:
   - variable: services.identity.image
     label: "Image"
     type: string
-    default: "demo-identity.api"
+    default: "identity.api"
     group: "Identity"
 
   - variable: services.identity.tag
@@ -181,6 +195,13 @@ questions:
     type: string
     group: "Identity"
 
+  - variable: services.identity.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Identity"
+
   # ---------------- LABORREGISTER ----------------
   - variable: services.laborregister.enabled
     label: "Déployer ?"
@@ -191,7 +212,7 @@ questions:
   - variable: services.laborregister.image
     label: "Image"
     type: string
-    default: "demo-laborregister.api"
+    default: "laborregister.api"
     group: "LaborRegister"
 
   - variable: services.laborregister.tag
@@ -206,6 +227,13 @@ questions:
     default: 1
     group: "LaborRegister"
 
+  - variable: services.laborregister.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "LaborRegister"
+
   # ---------------- MONITORING ----------------
   - variable: services.monitoring.enabled
     label: "Déployer ?"
@@ -216,7 +244,7 @@ questions:
   - variable: services.monitoring.image
     label: "Image"
     type: string
-    default: "demo-monitoring.api"
+    default: "monitoring.api"
     group: "Monitoring"
 
   - variable: services.monitoring.tag
@@ -231,6 +259,13 @@ questions:
     default: 1
     group: "Monitoring"
 
+  - variable: services.monitoring.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Monitoring"
+
   # ---------------- NOTIFICATION ----------------
   - variable: services.notification.enabled
     label: "Déployer ?"
@@ -241,7 +276,7 @@ questions:
   - variable: services.notification.image
     label: "Image"
     type: string
-    default: "demo-notification.api"
+    default: "notification.api"
     group: "Notification"
 
   - variable: services.notification.tag
@@ -266,6 +301,13 @@ questions:
     type: string
     group: "Notification"
 
+  - variable: services.notification.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Notification"
+
   # ---------------- POSTAL ----------------
   - variable: services.postal.enabled
     label: "Déployer ?"
@@ -276,7 +318,7 @@ questions:
   - variable: services.postal.image
     label: "Image"
     type: string
-    default: "demo-postal.api"
+    default: "postal.api"
     group: "Postal"
 
   - variable: services.postal.tag
@@ -291,6 +333,13 @@ questions:
     default: 1
     group: "Postal"
 
+  - variable: services.postal.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Postal"
+
   # ---------------- SCHEDULER ----------------
   - variable: services.scheduler.enabled
     label: "Déployer ?"
@@ -301,7 +350,7 @@ questions:
   - variable: services.scheduler.image
     label: "Image"
     type: string
-    default: "demo-scheduler.api"
+    default: "scheduler.api"
     group: "Scheduler"
 
   - variable: services.scheduler.tag
@@ -316,6 +365,13 @@ questions:
     default: 1
     group: "Scheduler"
 
+  - variable: services.scheduler.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Scheduler"
+
   # ---------------- SIGNATURE ----------------
   - variable: services.signature.enabled
     label: "Déployer ?"
@@ -326,7 +382,7 @@ questions:
   - variable: services.signature.image
     label: "Image"
     type: string
-    default: "demo-signature.api"
+    default: "signature.api"
     group: "Signature"
 
   - variable: services.signature.tag
@@ -341,6 +397,13 @@ questions:
     default: 1
     group: "Signature"
 
+  - variable: services.signature.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Signature"
+
   # ---------------- STAFFNGO ----------------
   - variable: services.staffngo.enabled
     label: "Déployer ?"
@@ -351,7 +414,7 @@ questions:
   - variable: services.staffngo.image
     label: "Image"
     type: string
-    default: "demo-staffngo.api"
+    default: "staffngo.api"
     group: "Staffngo"
 
   - variable: services.staffngo.tag
@@ -381,6 +444,13 @@ questions:
     type: string
     group: "Staffngo"
 
+  - variable: services.staffngo.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Staffngo"
+
   # ---------------- SUBSCRIPTION ----------------
   - variable: services.subscription.enabled
     label: "Déployer ?"
@@ -391,7 +461,7 @@ questions:
   - variable: services.subscription.image
     label: "Image"
     type: string
-    default: "demo-subscription.api"
+    default: "subscription.api"
     group: "Subscription"
 
   - variable: services.subscription.tag
@@ -406,6 +476,13 @@ questions:
     default: 1
     group: "Subscription"
 
+  - variable: services.subscription.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Subscription"
+
   # ---------------- VAULT ----------------
   - variable: services.vault.enabled
     label: "Déployer ?"
@@ -416,7 +493,7 @@ questions:
   - variable: services.vault.image
     label: "Image"
     type: string
-    default: "demo-vault.api"
+    default: "vault.api"
     group: "Vault"
 
   - variable: services.vault.tag
@@ -431,6 +508,13 @@ questions:
     default: 1
     group: "Vault"
 
+  - variable: services.vault.healthCheckPath
+    label: "Health Check Path"
+    description: "Chemin HTTP pour les probes liveness/readiness."
+    type: string
+    default: "/api/v1/health"
+    group: "Vault"
+
   # SECRETS COMMUNS ---------------------------------------------------------
   - variable: secret.secretValues.API_BASE_URL
     label: "API Base URL"
@@ -441,13 +525,15 @@ questions:
 
   - variable: secret.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
     label: "Azure ServiceBus"
-    description: "azurePortal > namespace > servicebus > settings > SharedAccessPolicy > ConnectionString"
+    description: "azurePortal > namespace > servicebus > settings >
+      SharedAccessPolicy > ConnectionString"
     type: string
     required: true
     group: "Secrets"
 
   - variable: secret.secretValues.AZURE_STORAGE_CONNECTION_STRING
-    description: "azurePortal > namespace > (blob)storage > security > accessKeys > ConnectionString"
+    description: "azurePortal > namespace > (blob)storage > security > accessKeys >
+      ConnectionString"
     label: "Azure Storage"
     type: string
     required: true
