@@ -1,5 +1,5 @@
 namespace: "staffngo"
-environment: "demo"
+environment: "Demo"
 ENABLE_INSTALLERS: "false"
 
 #----------------------------------------------------
