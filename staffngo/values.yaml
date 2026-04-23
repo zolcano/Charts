@@ -82,7 +82,7 @@ services:
 
   external:
     image: "external.api"
-    tag: "20260331.1610"
+    tag: "20260421.1031"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
     healthCheckPath: "/api/v1/health"
@@ -105,7 +105,7 @@ services:
 
   identity:
     image: "identity.api"
-    tag: "20260324.1919"
+    tag: "20260420.1724"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
     healthCheckPath: "/api/v1/health"
@@ -178,7 +178,7 @@ services:
 
   notification:
     image: "notification.api"
-    tag: "20260324.1910"
+    tag: "20260421.0857"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
     healthCheckPath: "/api/v1/health"
@@ -226,7 +226,7 @@ services:
 
   scheduler:
     image: "scheduler.api"
-    tag: "20260302.0754"
+    tag: "20260420.1714"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
     healthCheckPath: "/api/v1/health"
@@ -272,7 +272,7 @@ services:
 
   staffngo:
     image: "staffngo.api"
-    tag: "20260331.1614"
+    tag: "20260422.1541"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
     healthCheckPath: "/api/v1/health"
@@ -300,7 +300,7 @@ services:
 
   subscription:
     image: "subscription.api"
-    tag: "20260302.0946"
+    tag: "20260421.1846"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
     healthCheckPath: "/api/v1/health"

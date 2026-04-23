@@ -69,18 +69,9 @@ spec:
             {{- end }}
             {{- end }}
           {{- end }}
-          livenessProbe:
-            httpGet:
-              path: {{ $svc.healthCheckPath | default $.Values.defaultHealthCheckPath }}
-              port: {{ $svc.service.port }}
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 1
-            successThreshold: 1
-            failureThreshold: 10
           readinessProbe:
             httpGet:
-              path: {{ $svc.healthCheckPath | default $.Values.defaultHealthCheckPath }}
+              path: {{ $svc.healthCheckPath }}
               port: {{ $svc.service.port }}
             initialDelaySeconds: 30
             periodSeconds: 10
