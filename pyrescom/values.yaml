@@ -3,13 +3,10 @@ namespace: "pyrescom"
 registry:
   server: "staffngoacr.azurecr.io"
   secretName: "acr-pull-secret"
-
-  #----------------------------------------------------
-
-  acrSecret:
-    name: "acr-pull-secret"
-    username: "staffngoacr"
-    password: ""
+acrSecret:
+  name: "acr-pull-secret"
+  username: "staffngoacr"
+  password: ""
 
 #----------------------------------------------------
 
