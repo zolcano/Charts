@@ -7,7 +7,7 @@ description: |
 type: application
 version: 1.0.2
 appVersion: "2026"
-
+icon: https://consumersiteimages.trustpilot.net/business-units/6298624a4338fd60e3e2454e-198x149-1x.jpg
 home: https://www.staffngo.com
 
 dependencies: []

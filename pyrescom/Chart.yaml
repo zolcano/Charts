@@ -4,3 +4,4 @@ description: Déploiement du service Pyrescom
 type: application
 version: 1.0.0
 appVersion: "2026"
+icon: https://pyres.com/wp-content/uploads/2023/05/Pyrescom-1.png
