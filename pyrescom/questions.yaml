@@ -18,20 +18,71 @@ questions:
     type: string
     default: "staffngoacr.azurecr.io"
     required: true
-    group: "Registry"
+    group: "Déploiement"
 
   - variable: acrSecret.username
     label: "ACR - Username"
     type: string
     default: "staffngoacr"
     required: true
-    group: "Registry"
+    group: "Déploiement"
 
   - variable: acrSecret.password
     label: "ACR - Password"
     type: password
     required: true
-    group: "Registry"
+    group: "Déploiement"
+
+  # ────────────────────────────────────────────
+  # TRAEFIK
+  # ────────────────────────────────────────────
+  - variable: traefik.gateway.name
+    label: "Gateway Name"
+    description: "Name of the Traefik Gateway object"
+    type: string
+    default: "traefik-gateway"
+    required: true
+    group: "Traefik"
+
+  - variable: traefik.gateway.namespace
+    label: "Gateway Namespace"
+    description: "Namespace where the Traefik Gateway is deployed"
+    type: string
+    default: "traefik"
+    required: true
+    group: "Traefik"
+
+  - variable: traefik.gateway.sectionName
+    label: "Gateway Section Name"
+    description: "Listener section name on the Gateway for TLS passthrough"
+    type: string
+    default: "tlsroute"
+    required: true
+    group: "Traefik"
+
+  - variable: traefik.hostname
+    label: "Hostname"
+    description: "Public hostname to expose the service (e.g. pyrescom.staffngo.com)"
+    type: string
+    default: "pyrescom.staffngo.com"
+    required: true
+    group: "Traefik"
+
+  - variable: traefik.backend.service
+    label: "Backend Service Name"
+    description: "Kubernetes Service name to route traffic to"
+    type: string
+    default: "pyrescom"
+    required: true
+    group: "Traefik"
+
+  - variable: traefik.backend.port
+    label: "Backend Service Port"
+    description: "Port of the backend service for TLS passthrough"
+    type: int
+    default: 5443
+    required: true
+    group: "Traefik"
 
   # ---------------- PYRESCOM ----------------
   - variable: services.pyrescom.tag

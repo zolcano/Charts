@@ -9,6 +9,15 @@ acrSecret:
   password: ""
 
 #----------------------------------------------------
+traefik:
+  gateway:
+    name: "traefik-gateway"
+    namespace: "traefik"
+    sectionName: "tlsroute"
+  hostname: "pyrescom.staffngo.com"
+  backend:
+    service: "pyrescom"
+    port: 5443
 
 services:
   pyrescom:
