@@ -12,9 +12,15 @@ spec:
   selector:
     app: pyrescom
   ports:
-    {{- range $service.service.port }}
-    - name: port-{{ . }}
+    - name: TnView
       protocol: TCP
-      port: {{ . }}
-      targetPort: {{ . }}
-    {{- end }}
+      port: {{ .Values.configmap.ternet.ServicePort }}
+      targetPort: {{ .Values.configmap.ternet.ServicePort }}
+    - name: Config
+      protocol: TCP
+      port: {{ .Values.configmap.ternet.CfgSrvPort }}
+      targetPort: {{ .Values.configmap.ternet.CfgSrvPort }}
+    - name: https
+      protocol: TCP
+      port: {{ .Values.configmap.ternet.SslPort }}
+      targetPort: {{ .Values.configmap.ternet.SslPort }}

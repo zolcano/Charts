@@ -24,9 +24,15 @@ spec:
           image: "{{ .Values.registry.server }}/{{ $service.image }}:{{ $service.tag }}"
           imagePullPolicy: {{ $service.pullPolicy }}
           ports:
-            {{- range $service.service.port }}
-            - containerPort: {{ . }}
-            {{- end }}
+            - name: TnView
+              containerPort: {{ .Values.configmap.ternet.ServicePort }}
+              protocol: TCP
+            - name: Config
+              containerPort: {{ .Values.configmap.ternet.CfgSrvPort }}
+              protocol: TCP
+            - name: https
+              containerPort: {{ .Values.configmap.ternet.SslPort }}
+              protocol: TCP
           resources:
             requests:
               cpu: {{ $service.resources.requests.cpu }}
