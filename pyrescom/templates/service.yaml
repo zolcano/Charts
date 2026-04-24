@@ -1,0 +1,20 @@
+{{- $service := .Values.services.pyrescom }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pyrescom
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: pyrescom
+spec:
+  type: {{ $service.service.type }}
+  selector:
+    app: pyrescom
+  ports:
+    {{- range $service.service.port }}
+    - name: port-{{ . }}
+      protocol: TCP
+      port: {{ . }}
+      targetPort: {{ . }}
+    {{- end }}
