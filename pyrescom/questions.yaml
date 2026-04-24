@@ -1,0 +1,53 @@
+categories:
+  - Pyrescom
+
+questions:
+
+  - variable: namespace
+    label: "Namespace"
+    description: "Namespace Kubernetes pour le déploiement."
+    type: string
+    default: "pyrescom"
+    required: true
+    group: "Déploiement"
+
+  # REGISTRY ---------------------------------------------------------
+  - variable: registry.server
+    label: "Registry Docker"
+    description: "URL de l'Azure Container Registry."
+    type: string
+    default: "staffngoacr.azurecr.io"
+    required: true
+    group: "Registry"
+
+  - variable: acrSecret.username
+    label: "ACR - Username"
+    type: string
+    default: "staffngoacr"
+    required: true
+    group: "Registry"
+
+  - variable: acrSecret.password
+    label: "ACR - Password"
+    type: password
+    required: true
+    group: "Registry"
+
+  # ---------------- PYRESCOM ----------------
+  - variable: services.pyrescom.tag
+    label: "Tag"
+    type: string
+    default: "latest"
+    group: "Pyrescom"
+
+  - variable: services.pyrescom.replicaCount
+    label: "Réplicas"
+    type: int
+    default: 1
+    group: "Pyrescom"
+
+  - variable: services.pyrescom.ressources.storageClassName
+    label: "storage class name"
+    type: string
+    default: "azurefile-csi"
+    group: "Pyrescom"

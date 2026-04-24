@@ -1,0 +1,35 @@
+namespace: "pyrescom"
+
+registry:
+  server: "staffngoacr.azurecr.io"
+  secretName: "acr-pull-secret"
+
+  #----------------------------------------------------
+
+  acrSecret:
+    name: "acr-pull-secret"
+    username: "staffngoacr"
+    password: ""
+
+#----------------------------------------------------
+
+services:
+  pyrescom:
+    image: "pyrescom"
+    tag: "latest"
+    replicaCount: 1
+    pullPolicy: "IfNotPresent"
+    service:
+      type: "ClusterIP"
+      port:
+        - 5443
+        - 6000
+        - 6001
+    resources:
+      storageClassName: "azurefile-csi"
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "200m"
+        memory: "512Mi"

@@ -1,6 +1,13 @@
 apiVersion: v2
 name: staffngo
-description: Déploiement de la plateforme StaffNGO - tous les microservices
+description: |
+  Déploiement de la plateforme StaffNGO — orchestration complète des microservices
+  (digidoc, external, identity, laborregister, monitoring, notification, postal,
+  scheduler, signature, staffngo, subscription, vault) ainsi que le cluster Redis.
 type: application
-version: 1.0.0
+version: 1.0.2
 appVersion: "2026"
+
+home: https://www.staffngo.com
+
+dependencies: []

@@ -1,0 +1,77 @@
+{{- $service := .Values.services.pyrescom }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pyrescom
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: pyrescom
+spec:
+  replicas: {{ $service.replicaCount }}
+  selector:
+    matchLabels:
+      app: pyrescom
+  template:
+    metadata:
+      labels:
+        app: pyrescom
+    spec:
+      imagePullSecrets:
+        - name: {{ .Values.registry.secretName }}
+      containers:
+        - name: pyrescom
+          image: "{{ .Values.registry.server }}/{{ $service.image }}:{{ $service.tag }}"
+          imagePullPolicy: {{ $service.pullPolicy }}
+          ports:
+            {{- range $service.service.port }}
+            - containerPort: {{ . }}
+            {{- end }}
+          resources:
+            requests:
+              cpu: {{ $service.resources.requests.cpu }}
+              memory: {{ $service.resources.requests.memory }}
+            limits:
+              cpu: {{ $service.resources.limits.cpu }}
+              memory: {{ $service.resources.limits.memory }}
+          volumeMounts:
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/client
+              subPath: pyrescom/data/client
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/espion
+              subPath: pyrescom/data/espion
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/file
+              subPath: pyrescom/data/file
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/hstmit
+              subPath: pyrescom/data/hstmlt
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/malt
+              subPath: pyrescom/data/malt
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/maltsrc
+              subPath: pyrescom/data/maltsrc
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/par
+              subPath: pyrescom/data/par
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/trace
+              subPath: pyrescom/data/trace
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/upload
+              subPath: pyrescom/data/upload
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/tmp
+              subPath: pyrescom/data/tmp
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/Ternet.ini
+              subPath: pyrescom/config/Ternet.ini
+            - name: pyrescom-data
+              mountPath: /compil/usr/ternet/libhttp2.ini
+              subPath: pyrescom/config/libhttp2.ini
+      volumes:
+        - name: pyrescom-data
+          persistentVolumeClaim:
+            claimName: pyrescom-data-pvc
