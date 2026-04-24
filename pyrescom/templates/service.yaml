@@ -12,11 +12,11 @@ spec:
   selector:
     app: pyrescom
   ports:
-    - name: TnView
+    - name: tnview
       protocol: TCP
       port: {{ .Values.configmap.ternet.ServicePort }}
       targetPort: {{ .Values.configmap.ternet.ServicePort }}
-    - name: Config
+    - name: config
       protocol: TCP
       port: {{ .Values.configmap.ternet.CfgSrvPort }}
       targetPort: {{ .Values.configmap.ternet.CfgSrvPort }}
