@@ -51,3 +51,406 @@ questions:
     type: string
     default: "azurefile-csi"
     group: "Pyrescom"
+
+  # ────────────────────────────────────────────
+  # TERNET - Service Identity
+  # ────────────────────────────────────────────
+  - variable: configmap.ternet.ServiceName
+    label: "Service Name"
+    description: "Internal name of the Ternet service"
+    type: string
+    default: "Ternet"
+    group: "Ternet - Service Identity"
+
+  - variable: configmap.ternet.ServiceDisplayName
+    label: "Service Display Name"
+    description: "Display name shown in service manager"
+    type: string
+    default: "Ternet"
+    group: "Ternet - Service Identity"
+
+  - variable: configmap.ternet.BmpStop
+    label: "BmpStop"
+    description: "Bitmap image path for stop button"
+    type: string
+    default: ""
+    group: "Ternet - Service Identity"
+
+  - variable: configmap.ternet.IcoApp
+    label: "Application Icon"
+    description: "Path to the application icon"
+    type: string
+    default: ""
+    group: "Ternet - Service Identity"
+
+  # ────────────────────────────────────────────
+  # TERNET - Network & Ports
+  # ────────────────────────────────────────────
+  - variable: configmap.ternet.ServicePort
+    label: "Service Port"
+    description: "Main TCP port for the Ternet service"
+    type: int
+    default: 6000
+    group: "Ternet - Network & Ports"
+
+  - variable: configmap.ternet.CfgSrvPort
+    label: "Config Server Port"
+    description: "Port for the configuration server"
+    type: int
+    default: 6001
+    group: "Ternet - Network & Ports"
+
+  - variable: configmap.ternet.SslPort
+    label: "SSL Port"
+    description: "Port used for SSL/TLS connections"
+    type: int
+    default: 5443
+    group: "Ternet - Network & Ports"
+
+  - variable: configmap.ternet.SrvTcpMode
+    label: "Server TCP Mode"
+    description: "Enable TCP server mode (1=enabled, 0=disabled)"
+    type: int
+    default: 1
+    group: "Ternet - Network & Ports"
+
+  - variable: configmap.ternet.MultiClient
+    label: "Multi Client"
+    description: "Allow multiple simultaneous clients (1=yes, 0=no)"
+    type: int
+    default: 1
+    group: "Ternet - Network & Ports"
+
+  # ────────────────────────────────────────────
+  # TERNET - SSL & Security
+  # ────────────────────────────────────────────
+  - variable: configmap.ternet.CipherList
+    label: "Cipher List"
+    description: "List of allowed SSL ciphers (empty = default)"
+    type: string
+    default: ""
+    group: "Ternet - SSL & Security"
+
+  - variable: configmap.ternet.CipherServerPreference
+    label: "Cipher Server Preference"
+    description: "Use server cipher preference order (1=yes, 0=no)"
+    type: int
+    default: 0
+    group: "Ternet - SSL & Security"
+
+  - variable: configmap.ternet.AutoCreateIdClient
+    label: "Auto Create Client ID"
+    description: "Automatically create client ID on connect"
+    type: string
+    default: ""
+    group: "Ternet - SSL & Security"
+
+  - variable: configmap.ternet.AutoCreateSslTemplate
+    label: "Auto Create SSL Template"
+    description: "SSL template to use for auto-creation"
+    type: string
+    default: ""
+    group: "Ternet - SSL & Security"
+
+  # ────────────────────────────────────────────
+  # TERNET - Data & Buffer
+  # ────────────────────────────────────────────
+  - variable: configmap.ternet.MaxDataLen
+    label: "Max Data Length"
+    description: "Maximum data length in bytes"
+    type: int
+    default: 1450
+    group: "Ternet - Data & Buffer"
+
+  - variable: configmap.ternet.BinMaxDataLen
+    label: "Binary Max Data Length"
+    description: "Maximum binary data length in bytes"
+    type: int
+    default: 32768
+    group: "Ternet - Data & Buffer"
+
+  - variable: configmap.ternet.MaxTraceLines
+    label: "Max Trace Lines"
+    description: "Maximum number of lines in trace/log file"
+    type: int
+    default: 10000
+    group: "Ternet - Data & Buffer"
+
+  # ────────────────────────────────────────────
+  # TERNET - Threading & Performance
+  # ────────────────────────────────────────────
+  - variable: configmap.ternet.ThreadPriorityLower
+    label: "Thread Priority Lower"
+    description: "Lower thread priority (1=yes, 0=no)"
+    type: int
+    default: 1
+    group: "Ternet - Threading & Performance"
+
+  - variable: configmap.ternet.TdialogRecNum
+    label: "TDialog Record Number"
+    description: "Number of dialog records to keep"
+    type: int
+    default: 10
+    group: "Ternet - Threading & Performance"
+
+  - variable: configmap.ternet.TdialogX0Priority
+    label: "TDialog X0 Priority"
+    description: "Priority for X0 dialog threads"
+    type: int
+    default: 0
+    group: "Ternet - Threading & Performance"
+
+  - variable: configmap.ternet.TimerTreatment
+    label: "Timer Treatment"
+    description: "Timer handling strategy"
+    type: string
+    default: ""
+    group: "Ternet - Threading & Performance"
+
+  # ────────────────────────────────────────────
+  # TERNET - File & Transfer
+  # ────────────────────────────────────────────
+  - variable: configmap.ternet.OneFileForEachTermod
+    label: "One File Per Termod"
+    description: "Create one file per termod (1=yes, 0=no)"
+    type: int
+    default: 0
+    group: "Ternet - File & Transfer"
+
+  - variable: configmap.ternet.NoFileLock
+    label: "No File Lock"
+    description: "Disable file locking (1=disabled, 0=enabled)"
+    type: int
+    default: 0
+    group: "Ternet - File & Transfer"
+
+  - variable: configmap.ternet.FileTransferOnAutoFilePurge
+    label: "File Transfer On Auto Purge"
+    description: "Trigger file transfer on automatic file purge"
+    type: int
+    default: 0
+    group: "Ternet - File & Transfer"
+
+  - variable: configmap.ternet.FileTransferIfEmptyOnConnect
+    label: "File Transfer If Empty On Connect"
+    description: "Trigger file transfer if empty on connect"
+    type: int
+    default: 0
+    group: "Ternet - File & Transfer"
+
+  - variable: configmap.ternet.StatFile
+    label: "Statistics File"
+    description: "Path to the statistics output file"
+    type: string
+    default: ""
+    group: "Ternet - File & Transfer"
+
+  - variable: configmap.ternet.StatInterval
+    label: "Statistics Interval"
+    description: "Interval in seconds between stats writes"
+    type: int
+    default: 60
+    group: "Ternet - File & Transfer"
+
+  # ────────────────────────────────────────────
+  # TERNET - Modem
+  # ────────────────────────────────────────────
+  - variable: configmap.ternet.SendAtzToModem
+    label: "Send ATZ To Modem"
+    description: "Send ATZ reset command to modem on init (1=yes, 0=no)"
+    type: int
+    default: 1
+    group: "Ternet - Modem"
+
+  - variable: configmap.ternet.ModemConnectTimeout
+    label: "Modem Connect Timeout"
+    description: "Timeout in seconds for modem connection"
+    type: int
+    default: 60
+    group: "Ternet - Modem"
+
+  # ────────────────────────────────────────────
+  # TERNET - User Access
+  # ────────────────────────────────────────────
+  - variable: configmap.ternet.UserX
+    label: "UserX"
+    description: "Enable user X access (1=yes, 0=no)"
+    type: int
+    default: 1
+    group: "Ternet - User Access"
+
+  - variable: configmap.ternet.UserXComputer
+    label: "UserX Computer"
+    description: "Allowed computer for UserX (* = all)"
+    type: string
+    default: "*"
+    group: "Ternet - User Access"
+
+  # ────────────────────────────────────────────
+  # LIBHTTP2 - OAuth 2.0
+  # ────────────────────────────────────────────
+  - variable: configmap.libhttp2.OAuth_2_0_ServerName
+    label: "OAuth2 Server Name"
+    description: "Hostname of the OAuth 2.0 authorization server"
+    type: string
+    default: ""
+    group: "LibHTTP2 - OAuth 2.0"
+
+  - variable: configmap.libhttp2.OAuth_2_0_ServerPort
+    label: "OAuth2 Server Port"
+    description: "Port of the OAuth 2.0 server"
+    type: int
+    default: 443
+    group: "LibHTTP2 - OAuth 2.0"
+
+  - variable: configmap.libhttp2.OAuth_2_0_TokenPath
+    label: "OAuth2 Token Path"
+    description: "URL path to the OAuth 2.0 token endpoint"
+    type: string
+    default: ""
+    group: "LibHTTP2 - OAuth 2.0"
+
+  - variable: configmap.libhttp2.OAuth_2_0_TokenTimeout
+    label: "OAuth2 Token Timeout"
+    description: "Timeout in ms for token requests"
+    type: int
+    default: 10000
+    group: "LibHTTP2 - OAuth 2.0"
+
+  - variable: configmap.libhttp2.OAuth_2_0_Username
+    label: "OAuth2 Username"
+    description: "Username for OAuth 2.0 authentication"
+    type: string
+    default: ""
+    group: "LibHTTP2 - OAuth 2.0"
+
+  - variable: configmap.libhttp2.OAuth_2_0_Password
+    label: "OAuth2 Password"
+    description: "Password for OAuth 2.0 authentication"
+    type: password
+    default: ""
+    group: "LibHTTP2 - OAuth 2.0"
+
+  - variable: configmap.libhttp2.OAuth_2_0_Id
+    label: "OAuth2 Client ID"
+    description: "Client ID for OAuth 2.0"
+    type: string
+    default: ""
+    group: "LibHTTP2 - OAuth 2.0"
+
+  - variable: configmap.libhttp2.OAuth_2_0_Secret
+    label: "OAuth2 Client Secret"
+    description: "Client secret for OAuth 2.0"
+    type: password
+    default: ""
+    group: "LibHTTP2 - OAuth 2.0"
+
+  # ────────────────────────────────────────────
+  # LIBHTTP2 - HTTP Server
+  # ────────────────────────────────────────────
+  - variable: configmap.libhttp2.HttpServerName
+    label: "HTTP Server Name"
+    description: "Hostname of the target HTTP server"
+    type: string
+    default: ""
+    group: "LibHTTP2 - HTTP Server"
+
+  - variable: configmap.libhttp2.HttpServerPort
+    label: "HTTP Server Port"
+    description: "Port of the target HTTP server"
+    type: int
+    default: 80
+    group: "LibHTTP2 - HTTP Server"
+
+  - variable: configmap.libhttp2.HttpServerHttps
+    label: "HTTP Server HTTPS"
+    description: "Use HTTPS for HTTP server connection (1=yes, 0=no)"
+    type: int
+    default: 0
+    group: "LibHTTP2 - HTTP Server"
+
+  - variable: configmap.libhttp2.NumberOfConnection
+    label: "Number Of Connections"
+    description: "Maximum number of simultaneous HTTP connections"
+    type: int
+    default: 5
+    group: "LibHTTP2 - HTTP Server"
+
+  - variable: configmap.libhttp2.KeepAlive
+    label: "Keep Alive"
+    description: "Enable HTTP keep-alive (1=yes, 0=no)"
+    type: int
+    default: 0
+    group: "LibHTTP2 - HTTP Server"
+
+  # ────────────────────────────────────────────
+  # LIBHTTP2 - SSL
+  # ────────────────────────────────────────────
+  - variable: configmap.libhttp2.SslMethod
+    label: "SSL Method"
+    description: "SSL/TLS version (0=SSLv3, 1=TLSv1, 2=TLSv1.1, 3=TLSv1.2)"
+    type: enum
+    default: 3
+    options:
+      - 0
+      - 1
+      - 2
+      - 3
+    group: "LibHTTP2 - SSL"
+
+  - variable: configmap.libhttp2.OsCaStore
+    label: "OS CA Store"
+    description: "Use OS certificate authority store (1=yes, 0=no)"
+    type: int
+    default: 0
+    group: "LibHTTP2 - SSL"
+
+  - variable: configmap.libhttp2.NoSslVerify
+    label: "No SSL Verify"
+    description: "Disable SSL certificate verification (1=disabled, 0=enabled)"
+    type: int
+    default: 0
+    group: "LibHTTP2 - SSL"
+
+  # ────────────────────────────────────────────
+  # LIBHTTP2 - Authentication
+  # ────────────────────────────────────────────
+  - variable: configmap.libhttp2.UserName
+    label: "Username"
+    description: "HTTP basic auth username"
+    type: string
+    default: ""
+    group: "LibHTTP2 - Authentication"
+
+  - variable: configmap.libhttp2.Password
+    label: "Password"
+    description: "HTTP basic auth password"
+    type: password
+    default: ""
+    group: "LibHTTP2 - Authentication"
+
+  # ────────────────────────────────────────────
+  # LIBHTTP2 - Proxy
+  # ────────────────────────────────────────────
+  - variable: configmap.libhttp2.ProxyServerName
+    label: "Proxy Server Name"
+    description: "Hostname of the HTTP proxy server"
+    type: string
+    default: ""
+    group: "LibHTTP2 - Proxy"
+
+  - variable: configmap.libhttp2.ProxyServerPort
+    label: "Proxy Server Port"
+    description: "Port of the HTTP proxy server"
+    type: int
+    default: 8080
+    group: "LibHTTP2 - Proxy"
+
+  - variable: configmap.libhttp2.ProxyUserName
+    label: "Proxy Username"
+    description: "Username for proxy authentication"
+    type: string
+    default: ""
+    group: "LibHTTP2 - Proxy"
+
+  - variable: configmap.libhttp2.ProxyP

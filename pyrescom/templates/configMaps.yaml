@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pyrescom-config
+  namespace: {? {.Values.namespace}}
+data:
+  Ternet.ini: |
+    [Ternet]
+    ServiceName={{ .Values.configmap.ternet.ServiceName }}
+    ServiceDisplayName={{ .Values.configmap.ternet.ServiceDisplayName }}
+    BmpStop={{ .Values.configmap.ternet.BmpStop }}
+    IcoApp={{ .Values.configmap.ternet.IcoApp }}
+    MaxDataLen={{ .Values.configmap.ternet.MaxDataLen }}
+    ThreadPriorityLower={{ .Values.configmap.ternet.ThreadPriorityLower }}
+    TdialogRecNum={{ .Values.configmap.ternet.TdialogRecNum }}
+    TdialogX0Priority={{ .Values.configmap.ternet.TdialogX0Priority }}
+    OneFileForEachTermod={{ .Values.configmap.ternet.OneFileForEachTermod }}
+    NoFileLock={{ .Values.configmap.ternet.NoFileLock }}
+    FileTransferOnAutoFilePurge={{ .Values.configmap.ternet.FileTransferOnAutoFilePurge }}
+    FileTransferIfEmptyOnConnect={{ .Values.configmap.ternet.FileTransferIfEmptyOnConnect }}
+    TimerTreatment={{ .Values.configmap.ternet.TimerTreatment }}
+    MaxTraceLines={{ .Values.configmap.ternet.MaxTraceLines }}
+    BinMaxDataLen={{ .Values.configmap.ternet.BinMaxDataLen }}
+    ServicePort={{ .Values.configmap.ternet.ServicePort }}
+    CfgSrvPort={{ .Values.configmap.ternet.CfgSrvPort }}
+    UserX={{ .Values.configmap.ternet.UserX }}
+    UserXComputer={{ .Values.configmap.ternet.UserXComputer }}
+    SrvTcpMode={{ .Values.configmap.ternet.SrvTcpMode }}
+    SslPort={{ .Values.configmap.ternet.SslPort }}
+    CipherList={{ .Values.configmap.ternet.CipherList }}
+    CipherServerPreference={{ .Values.configmap.ternet.CipherServerPreference }}
+    AutoCreateIdClient={{ .Values.configmap.ternet.AutoCreateIdClient }}
+    AutoCreateSslTemplate={{ .Values.configmap.ternet.AutoCreateSslTemplate }}
+    SendAtzToModem={{ .Values.configmap.ternet.SendAtzToModem }}
+    ModemConnectTimeout={{ .Values.configmap.ternet.ModemConnectTimeout }}
+    StatFile={{ .Values.configmap.ternet.StatFile }}
+    StatInterval={{ .Values.configmap.ternet.StatInterval }}
+    MultiClient={{ .Values.configmap.ternet.MultiClient }}
+  libhttp2.ini: |
+    [libhttp2.so]
+    OAuth_2_0_ServerName={{ .Values.configmap.libhttp2.OAuth_2_0_ServerName }}
+    OAuth_2_0_ServerPort={{ .Values.configmap.libhttp2.OAuth_2_0_ServerPort }}
+    OAuth_2_0_TokenPath={{ .Values.configmap.libhttp2.OAuth_2_0_TokenPath }}
+    OAuth_2_0_TokenTimeout={{ .Values.configmap.libhttp2.OAuth_2_0_TokenTimeout }}
+    OAuth_2_0_Username={{ .Values.configmap.libhttp2.OAuth_2_0_Username }}
+    OAuth_2_0_Password={{ .Values.configmap.libhttp2.OAuth_2_0_Password }}
+    OAuth_2_0_Id={{ .Values.configmap.libhttp2.OAuth_2_0_Id }}
+    OAuth_2_0_Secret={{ .Values.configmap.libhttp2.OAuth_2_0_Secret }}
+    HttpServerName={{ .Values.configmap.libhttp2.HttpServerName }}
+    HttpServerPort={{ .Values.configmap.libhttp2.HttpServerPort }}
+    HttpServerHttps={{ .Values.configmap.libhttp2.HttpServerHttps }}
+    SslMethod={{ .Values.configmap.libhttp2.SslMethod }}
+    OsCaStore={{ .Values.configmap.libhttp2.OsCaStore }}
+    NoSslVerify={{ .Values.configmap.libhttp2.NoSslVerify }}
+    NumberOfConnection={{ .Values.configmap.libhttp2.NumberOfConnection }}
+    LogFileMaxSize={{ .Values.configmap.libhttp2.LogFileMaxSize }}
+    LogAll={{ .Values.configmap.libhttp2.LogAll }}
+    TmpDir={{ .Values.configmap.libhttp2.TmpDir }}
+    StatusFile={{ .Values.configmap.libhttp2.StatusFile }}
+    KeepAlive={{ .Values.configmap.libhttp2.KeepAlive }}
+    UserName={{ .Values.configmap.libhttp2.UserName }}
+    Password={{ .Values.configmap.libhttp2.Password }}
+    ProxyServerName={{ .Values.configmap.libhttp2.ProxyServerName }}
+    ProxyServerPort={{ .Values.configmap.libhttp2.ProxyServerPort }}
+    ProxyUserName={{ .Values.configmap.libhttp2.ProxyUserName }}
+    ProxyPassword={{ .Values.configmap.libhttp2.ProxyPassword }}
+    PercentEncoding={{ .Values.configmap.libhttp2.PercentEncoding }}
+    HttpBnPath={{ .Values.configmap.libhttp2.HttpBnPath }}
+    HttpBnRxTimeout={{ .Values.configmap.libhttp2.HttpBnRxTimeout }}
+    HttpX0Path={{ .Values.configmap.libhttp2.HttpX0Path }}
+    HttpX0RxTimeout={{ .Values.configmap.libhttp2.HttpX0RxTimeout }}
+    HttpXEPath={{ .Values.configmap.libhttp2.HttpXEPath }}
+    HttpXERxTimeout={{ .Values.configmap.libhttp2.HttpXERxTimeout }}
+    HttpDriverOnPath={{ .Values.configmap.libhttp2.HttpDriverOnPath }}
+    HttpDriverOnRxTimeout={{ .Values.configmap.libhttp2.HttpDriverOnRxTimeout }}
+    HttpDriverOffPath={{ .Values.configmap.libhttp2.HttpDriverOffPath }}
+    HttpDriverOffRxTimeout={{ .Values.configmap.libhttp2.HttpDriverOffRxTimeout }}
+    HttpTimeoutPath={{ .Values.configmap.libhttp2.HttpTimeoutPath }}
+    HttpTimeoutRxTimeout={{ .Values.configmap.libhttp2.HttpTimeoutRxTimeout }}
+    HttpDialogPath={{ .Values.configmap.libhttp2.HttpDialogPath }}
+    HttpDialogRxTimeout={{ .Values.configmap.libhttp2.HttpDialogRxTimeout }}

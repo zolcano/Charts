@@ -30,3 +30,81 @@ services:
       limits:
         cpu: "200m"
         memory: "512Mi"
+
+# ConfigMap
+
+configmap:
+  ternet:
+    ServiceName: "Ternet"
+    ServiceDisplayName: "Ternet"
+    BmpStop: ""
+    IcoApp: ""
+    MaxDataLen: 1450
+    ThreadPriorityLower: 1
+    TdialogRecNum: 10
+    TdialogX0Priority: 0
+    OneFileForEachTermod: 0
+    NoFileLock: 0
+    FileTransferOnAutoFilePurge: 0
+    FileTransferIfEmptyOnConnect: 0
+    TimerTreatment: ""
+    MaxTraceLines: 10000
+    BinMaxDataLen: 32768
+    ServicePort: 6000
+    CfgSrvPort: 6001
+    UserX: 1
+    UserXComputer: "*"
+    SrvTcpMode: 1
+    SslPort: 5443
+    CipherList: ""
+    CipherServerPreference: 0
+    AutoCreateIdClient: ""
+    AutoCreateSslTemplate: ""
+    SendAtzToModem: 1
+    ModemConnectTimeout: 60
+    StatFile: ""
+    StatInterval: 60
+    MultiClient: 1
+
+  libhttp2:
+    OAuth_2_0_ServerName: ""
+    OAuth_2_0_ServerPort: 443
+    OAuth_2_0_TokenPath: ""
+    OAuth_2_0_TokenTimeout: 10000
+    OAuth_2_0_Username: ""
+    OAuth_2_0_Password: ""
+    OAuth_2_0_Id: ""
+    OAuth_2_0_Secret: ""
+    HttpServerName: ""
+    HttpServerPort: 80
+    HttpServerHttps: 0
+    SslMethod: 3
+    OsCaStore: 0
+    NoSslVerify: 0
+    NumberOfConnection: 5
+    LogFileMaxSize: 100000
+    LogAll: 0
+    TmpDir: "/tmp"
+    StatusFile: 0
+    KeepAlive: 0
+    UserName: ""
+    Password: ""
+    ProxyServerName: ""
+    ProxyServerPort: 8080
+    ProxyUserName: ""
+    ProxyPassword: ""
+    PercentEncoding: 0
+    HttpBnPath: ""
+    HttpBnRxTimeout: 10000
+    HttpX0Path: ""
+    HttpX0RxTimeout: 10000
+    HttpXEPath: ""
+    HttpXERxTimeout: 10000
+    HttpDriverOnPath: ""
+    HttpDriverOnRxTimeout: 10000
+    HttpDriverOffPath: ""
+    HttpDriverOffRxTimeout: 10000
+    HttpTimeoutPath: ""
+    HttpTimeoutRxTimeout: 10000
+    HttpDialogPath: ""
+    HttpDialogRxTimeout: 10000
