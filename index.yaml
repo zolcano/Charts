@@ -3,10 +3,10 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-24T12:07:07.835369703+02:00"
+    created: "2026-04-24T12:09:01.152396303+02:00"
     description: Déploiement du service Pyrescom
-    digest: e375990593eb23574af299a19019b38843e5b681b0a52d7a5d75c46ab516fb0b
-    icon: https://www.lafrenchfab.fr/core/views/daf329063a/assets/img/push-directory-image.png
+    digest: 77db5d2e66b3a09b635d03453823441f62c5bc947bf8afcb00925b51ebfc393f
+    icon: https://www.lafrenchfab.fr/storage/sites/2/2024/01/PYRESCOM-300x186.png
     name: pyrescom
     type: application
     urls:
@@ -15,7 +15,7 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-24T12:07:07.873880322+02:00"
+    created: "2026-04-24T12:09:01.191141972+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -30,7 +30,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-24T12:07:07.863131996+02:00"
+    created: "2026-04-24T12:09:01.176944274+02:00"
     description: Déploiement de la plateforme StaffNGO - tous les microservices
     digest: 290ebe193a07c7abce01c60f8f0b8790d59515b0c5671eb88ed84c450619ad2b
     name: staffngo
@@ -38,4 +38,4 @@ entries:
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-24T12:07:07.827425019+02:00"
+generated: "2026-04-24T12:09:01.121219673+02:00"
