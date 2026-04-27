@@ -1,0 +1,24 @@
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: {{ .Values.traefik.smtp.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.traefik.backend.service }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: {{ .Values.traefik.gateway.name }}
+      namespace: {{ .Values.traefik.gateway.namespace }}
+      sectionName: {{ .Values.traefik.smtp.sectionName }}
+  rules:
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: mailind
+          port: 25
+          weight: 1
