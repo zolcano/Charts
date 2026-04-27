@@ -17,7 +17,6 @@ traefik:
   hostname: "pyrescom.staffngo.com"
   backend:
     service: "pyrescom"
-    port: 5443
 
 services:
   pyrescom:

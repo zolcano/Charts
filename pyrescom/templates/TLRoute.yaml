@@ -22,5 +22,5 @@ spec:
         - group: ''
           kind: Service
           name: {{ .Values.traefik.backend.service }}
-          port: {{ .Values.traefik.backend.port }}
+          port: {{ .Values.configmap.ternet.SslPort }}
           weight: 1

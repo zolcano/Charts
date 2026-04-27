@@ -76,12 +76,11 @@ questions:
     required: true
     group: "Traefik"
 
-  - variable: traefik.backend.port
-    label: "Backend Service Port"
-    description: "Port of the backend service for TLS passthrough"
+  - variable: configmap.ternet.SslPort
+    label: "SSL Port"
+    description: "Port used for SSL/TLS connections"
     type: int
     default: 5443
-    required: true
     group: "Traefik"
 
   # ---------------- PYRESCOM ----------------
@@ -146,13 +145,6 @@ questions:
     description: "Port for the configuration app"
     type: int
     default: 6001
-    group: "Ternet"
-
-  - variable: configmap.ternet.SslPort
-    label: "SSL Port"
-    description: "Port used for SSL/TLS connections"
-    type: int
-    default: 5443
     group: "Ternet"
 
   - variable: configmap.ternet.SrvTcpMode
