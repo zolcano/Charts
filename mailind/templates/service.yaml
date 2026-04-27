@@ -1,0 +1,24 @@
+---
+{{- with .Values.services.mailind }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: mailind
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app: mailind
+    app.kubernetes.io/name: mailind
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    helm.sh/chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
+spec:
+  type: {{ .service.type }}
+  selector:
+    app: mailind
+  ports:
+    {{- range .ports }}
+    - name: "port-{{ . }}"
+      port: {{ . }}
+      targetPort: {{ . }}
+      protocol: TCP
+    {{- end }}
+{{- end }}

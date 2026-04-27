@@ -52,9 +52,6 @@ redis:
     requests:
       cpu: "250m"
       memory: "256Mi"
-    limits:
-      cpu: "500m"
-      memory: "512Mi"
 
 services:
   digidoc:
@@ -70,9 +67,6 @@ services:
       requests:
         cpu: "100m"
         memory: "512Mi"
-      limits:
-        cpu: "200m"
-        memory: "1024Mi"
     env:
       API_BASE_PATH: "digidoc"
     configKeys:
@@ -93,9 +87,6 @@ services:
       requests:
         cpu: "20m"
         memory: "128Mi"
-      limits:
-        cpu: "40m"
-        memory: "256Mi"
     env:
       API_BASE_PATH: "external"
     configKeys:
@@ -116,9 +107,6 @@ services:
       requests:
         cpu: "50m"
         memory: "256Mi"
-      limits:
-        cpu: "100m"
-        memory: "512Mi"
     env:
       AZURE_CLIENT_ID: ""
       AZURE_TENANT_ID: ""
@@ -143,9 +131,6 @@ services:
       requests:
         cpu: "10m"
         memory: "128Mi"
-      limits:
-        cpu: "20m"
-        memory: "256Mi"
     env:
       API_BASE_PATH: "laborregister"
     configKeys:
@@ -166,9 +151,6 @@ services:
       requests:
         cpu: "20m"
         memory: "256Mi"
-      limits:
-        cpu: "40m"
-        memory: "512Mi"
     env:
       API_BASE_PATH: "monitoring"
     configKeys:
@@ -189,9 +171,6 @@ services:
       requests:
         cpu: "50m"
         memory: "512Mi"
-      limits:
-        cpu: "100m"
-        memory: "1024Mi"
     env:
       API_BASE_PATH: "notification"
       NDR_CREDENTIALS: ""
@@ -214,9 +193,6 @@ services:
       requests:
         cpu: "10m"
         memory: "128Mi"
-      limits:
-        cpu: "20m"
-        memory: "256Mi"
     env:
       API_BASE_PATH: "postal"
     configKeys:
@@ -237,9 +213,6 @@ services:
       requests:
         cpu: "10m"
         memory: "128Mi"
-      limits:
-        cpu: "20m"
-        memory: "256Mi"
     env:
       API_BASE_PATH: "scheduler"
     configKeys:
@@ -260,9 +233,6 @@ services:
       requests:
         cpu: "10m"
         memory: "256Mi"
-      limits:
-        cpu: "20m"
-        memory: "512Mi"
     env:
       API_BASE_PATH: "signature"
     configKeys:
@@ -283,9 +253,6 @@ services:
       requests:
         cpu: "250m"
         memory: "2048Mi"
-      limits:
-        cpu: "500m"
-        memory: "4096Mi"
     env:
       API_BASE_PATH: "staffngo"
       OODRIVE_TOKEN: ""
@@ -311,9 +278,6 @@ services:
       requests:
         cpu: "10m"
         memory: "256Mi"
-      limits:
-        cpu: "20m"
-        memory: "512Mi"
     env:
       API_BASE_PATH: "signature"
     configKeys:
@@ -334,9 +298,7 @@ services:
       requests:
         cpu: "10m"
         memory: "256Mi"
-      limits:
-        cpu: "20m"
-        memory: "512Mi"
+
     env:
       API_BASE_PATH: "signature"
     configKeys:

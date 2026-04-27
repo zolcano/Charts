@@ -1,0 +1,120 @@
+categories:
+  - Email
+
+questions:
+
+  # ─────────────────────────────────────────────────────────────
+  # GROUPE 1 — Déploiement
+  # ─────────────────────────────────────────────────────────────
+  - variable: namespace
+    label: "Namespace Kubernetes"
+    description: "Namespace dans lequel tous les composants seront déployés."
+    type: string
+    default: "mailind"
+    required: true
+    group: "Déploiement"
+
+  - variable: registry.server
+    label: "Serveur de registry (ACR)"
+    description: "URL du registre Azure Container Registry."
+    type: string
+    default: "staffngoacr.azurecr.io"
+    required: true
+    group: "Déploiement"
+
+  - variable: acrSecret.username
+    label: "Username ACR"
+    description: "Nom d'utilisateur du registre Azure Container Registry."
+    type: string
+    default: "staffngoacr"
+    required: true
+    group: "Déploiement"
+
+  - variable: acrSecret.password
+    label: "Mot de passe ACR"
+    description: "Mot de passe (ou token) du registre Azure Container Registry.
+      Laissez vide si le secret est déjà créé manuellement."
+    type: password
+    default: ""
+    required: false
+    group: "Déploiement"
+
+  # ─────────────────────────────────────────────────────────────
+  # GROUPE 3 — Traefik
+  # ─────────────────────────────────────────────────────────────
+  - variable: traefik.hostname
+    label: "Hostname public (FQDN)"
+    description: "Nom de domaine exposé par Traefik Gateway pour accéder à mailind."
+    type: hostname
+    default: "mailind.staffngo.com"
+    required: true
+    group: "Traefik"
+
+  - variable: traefik.gateway.name
+    label: "Nom de la Gateway Traefik"
+    description: "Nom de la ressource Gateway Traefik déjà déployée dans le cluster."
+    type: string
+    default: "traefik-gateway"
+    required: true
+    group: "Traefik"
+
+  - variable: traefik.gateway.namespace
+    label: "Namespace de la Gateway Traefik"
+    description: "Namespace où est déployée la Gateway Traefik."
+    type: string
+    default: "traefik"
+    required: true
+    group: "Traefik"
+
+  # ─────────────────────────────────────────────────────────────
+  # GROUPE 4 — Service mailind
+  # ─────────────────────────────────────────────────────────────
+  - variable: services.mailind.tag
+    label: "Tag de l'image mailind"
+    description: "Tag/version de l'image à déployer."
+    type: string
+    default: "13042026"
+    required: true
+    group: "mailind"
+
+  - variable: services.mailind.replicaCount
+    label: "Nombre de réplicas"
+    description: "Nombre de pods mailind à déployer."
+    type: int
+    default: 1
+    min: 1
+    max: 10
+    required: true
+    group: "mailind"
+
+  - variable: services.mailind.resources.requests.cpu
+    label: "CPU Request"
+    description: "Quantité de CPU garantie au pod (ex: 100m, 500m, 1)."
+    type: string
+    default: "100m"
+    required: true
+    group: "mailind"
+
+  - variable: services.mailind.resources.requests.memory
+    label: "Memory Request"
+    description: "Quantité de mémoire garantie au pod (ex: 256Mi, 512Mi, 1Gi)."
+    type: string
+    default: "256Mi"
+    required: true
+    group: "mailind"
+
+  - variable: services.mailind.env.EMAIL_DOMAIN
+    label: "Domaine email (EMAIL_DOMAIN)"
+    description: "Domaine utilisé pour l'envoi et la réception des emails."
+    type: hostname
+    default: "m.staffngo.com"
+    required: true
+    group: "mailind"
+
+  - variable: services.mailind.env.EMAIL_RETENTION_HOURS
+    label: "Rétention emails en heures (EMAIL_RETENTION_HOURS)"
+    description: "Durée de conservation des emails en heures avant suppression automatique."
+    type: string
+    default: "24"
+    required: true
+    group: "mailind"

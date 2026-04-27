@@ -1,0 +1,44 @@
+namespace: "pyrescom"
+
+# ── Container Registry ───────────────────────────────────────
+registry:
+  server: "staffngoacr.azurecr.io"
+  secretName: "acr-pull-secret"
+
+acrSecret:
+  name: "acr-pull-secret"
+  username: "staffngoacr"
+  password: ""
+
+# ── Traefik Gateway ──────────────────────────────────────────
+traefik:
+  gateway:
+    name: "traefik-gateway"
+    namespace: "traefik"
+    sectionName: "httproute"
+  hostname: "mailind.staffngo.com"
+  backend:
+    service: "pyrescom"
+
+# ── Services ─────────────────────────────────────────────────
+services:
+  mailind:
+    image: "mailind"
+    tag: "13042026"
+    replicaCount: 1
+    pullPolicy: "IfNotPresent"
+    service:
+      type: "ClusterIP"
+    ports:
+      - port: 3000
+        name: http
+      - port: 25
+        name: smtp
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+    env:
+      EMAIL_DOMAIN: "m.staffngo.com"
+      DB_PATH: "/app"
+      EMAIL_RETENTION_HOURS: "24"

@@ -52,35 +52,12 @@ questions:
     required: true
     group: "Traefik"
 
-  - variable: traefik.gateway.sectionName
-    label: "Gateway Section Name"
-    description: "Listener section name on the Gateway for TLS passthrough"
-    type: string
-    default: "tlsroute"
-    required: true
-    group: "Traefik"
-
   - variable: traefik.hostname
     label: "Hostname"
-    description: "Public hostname to expose the service (e.g. pyrescom.staffngo.com)"
+    description: "Public hostname to expose the service"
     type: string
     default: "pyrescom.staffngo.com"
     required: true
-    group: "Traefik"
-
-  - variable: traefik.backend.service
-    label: "Backend Service Name"
-    description: "Kubernetes Service name to route traffic to"
-    type: string
-    default: "pyrescom"
-    required: true
-    group: "Traefik"
-
-  - variable: configmap.ternet.SslPort
-    label: "SSL Port"
-    description: "Port used for SSL/TLS connections"
-    type: int
-    default: 5443
     group: "Traefik"
 
   # ---------------- PYRESCOM ----------------
@@ -100,6 +77,13 @@ questions:
     label: "storage class name"
     type: string
     default: "azurefile-csi"
+    group: "Pyrescom"
+
+  - variable: configmap.ternet.SslPort
+    label: "SSL Port"
+    description: "Port used for SSL/TLS connections"
+    type: int
+    default: 5443
     group: "Pyrescom"
 
   # ────────────────────────────────────────────

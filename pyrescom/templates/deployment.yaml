@@ -37,9 +37,6 @@ spec:
             requests:
               cpu: {{ $service.resources.requests.cpu }}
               memory: {{ $service.resources.requests.memory }}
-            limits:
-              cpu: {{ $service.resources.limits.cpu }}
-              memory: {{ $service.resources.limits.memory }}
           volumeMounts:
             - name: pyrescom-data
               mountPath: /compil/usr/ternet/client

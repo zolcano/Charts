@@ -1,0 +1,46 @@
+{{- with .Values.services.mailind }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailind
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app: mailind
+    app.kubernetes.io/name: mailind
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    helm.sh/chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      app: mailind
+  template:
+    metadata:
+      labels:
+        app: mailind
+        app.kubernetes.io/name: mailind
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+    spec:
+      imagePullSecrets:
+        - name: {{ $.Values.registry.secretName }}
+      containers:
+        - name: mailind
+          image: "{{ $.Values.registry.server }}/{{ .image }}:{{ .tag }}"
+          imagePullPolicy: {{ .pullPolicy }}
+          ports:
+            {{- range .ports }}
+            - name: {{ .name }}
+              containerPort: {{ .port }}
+              protocol: TCP
+            {{- end }}
+          env:
+            {{- range $key, $val := .env }}
+            - name: {{ $key }}
+              value: {{ $val | quote }}
+            {{- end }}
+          resources:
+            requests:
+              cpu: {{ .resources.requests.cpu | quote }}
+              memory: {{ .resources.requests.memory | quote }}
+{{- end }}
