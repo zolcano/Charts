@@ -47,14 +47,6 @@ questions:
     required: true
     group: "Traefik"
 
-  - variable: traefik.hostname
-    label: "Hostname"
-    description: "Public hostname to expose the service"
-    type: string
-    default: "pyrescom.staffngo.com"
-    required: true
-    group: "Traefik"
-
   # REGISTRY ---------------------------------------------------------
   - variable: registry.server
     label: "Registry Docker"
