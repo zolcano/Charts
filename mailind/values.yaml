@@ -1,4 +1,4 @@
-namespace: "pyrescom"
+namespace: "mailind"
 
 # ── Container Registry ───────────────────────────────────────
 registry:
@@ -18,7 +18,7 @@ traefik:
     sectionName: "httproute"
   hostname: "mailind.staffngo.com"
   backend:
-    service: "pyrescom"
+    service: "mailind"
 
 # ── Services ─────────────────────────────────────────────────
 services:

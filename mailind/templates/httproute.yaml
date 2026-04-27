@@ -23,4 +23,4 @@ spec:
       backendRefs:
         - name: mailind
           namespace: {{ .Values.namespace }}
-          port: {{ index .Values.services.mailind.ports 0 }}
+          port: {{ index .Values.services.mailind.ports 0 "port" | int }}

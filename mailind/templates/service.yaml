@@ -1,5 +1,5 @@
----
 {{- with .Values.services.mailind }}
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -16,9 +16,9 @@ spec:
     app: mailind
   ports:
     {{- range .ports }}
-    - name: "port-{{ . }}"
-      port: {{ . }}
-      targetPort: {{ . }}
+    - name: {{ .name }}
+      port: {{ .port | int }}
+      targetPort: {{ .port | int }}
       protocol: TCP
     {{- end }}
 {{- end }}

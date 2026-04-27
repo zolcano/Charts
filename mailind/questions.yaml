@@ -87,22 +87,6 @@ questions:
     required: true
     group: "mailind"
 
-  - variable: services.mailind.resources.requests.cpu
-    label: "CPU Request"
-    description: "Quantité de CPU garantie au pod (ex: 100m, 500m, 1)."
-    type: string
-    default: "100m"
-    required: true
-    group: "mailind"
-
-  - variable: services.mailind.resources.requests.memory
-    label: "Memory Request"
-    description: "Quantité de mémoire garantie au pod (ex: 256Mi, 512Mi, 1Gi)."
-    type: string
-    default: "256Mi"
-    required: true
-    group: "mailind"
-
   - variable: services.mailind.env.EMAIL_DOMAIN
     label: "Domaine email (EMAIL_DOMAIN)"
     description: "Domaine utilisé pour l'envoi et la réception des emails."
