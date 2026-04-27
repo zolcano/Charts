@@ -15,7 +15,7 @@ traefik:
   gateway:
     name: "traefik-gateway"
     namespace: "traefik"
-    sectionName: "httproute"
+    sectionName: "smtp"
   hostname: "mailind.staffngo.com"
   backend:
     service: "mailind"

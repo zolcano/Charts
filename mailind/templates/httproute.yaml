@@ -12,7 +12,7 @@ spec:
   parentRefs:
     - name: {{ .Values.traefik.gateway.name }}
       namespace: {{ .Values.traefik.gateway.namespace }}
-      sectionName: {{ .Values.traefik.gateway.sectionName }}
+      sectionName: web
   hostnames:
     - {{ .Values.traefik.hostname | quote }}
   rules:

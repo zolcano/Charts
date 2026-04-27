@@ -3,9 +3,9 @@ entries:
   mailind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-04-27T12:22:48.8769542+02:00"
+    created: "2026-04-27T15:20:28.2169832+02:00"
     description: A Helm chart for Kubernetes
-    digest: ab1d86124ba7f4858ff25fda0369895d8eb56233dc965ebee324a165e0067362
+    digest: 6192cda64d498dfec268d8088440da183a0caf31340e1f918c476809c95e0c73
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
     name: mailind
     type: application
@@ -15,7 +15,7 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-27T12:22:48.890127+02:00"
+    created: "2026-04-27T15:20:28.2252586+02:00"
     description: Déploiement du service Pyrescom
     digest: 22f03853db73798275c556b6c5403681892988731e3c25f50d15c1838746c44e
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
@@ -27,12 +27,12 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-27T12:22:48.9211843+02:00"
+    created: "2026-04-27T15:20:28.2667892+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
       Redis. '
-    digest: 3dbcb885d208f3626d015f7245827c913b4c95e7f0d5c9a25f80c44b8c107a46
+    digest: f762a9f74601b682963d511b3edfdbb8df52f112e01de2cf8e53b81c12a34357
     home: https://www.staffngo.com
     icon: https://consumersiteimages.trustpilot.net/business-units/6298624a4338fd60e3e2454e-198x149-1x.jpg
     name: staffngo
@@ -42,7 +42,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-27T12:22:48.9060935+02:00"
+    created: "2026-04-27T15:20:28.2527142+02:00"
     description: Déploiement de la plateforme StaffNGO - tous les microservices
     digest: 290ebe193a07c7abce01c60f8f0b8790d59515b0c5671eb88ed84c450619ad2b
     name: staffngo
@@ -50,4 +50,4 @@ entries:
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-27T12:22:48.8675777+02:00"
+generated: "2026-04-27T15:20:28.2078908+02:00"

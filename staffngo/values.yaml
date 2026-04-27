@@ -7,7 +7,7 @@ traefik:
   gateway:
     name: "traefik-gateway"
     namespace: "traefik"
-    sectionName: "tlsroute"
+    sectionName: "web"
 
 registry:
   server: "staffngoacr.azurecr.io"
