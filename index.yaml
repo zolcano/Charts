@@ -3,7 +3,7 @@ entries:
   mailind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-04-27T12:15:44.114128131+02:00"
+    created: "2026-04-27T12:20:54.0337009+02:00"
     description: A Helm chart for Kubernetes
     digest: ab1d86124ba7f4858ff25fda0369895d8eb56233dc965ebee324a165e0067362
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
@@ -15,7 +15,7 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-27T12:15:44.123990631+02:00"
+    created: "2026-04-27T12:20:54.0405858+02:00"
     description: Déploiement du service Pyrescom
     digest: 22f03853db73798275c556b6c5403681892988731e3c25f50d15c1838746c44e
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
@@ -27,12 +27,12 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-27T12:15:44.161247031+02:00"
+    created: "2026-04-27T12:20:54.0583947+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
       Redis. '
-    digest: 38cf2cb40ccfec42d8a26011821081be81aca6a2ad3dddfea82b555df3e2e90a
+    digest: 7ded15b82db565535a28b6f6914dc362f4ae9a269e1ccc840e4f09a685627377
     home: https://www.staffngo.com
     icon: https://consumersiteimages.trustpilot.net/business-units/6298624a4338fd60e3e2454e-198x149-1x.jpg
     name: staffngo
@@ -42,7 +42,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-04-27T12:15:44.147185031+02:00"
+    created: "2026-04-27T12:20:54.0499969+02:00"
     description: Déploiement de la plateforme StaffNGO - tous les microservices
     digest: 290ebe193a07c7abce01c60f8f0b8790d59515b0c5671eb88ed84c450619ad2b
     name: staffngo
@@ -50,4 +50,4 @@ entries:
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-27T12:15:44.103607731+02:00"
+generated: "2026-04-27T12:20:54.0254986+02:00"

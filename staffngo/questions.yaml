@@ -28,6 +28,33 @@ questions:
     required: true
     group: "Déploiement"
 
+  # ────────────────────────────────────────────
+  # TRAEFIK
+  # ────────────────────────────────────────────
+  - variable: traefik.gateway.name
+    label: "Gateway Name"
+    description: "Name of the Traefik Gateway object"
+    type: string
+    default: "traefik-gateway"
+    required: true
+    group: "Traefik"
+
+  - variable: traefik.gateway.namespace
+    label: "Gateway Namespace"
+    description: "Namespace where the Traefik Gateway is deployed"
+    type: string
+    default: "traefik"
+    required: true
+    group: "Traefik"
+
+  - variable: traefik.hostname
+    label: "Hostname"
+    description: "Public hostname to expose the service"
+    type: string
+    default: "pyrescom.staffngo.com"
+    required: true
+    group: "Traefik"
+
   # REGISTRY ---------------------------------------------------------
   - variable: registry.server
     label: "Registry Docker"

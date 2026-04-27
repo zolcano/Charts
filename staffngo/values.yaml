@@ -3,6 +3,11 @@ environment: "Demo"
 ENABLE_INSTALLERS: "false"
 
 #----------------------------------------------------
+traefik:
+  gateway:
+    name: "traefik-gateway"
+    namespace: "traefik"
+    sectionName: "tlsroute"
 
 registry:
   server: "staffngoacr.azurecr.io"
