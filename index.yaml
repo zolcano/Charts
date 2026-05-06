@@ -3,9 +3,9 @@ entries:
   mailind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-06T13:44:08.028521307+02:00"
+    created: "2026-05-06T13:46:16.3437991+02:00"
     description: A Helm chart for Kubernetes
-    digest: ad60366169aa11f7eb38df96be0bb7e382cbcc257b638d237f123e4fb11ecd6f
+    digest: c7e6d54aa1484de47d4c985a406b55208a029172cc840aaef061f7f07e36a46f
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
     name: mailind
     type: application
@@ -15,7 +15,7 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-06T13:44:08.041523108+02:00"
+    created: "2026-05-06T13:46:16.3542058+02:00"
     description: Déploiement du service Pyrescom
     digest: f9215a578d9b8696052cb035d0156643bae7dabd226fb055291626586660478e
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
@@ -27,7 +27,7 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-06T13:44:08.05458431+02:00"
+    created: "2026-05-06T13:46:16.3642493+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -40,4 +40,4 @@ entries:
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.2.tgz
     version: 1.0.2
-generated: "2026-05-06T13:44:08.017296605+02:00"
+generated: "2026-05-06T13:46:16.3340069+02:00"

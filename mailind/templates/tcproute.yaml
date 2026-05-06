@@ -14,7 +14,7 @@ spec:
       kind: Gateway
       name: {{ .Values.traefik.gateway.name }}
       namespace: {{ .Values.traefik.gateway.namespace }}
-      sectionName: {{ .Values.traefik.smtp.sectionName }}
+      sectionName: {{ .Values.traefik.backend.service }}
   rules:
     - backendRefs:
         - group: ""
