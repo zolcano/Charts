@@ -2,7 +2,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: TLSRoute
 metadata:
-  name: pyrescom-tls-passthrough
+  name: pyrescom
   namespace: {{ .Values.namespace }}
   annotations:
     helm.sh/hook: post-install,post-upgrade
