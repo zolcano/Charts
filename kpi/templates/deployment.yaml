@@ -44,4 +44,12 @@ spec:
                   key: {{ $key }}
             {{- end }}
             {{- end }}
+          volumeMounts:
+            - name: kpi-data
+              mountPath: /data
+      volumes:
+        - name: kpi-data
+          persistentVolumeClaim:
+            claimName: kpi-data-pvc
+
 {{- end }}
