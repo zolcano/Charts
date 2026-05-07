@@ -5,8 +5,6 @@ kind: Service
 metadata:
   name: {{ $svcName }}
   namespace: {{ $.Values.namespace }}
-  labels:
-    app: kpi
 spec:
   type: {{ $svc.service.type }}
   selector:
