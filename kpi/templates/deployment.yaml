@@ -1,76 +1,47 @@
-{{- $root := . -}}
-{{- range $svcName, $svc := .Values.services }}
-{{- $svcMap := (index $root.Values.services $svcName) }}
-{{- $serviceMap := (index $svcMap "service") }}
+{{- with .Values.services.kpi }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $svcName }}
-  namespace: {{ $root.Values.namespace }}
+  name: kpi
+  namespace: {{ $.Values.namespace }}
   labels:
-    app.kubernetes.io/name: {{ $svcName }}
-    app.kubernetes.io/instance: {{ $root.Release.Name }}
-    helm.sh/chart: {{ $root.Chart.Name }}-{{ $root.Chart.Version }}
+    app: kpi
+    app.kubernetes.io/name: kpi
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    helm.sh/chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
 spec:
-  replicas: {{ index $svcMap "replicaCount" }}
+  replicas: {{ .replicaCount }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ $svcName }}
+      app: kpi
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ $svcName }}
-        app.kubernetes.io/instance: {{ $root.Release.Name }}
-      annotations:
-        checksum/secret: {{ toYaml $root.Values.secret | sha256sum }}
+        app: kpi
+        app.kubernetes.io/name: kpi
+        app.kubernetes.io/instance: {{ $.Release.Name }}
     spec:
       imagePullSecrets:
-        - name: {{ $root.Values.registry.secretName }}
+        - name: {{ $.Values.registry.secretName }}
       containers:
-        - name: {{ $svcName }}
-          image: {{ $root.Values.registry.server }}/{{ index $svcMap "image" }}:{{ index $svcMap "tag" }}
-          imagePullPolicy: {{ index $svcMap "pullPolicy" }}
+        - name: kpi
+          image: "{{ $.Values.registry.server }}/{{ .image }}:{{ .tag }}"
+          imagePullPolicy: {{ .pullPolicy }}
           ports:
-            - name: http
-              containerPort: {{ index $serviceMap "port" }}
+            {{- range .ports }}
+            - name: {{ .name }}
+              containerPort: {{ .port }}
               protocol: TCP
-          envFrom:
-            {{- range $secretName := keys $root.Values.secret }}
-            - secretRef:
-                name: {{ $secretName }}
             {{- end }}
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-            initialDelaySeconds: 30
-            periodSeconds: 15
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: http
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            failureThreshold: 3
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
-            limits:
-              cpu: "500m"
-              memory: "512Mi"
-          volumeMounts:
-            - name: kpi-data
-              mountPath: /data
-      volumes:
-        - name: kpi-data
-          persistentVolumeClaim:
-            claimName: kpi-data-pvc
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        fsGroup: 1000
-      restartPolicy: Always
+          env:
+            {{- range $secretName, $secretData := $.Values.secret }}
+            {{- range $key, $val := $secretData }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secretName }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
 {{- end }}
