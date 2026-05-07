@@ -3,9 +3,9 @@ entries:
   kpi:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-07T14:10:39.3377993+02:00"
+    created: "2026-05-07T14:17:06.2210926+02:00"
     description: Déploiement du kpi
-    digest: 31596a1f7972ab650e7c89cf9d57555298a50c067d7bb85df36519cd658bd48a
+    digest: d85939b5b42803798acd3abc0780767dbdbedbad5b99807a0f8860de0c19d3fa
     icon: https://cdn-icons-png.flaticon.com/512/4680/4680226.png
     name: kpi
     type: application
@@ -15,7 +15,7 @@ entries:
   mailind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-07T14:10:39.3479653+02:00"
+    created: "2026-05-07T14:17:06.2325038+02:00"
     description: A Helm chart for Kubernetes
     digest: ffce81d5c71cc025ddd3305c2c65596467fe18086d77914802b81178ec23e9d1
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
@@ -27,7 +27,7 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-07T14:10:39.3582835+02:00"
+    created: "2026-05-07T14:17:06.2446084+02:00"
     description: Déploiement du service Pyrescom
     digest: f9215a578d9b8696052cb035d0156643bae7dabd226fb055291626586660478e
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
@@ -39,7 +39,7 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-07T14:10:39.3773022+02:00"
+    created: "2026-05-07T14:17:06.257727+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -52,4 +52,4 @@ entries:
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.2.tgz
     version: 1.0.2
-generated: "2026-05-07T14:10:39.3268377+02:00"
+generated: "2026-05-07T14:17:06.2047513+02:00"

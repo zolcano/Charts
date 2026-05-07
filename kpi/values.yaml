@@ -30,7 +30,7 @@ services:
       - port: 3001
         name: http
     resources:
-      storageClassName: "azurefile-csi"
+      storageClassName: "managed-csi"
 
 # Secret
 secret:
