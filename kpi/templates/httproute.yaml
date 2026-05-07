@@ -15,4 +15,4 @@ spec:
     - backendRefs:
         - name: {{ .Values.traefik.backend.service }}
           namespace: {{ .Values.namespace }}
-          port: {{ .Values.services.kpi.service.port }}
+          port: 3001

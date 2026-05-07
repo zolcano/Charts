@@ -38,7 +38,7 @@ secret:
     JIRA_BASE_URL: "https://digidiz.atlassian.net"
     JIRA_EMAIL: ""
     JIRA_API_TOKEN: ""
-    JIRA_BOARD_ID: 1
+    JIRA_BOARD_ID: "1"
     JIRA_PROJECT_KEY: DOK
     JIRA_STORY_POINTS_FIELD: "story_points"
     JIRA_TIME_ESTIMATE_FIELD: "timeoriginalestimate"

@@ -136,8 +136,8 @@ questions:
   - variable: secret.jira-kpi-sec.JIRA_BOARD_ID
     label: "Jira Board ID"
     description: "Identifiant numérique du tableau Jira à suivre."
-    type: int
-    default: 1
+    type: string
+    default: "1"
     required: true
     group: "Jira"
 
