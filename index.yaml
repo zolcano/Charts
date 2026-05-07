@@ -1,23 +1,11 @@
 apiVersion: v1
 entries:
-  jira-kpi:
-  - apiVersion: v2
-    appVersion: "2026"
-    created: "2026-05-07T13:31:04.0352787+02:00"
-    description: Déploiement du kpi
-    digest: 01971d2caa76815542bfc8560223b5cc35605b956e4624deb5b7bc285d2b8705
-    icon: https://cdn-icons-png.flaticon.com/512/4680/4680226.png
-    name: jira-kpi
-    type: application
-    urls:
-    - https://github.com/zolcano/Charts/jira-kpi-1.1.0.tgz
-    version: 1.1.0
   kpi:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-07T13:31:04.042134+02:00"
+    created: "2026-05-07T13:35:03.8134248+02:00"
     description: Déploiement du kpi
-    digest: f1f1854794981a66acf556fb04ad02aadab98f5eaaa7e88d8ab2b4613cb4ad93
+    digest: d17d4e67f7190b7afb870066734bcc4d19005a0d44962b3397ed7be69a2055ab
     icon: https://cdn-icons-png.flaticon.com/512/4680/4680226.png
     name: kpi
     type: application
@@ -27,7 +15,7 @@ entries:
   mailind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-07T13:31:04.0487167+02:00"
+    created: "2026-05-07T13:35:03.8252665+02:00"
     description: A Helm chart for Kubernetes
     digest: ffce81d5c71cc025ddd3305c2c65596467fe18086d77914802b81178ec23e9d1
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
@@ -39,7 +27,7 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-07T13:31:04.0560072+02:00"
+    created: "2026-05-07T13:35:03.8385259+02:00"
     description: Déploiement du service Pyrescom
     digest: f9215a578d9b8696052cb035d0156643bae7dabd226fb055291626586660478e
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
@@ -51,7 +39,7 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-07T13:31:04.0653138+02:00"
+    created: "2026-05-07T13:35:03.8575621+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -64,4 +52,4 @@ entries:
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.2.tgz
     version: 1.0.2
-generated: "2026-05-07T13:31:04.0268488+02:00"
+generated: "2026-05-07T13:35:03.8015951+02:00"

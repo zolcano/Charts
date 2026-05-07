@@ -9,18 +9,19 @@ metadata:
   name: {{ $svcName }}
   namespace: {{ $root.Values.namespace }}
   labels:
-    {{- include "kpi.labels" $root | nindent 4 }}
-    {{- include "kpi.selectorLabels" $svcName | nindent 4 }}
+    app.kubernetes.io/name: {{ $svcName }}
+    app.kubernetes.io/instance: {{ $root.Release.Name }}
+    helm.sh/chart: {{ $root.Chart.Name }}-{{ $root.Chart.Version }}
 spec:
   replicas: {{ index $svcMap "replicaCount" }}
   selector:
     matchLabels:
-      {{- include "kpi.selectorLabels" $svcName | nindent 6 }}
+      app.kubernetes.io/name: {{ $svcName }}
   template:
     metadata:
       labels:
-        {{- include "kpi.labels" $root | nindent 8 }}
-        {{- include "kpi.selectorLabels" $svcName | nindent 8 }}
+        app.kubernetes.io/name: {{ $svcName }}
+        app.kubernetes.io/instance: {{ $root.Release.Name }}
       annotations:
         checksum/secret: {{ toYaml $root.Values.secret | sha256sum }}
     spec:
