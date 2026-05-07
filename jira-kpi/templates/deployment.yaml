@@ -1,0 +1,47 @@
+{{- range $svcName, $svc := .Values.services }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $svcName }}
+  namespace: {{ $.Values.namespace }}
+  labels:
+    {{- include "kpi.labels" $ | nindent 4 }}
+    {{- include "kpi.selectorLabels" $svcName | nindent 4 }}
+spec:
+  replicas: {{ $svc.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "kpi.selectorLabels" $svcName | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "kpi.labels" $ | nindent 8 }}
+        {{- include "kpi.selectorLabels" $svcName | nindent 8 }}
+      annotations:
+        # Force redéploiement si le secret change
+        checksum/secret: {{ toYaml $.Values.secret | sha256sum }}
+    spec:
+      imagePullSecrets:
+        - name: {{ $.Values.registry.secretName }}
+      containers:
+        - name: {{ $svcName }}
+          image: {{ $.Values.registry.server }}/{{ $svc.image }}:{{ $svc.tag }}
+          imagePullPolicy: {{ $svc.pullPolicy }}
+          volumeMounts:
+            - name: kpi-data
+              mountPath: /data
+          ports:
+            - name: http
+              containerPort: {{ $svc.service.port }}
+              protocol: TCP
+          envFrom:
+            {{- range $secretName := keys $.Values.secret }}
+            - secretRef:
+                name: {{ $secretName }}
+            {{- end }}
+      volumes:
+        - name: kpi-data
+          persistentVolumeClaim:
+            claimName: kpi-data-pvc
+{{- end }}

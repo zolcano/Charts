@@ -1,11 +1,23 @@
 apiVersion: v1
 entries:
+  jira-kpi:
+  - apiVersion: v2
+    appVersion: "2026"
+    created: "2026-05-07T11:31:55.916997848+02:00"
+    description: Déploiement du kpi
+    digest: 7e44eb413df092686500c557fbfeb32486d8c24f9265c1482c387df3d7b15ed7
+    icon: https://www.flaticon.com/fr/icone-gratuite/kpi_4680226
+    name: jira-kpi
+    type: application
+    urls:
+    - https://github.com/zolcano/Charts/jira-kpi-1.1.0.tgz
+    version: 1.1.0
   mailind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-06T13:54:37.4413759+02:00"
+    created: "2026-05-07T11:31:55.924383175+02:00"
     description: A Helm chart for Kubernetes
-    digest: f45f178f0aaed8918e1d952d8d1f589a2c9f523448ecf2255130b0004a300f64
+    digest: ffce81d5c71cc025ddd3305c2c65596467fe18086d77914802b81178ec23e9d1
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
     name: mailind
     type: application
@@ -15,7 +27,7 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-06T13:54:37.4495253+02:00"
+    created: "2026-05-07T11:31:55.932118994+02:00"
     description: Déploiement du service Pyrescom
     digest: f9215a578d9b8696052cb035d0156643bae7dabd226fb055291626586660478e
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
@@ -27,7 +39,7 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-06T13:54:37.4587658+02:00"
+    created: "2026-05-07T11:31:55.942170059+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -40,4 +52,4 @@ entries:
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.2.tgz
     version: 1.0.2
-generated: "2026-05-06T13:54:37.4329536+02:00"
+generated: "2026-05-07T11:31:55.908895538+02:00"

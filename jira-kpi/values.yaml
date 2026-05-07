@@ -1,0 +1,52 @@
+namespace: "kpi"
+
+registry:
+  server: "staffngoacr.azurecr.io"
+  secretName: "acr-pull-secret"
+
+acrSecret:
+  name: "acr-pull-secret"
+  username: "staffngoacr"
+  password: ""
+
+#----------------------------------------------------
+traefik:
+  gateway:
+    name: "traefik-gateway"
+    namespace: "traefik"
+    sectionName: "websecure"
+  hostname: "kpi.staffngo.com"
+  backend:
+    service: "kpi"
+
+services:
+  jira-kpi:
+    image: "jira-kpi"
+    tag: "v1.9"
+    replicaCount: 1
+    pullPolicy: "IfNotPresent"
+    service:
+      type: "ClusterIP"
+      port: 3001
+    resources:
+      storageClassName: "azurefile-csi"
+
+# Secret
+secret:
+  jira-kpi-sec:
+    JIRA_BASE_URL: "https://digidiz.atlassian.net"
+    JIRA_EMAIL: ""
+    JIRA_API_TOKEN: ""
+    JIRA_BOARD_ID: 1
+    JIRA_PROJECT_KEY: DOK
+    JIRA_STORY_POINTS_FIELD: "story_points"
+    JIRA_TIME_ESTIMATE_FIELD: "timeoriginalestimate"
+    JIRA_CUSTOM_TYPES_FIELD: "customfield_10063"
+    JIRA_PRODFIX_REASON_FIELD: "customfield_10165"
+    GITLAB_BASE_URL: "https://gitlab.com"
+    GITLAB_TOKEN: ""
+    GITLAB_PROJECT_IDS: "15772402"
+    FRONTEND_URL: "https://kpi.staffngo.com"
+    JWT_SECRET: "kpi_dashboard_jwt_secret_please_change_in_production"
+    ADMIN_EMAIL: ""
+    ADMIN_PASSWORD: ""

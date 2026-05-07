@@ -2,17 +2,15 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ .Values.traefik.backend.service }}
+  name: {{ include "kpi.fullname" . }}
   namespace: {{ .Values.namespace }}
   labels:
-    app.kubernetes.io/name: {{ .Values.traefik.backend.service }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    {{- include "kpi.labels" . | nindent 4 }}
 spec:
   parentRefs:
     - name: {{ .Values.traefik.gateway.name }}
       namespace: {{ .Values.traefik.gateway.namespace }}
-      sectionName: websecure
+      sectionName: {{ .Values.traefik.gateway.sectionName }}
   hostnames:
     - {{ .Values.traefik.hostname | quote }}
   rules:
@@ -21,6 +19,6 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: mailind
+        - name: {{ .Values.traefik.backend.service }}
           namespace: {{ .Values.namespace }}
-          port: {{ index .Values.services.mailind.ports 0 "port" | int }}
+          port: {{ (index .Values.services "jira-kpi").service.port }}

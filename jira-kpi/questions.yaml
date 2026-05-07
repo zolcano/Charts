@@ -1,0 +1,252 @@
+categories:
+  - KPI Dashboard
+
+questions:
+
+  # ─────────────────────────────────────────────
+  # NAMESPACE
+  # ─────────────────────────────────────────────
+  - variable: namespace
+    label: "Namespace Kubernetes"
+    description: "Namespace dans lequel déployer le chart."
+    type: string
+    default: "kpi"
+    required: true
+    group: "Général"
+
+  # ─────────────────────────────────────────────
+  # ACR / REGISTRY
+  # ─────────────────────────────────────────────
+  - variable: registry.server
+    label: "Serveur de registre (ACR)"
+    description: "URL du registre de conteneurs Azure (ex: monacr.azurecr.io)."
+    type: string
+    default: "staffngoacr.azurecr.io"
+    required: true
+    group: "Registre (ACR)"
+
+  - variable: acrSecret.username
+    label: "Nom d'utilisateur ACR"
+    description: "Service principal ou nom d'utilisateur ACR pour l'authentification."
+    type: string
+    default: "staffngoacr"
+    required: true
+    group: "Registre (ACR)"
+
+  - variable: acrSecret.password
+    label: "Mot de passe ACR"
+    description: "Mot de passe ou token du service principal ACR."
+    type: password
+    required: true
+    group: "Registre (ACR)"
+
+  # ─────────────────────────────────────────────
+  # SERVICE / IMAGE
+  # ─────────────────────────────────────────────
+  - variable: services.jira-kpi.tag
+    label: "Tag de l'image jira-kpi"
+    description: "Tag Docker à déployer (ex: v1.9, latest)."
+    type: string
+    default: "v1.9"
+    required: true
+    group: "Application"
+
+  - variable: services.jira-kpi.replicaCount
+    label: "Nombre de replicas"
+    description: "Nombre de pods à démarrer."
+    type: int
+    default: 1
+    min: 1
+    max: 10
+    required: true
+    group: "Application"
+
+  - variable: services.jira-kpi.pullPolicy
+    label: "Image Pull Policy"
+    description: "Politique de téléchargement de l'image."
+    type: enum
+    options:
+      - "IfNotPresent"
+      - "Always"
+      - "Never"
+    default: "IfNotPresent"
+    required: true
+    group: "Application"
+
+  - variable: services.jira-kpi.service.port
+    label: "Port d'écoute du service"
+    description: "Port exposé par le conteneur."
+    type: int
+    default: 3001
+    required: true
+    group: "Application"
+
+  # ─────────────────────────────────────────────
+  # TRAEFIK / INGRESS
+  # ─────────────────────────────────────────────
+  - variable: traefik.hostname
+    label: "Nom de domaine (hostname)"
+    description: "FQDN exposé via Traefik (ex: kpi.mondomaine.com)."
+    type: hostname
+    default: "kpi.staffngo.com"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.gateway.name
+    label: "Nom de la Gateway Traefik"
+    type: string
+    default: "traefik-gateway"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.gateway.namespace
+    label: "Namespace de la Gateway Traefik"
+    type: string
+    default: "traefik"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.gateway.sectionName
+    label: "Section de la Gateway (entrypoint)"
+    description: "Nom de la section listener dans la Gateway (ex: websecure, web)."
+    type: string
+    default: "websecure"
+    required: true
+    group: "Exposition / Traefik"
+
+  # ─────────────────────────────────────────────
+  # JIRA
+  # ─────────────────────────────────────────────
+  - variable: secret.jira-kpi-sec.JIRA_BASE_URL
+    label: "Jira Base URL"
+    description: "URL de base de votre instance Jira Cloud (ex:
+      https://monorg.atlassian.net)."
+    type: string
+    default: "https://digidiz.atlassian.net"
+    required: true
+    group: "Jira"
+
+  - variable: secret.jira-kpi-sec.JIRA_EMAIL
+    label: "Email du compte Jira"
+    description: "Email associé au token API Jira."
+    type: string
+    required: true
+    group: "Jira"
+
+  - variable: secret.jira-kpi-sec.JIRA_API_TOKEN
+    label: "Jira API Token"
+    description: "Token API généré depuis
+      id.atlassian.com/manage-profile/security/api-tokens."
+    type: password
+    required: true
+    group: "Jira"
+
+  - variable: secret.jira-kpi-sec.JIRA_BOARD_ID
+    label: "Jira Board ID"
+    description: "Identifiant numérique du tableau Jira à suivre."
+    type: int
+    default: 1
+    required: true
+    group: "Jira"
+
+  - variable: secret.jira-kpi-sec.JIRA_PROJECT_KEY
+    label: "Clé du projet Jira"
+    description: "Clé courte du projet Jira (ex: DOK, KPI, DEV)."
+    type: string
+    default: "DOK"
+    required: true
+    group: "Jira"
+
+  - variable: secret.jira-kpi-sec.JIRA_STORY_POINTS_FIELD
+    label: "Champ Story Points"
+    description: "Nom du champ Jira pour les story points."
+    type: string
+    default: "story_points"
+    required: true
+    group: "Jira"
+
+  - variable: secret.jira-kpi-sec.JIRA_TIME_ESTIMATE_FIELD
+    label: "Champ estimation de temps"
+    description: "Nom du champ Jira pour l'estimation de temps initiale."
+    type: string
+    default: "timeoriginalestimate"
+    required: true
+    group: "Jira"
+
+  - variable: secret.jira-kpi-sec.JIRA_CUSTOM_TYPES_FIELD
+    label: "Champ custom types (customfield)"
+    description: "ID du champ personnalisé pour les types (ex: customfield_10063)."
+    type: string
+    default: "customfield_10063"
+    required: false
+    group: "Jira"
+
+  - variable: secret.jira-kpi-sec.JIRA_PRODFIX_REASON_FIELD
+    label: "Champ raison ProdFix (customfield)"
+    description: "ID du champ personnalisé pour les raisons ProdFix (ex:
+      customfield_10165)."
+    type: string
+    default: "customfield_10165"
+    required: false
+    group: "Jira"
+
+  # ─────────────────────────────────────────────
+  # GITLAB
+  # ─────────────────────────────────────────────
+  - variable: secret.jira-kpi-sec.GITLAB_BASE_URL
+    label: "GitLab Base URL"
+    description: "URL de base de votre instance GitLab."
+    type: string
+    default: "https://gitlab.com"
+    required: true
+    group: "GitLab"
+
+  - variable: secret.jira-kpi-sec.GITLAB_TOKEN
+    label: "GitLab Access Token"
+    description: "Personal Access Token GitLab avec scope read_api."
+    type: password
+    required: true
+    group: "GitLab"
+
+  - variable: secret.jira-kpi-sec.GITLAB_PROJECT_IDS
+    label: "GitLab Project IDs"
+    description: "IDs des projets GitLab à suivre, séparés par des virgules (ex:
+      15772402,12345678)."
+    type: string
+    default: "15772402"
+    required: true
+    group: "GitLab"
+
+  # ─────────────────────────────────────────────
+  # APPLICATION / AUTH
+  # ─────────────────────────────────────────────
+  - variable: secret.jira-kpi-sec.FRONTEND_URL
+    label: "URL frontend (CORS)"
+    description: "URL publique du frontend, utilisée pour CORS et les redirections."
+    type: string
+    default: "https://kpi.staffngo.com"
+    required: true
+    group: "Application"
+
+  - variable: secret.jira-kpi-sec.JWT_SECRET
+    label: "JWT Secret"
+    description: "Clé secrète utilisée pour signer les tokens JWT. Changez cette
+      valeur en production !"
+    type: password
+    default: "kpi_dashboard_jwt_secret_please_change_in_production"
+    required: true
+    group: "Application"
+
+  - variable: secret.jira-kpi-sec.ADMIN_EMAIL
+    label: "Email administrateur"
+    description: "Email du compte administrateur créé au premier démarrage."
+    type: string
+    required: true
+    group: "Application"
+
+  - variable: secret.jira-kpi-sec.ADMIN_PASSWORD
+    label: "Mot de passe administrateur"
+    description: "Mot de passe du compte administrateur (min. 8 caractères)."
+    type: password
+    required: true
+    group: "Application"
