@@ -3,7 +3,6 @@ namespace: "kpi"
 registry:
   server: "staffngoacr.azurecr.io"
   secretName: "acr-pull-secret"
-
 acrSecret:
   name: "acr-pull-secret"
   username: "staffngoacr"
@@ -20,7 +19,7 @@ traefik:
     service: "kpi"
 
 services:
-  jira-kpi:
+  kpi:
     image: "jira-kpi"
     tag: "v1.9"
     replicaCount: 1
