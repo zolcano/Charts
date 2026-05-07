@@ -73,14 +73,6 @@ questions:
     required: true
     group: "Application"
 
-  - variable: services.jira-kpi.service.port
-    label: "Port d'écoute du service"
-    description: "Port exposé par le conteneur."
-    type: int
-    default: 3001
-    required: true
-    group: "Application"
-
   # ─────────────────────────────────────────────
   # TRAEFIK / INGRESS
   # ─────────────────────────────────────────────

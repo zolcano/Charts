@@ -1,6 +1,4 @@
-{{- $namespace := .Values.namespace }}
 ---
-# PVC - Data
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

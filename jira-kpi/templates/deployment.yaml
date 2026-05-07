@@ -16,9 +16,6 @@ spec:
     metadata:
       labels:
         app: kpi
-      annotations:
-        # Force redéploiement si le secret change
-        checksum/secret: {{ toYaml $.Values.secret | sha256sum }}
     spec:
       imagePullSecrets:
         - name: {{ $.Values.registry.secretName }}
