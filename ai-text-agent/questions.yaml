@@ -78,7 +78,6 @@ questions:
   # ─────────────────────────────────────────────
   - variable: traefik.hostname
     label: "Nom de domaine (hostname)"
-    description: "FQDN exposé via Traefik (ex: kpi.mondomaine.com)."
     type: hostname
     default: "ai.staffngo.com"
     required: true
