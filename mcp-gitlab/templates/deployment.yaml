@@ -3,29 +3,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mcp
+  name: mcp-gitlab
   namespace: {{ $.Values.namespace }}
   labels:
-    app: mcp
-    app.kubernetes.io/name: mcp
+    app: mcp-gitlab
+    app.kubernetes.io/name: mcp-gitlab
     app.kubernetes.io/instance: {{ $.Release.Name }}
     helm.sh/chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
 spec:
   replicas: {{ .replicaCount }}
   selector:
     matchLabels:
-      app: mcp
+      app: mcp-gitlab
   template:
     metadata:
       labels:
-        app: mcp
-        app.kubernetes.io/name: mcp
+        app: mcp-gitlab
+        app.kubernetes.io/name: mcp-gitlab
         app.kubernetes.io/instance: {{ $.Release.Name }}
     spec:
       imagePullSecrets:
         - name: {{ $.Values.registry.secretName }}
       containers:
-        - name: mcp
+        - name: mcp-gitlab
           image: "{{ $.Values.registry.server }}/{{ .image }}:{{ .tag }}"
           imagePullPolicy: {{ .pullPolicy }}
           ports:
