@@ -1,0 +1,45 @@
+namespace: "aska"
+
+registry:
+  server: "staffngoacr.azurecr.io"
+  secretName: "acr-pull-secret"
+acrSecret:
+  name: "acr-pull-secret"
+  username: "staffngoacr"
+  password: ""
+
+#----------------------------------------------------
+traefik:
+  gateway:
+    name: "traefik-gateway"
+    namespace: "traefik"
+    sectionName: "websecure"
+  hostname: "aska.staffngo.com"
+  backend:
+    service: "aska"
+
+services:
+  aska:
+    image: "aska"
+    tag: "270426"
+    replicaCount: 1
+    pullPolicy: "IfNotPresent"
+    service:
+      type: "ClusterIP"
+    ports:
+      - port: 8080
+        name: http
+    resources:
+      storageClassName: "azurefile-csi"
+
+# Secret
+secret:
+  aska-sec:
+    DASHBOARD_PASSWORD: ""
+    CUSTOMGPT_API_KEY: ""
+    PROJECT_ID: "74661"
+    HUBSPOT_API_KEY: ""
+    HUBSPOT_PIPELINE_ID: "0"
+    ASKA_AGENT_ID: "A-30171857"
+    ASKA_INTEGRATION_ID: "I-15365111"
+    TEAMS_WEBHOOK_URL: "https://staffngocom.webhook.office.com/webhookb2/fd2ae9f2-ad5a-408d-99ba-5802a89f67fc@8d66d582-1bcf-4f67-b52f-5bbbe7b7c306/IncomingWebhook/9a38c294454d4023a391ca7f49a1f500/603fb5eb-02a1-4d48-a808-1a21f8b00c8f/V2LsfeJV3Iv7zsIPM6_r8JBJGPNLQ7-nOtvo6Lb6nH6IA1"

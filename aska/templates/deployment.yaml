@@ -1,0 +1,55 @@
+{{- with .Values.services.aska }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aska
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app: aska
+    app.kubernetes.io/name: aska
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    helm.sh/chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      app: aska
+  template:
+    metadata:
+      labels:
+        app: aska
+        app.kubernetes.io/name: aska
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+    spec:
+      imagePullSecrets:
+        - name: {{ $.Values.registry.secretName }}
+      containers:
+        - name: aska
+          image: "{{ $.Values.registry.server }}/{{ .image }}:{{ .tag }}"
+          imagePullPolicy: {{ .pullPolicy }}
+          ports:
+            {{- range .ports }}
+            - name: {{ .name }}
+              containerPort: {{ .port }}
+              protocol: TCP
+            {{- end }}
+          env:
+            {{- range $secretName, $secretData := $.Values.secret }}
+            {{- range $key, $val := $secretData }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secretName }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+          volumeMounts:
+            - name: aska-data
+              mountPath: /aska/resources
+      volumes:
+        - name: aska-data
+          persistentVolumeClaim:
+            claimName: aska-data-pvc
+
+{{- end }}
