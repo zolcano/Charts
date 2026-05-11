@@ -108,62 +108,62 @@ questions:
   # ─────────────────────────────────────────────
   # SECRET
   # ─────────────────────────────────────────────
-  - variable: secret.ai-sec.AZURE_API_KEY
+  - variable: secret.ai-text-agent-sec.AZURE_API_KEY
     label: "API Key Azure"
     type: password
     required: true
     group: "Azure"
 
-  - variable: secret.ai-sec.AZURE_ENDPOINT
+  - variable: secret.ai-text-agent-sec.AZURE_ENDPOINT
     label: "Endpoint Azure"
     default: "https://ai-staffngoaihub495628601771.cognitiveservices.azure.com"
     type: string
     required: true
     group: "Azure"
 
-  - variable: secret.ai-sec.AZURE_MODEL
+  - variable: secret.ai-text-agent-sec.AZURE_MODEL
     label: "Model Azure"
     type: string
     default: "gpt-4o"
     required: true
     group: "Azure"
 
-  - variable: secret.ai-sec.MAX_RETRIES
+  - variable: secret.ai-text-agent-sec.MAX_RETRIES
     label: "Nombre de retries"
     type: string
     default: "3"
     required: true
     group: "Azure"
 
-  - variable: secret.ai-sec.EMBEDDING_MODEL
+  - variable: secret.ai-text-agent-sec.EMBEDDING_MODEL
     label: "Model d'embedding"
     type: string
     default: "intfloat/multilingual-e5-base"
     required: true
     group: "Azure"
 
-  - variable: secret.ai-sec.BASE_URL
+  - variable: secret.ai-text-agent-sec.BASE_URL
     label: "URL de base"
     type: string
     default: "https://support.staffngo.com"
     required: true
     group: "Azure"
 
-  - variable: secret.ai-sec.CHROMA_COLLECTION_NAME
+  - variable: secret.ai-text-agent-sec.CHROMA_COLLECTION_NAME
     label: "Nom de la collection Chroma"
     type: string
     default: "staffngo-support-v2"
     required: true
     group: "Azure"
 
-  - variable: secret.ai-sec.NB_DOCS_RETRIEVED
+  - variable: secret.ai-text-agent-sec.NB_DOCS_RETRIEVED
     label: "Nombre de documents récupérés"
     type: string
     default: "5"
     required: true
     group: "Azure"
 
-  - variable: secret.ai-sec.API_TOKEN
+  - variable: secret.ai-text-agent-sec.API_TOKEN
     label: "Token API"
     type: password
     default: ""
