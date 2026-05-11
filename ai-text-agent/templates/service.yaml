@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.namespace }}
+  name: ai-text-agent
   namespace: {{ .Values.namespace }}
 spec:
-  type: {{ .Values.services.ai-text-agent.service.type }}
+  type: {{ .Values.services.ai.service.type }}
   selector:
     app: ai-text-agent
   ports:

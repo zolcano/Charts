@@ -19,7 +19,7 @@ traefik:
     service: "ai-text-agent"
 
 services:
-  ai-text-agent:
+  ai:
     image: "ai-text-agent"
     tag: "2026.02.18"
     replicaCount: 1
@@ -37,7 +37,8 @@ secret:
     AZURE_ENDPOINT: "https://ai-staffngoaihub495628601771.cognitiveservices.azure.com"
     AZURE_MODEL: "gpt-4o"
     MAX_RETRIES: "3"
-    EMBEDDING_MODEL: intfloat/multilingual-e5-base
+    EMBEDDING_MODEL: "intfloat/multilingual-e5-base"
     BASE_URL: "https://support.staffngo.com"
     CHROMA_COLLECTION_NAME: "staffngo-support-v2"
     NB_DOCS_RETRIEVED: "5"
+    API_TOKEN: ""
