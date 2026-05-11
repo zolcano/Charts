@@ -111,13 +111,13 @@ questions:
   # SECRET
   # ─────────────────────────────────────────────
   - variable: secret.mcp-gitlab-sec.REMOTE_GITLAB_MCP_GITLAB_TOKEN
-    label: "Mot de passe du tableau de bord"
+    label: "gitlab token"
     type: password
     required: true
     group: "Secret"
 
   - variable: secret.mcp-gitlab-sec.REMOTE_GITLAB_MCP_PUBLIC_KEY
-    label: "API Key CustomGPT"
+    label: "gitlab public key"
     type: password
     required: true
     group: "Secret"
