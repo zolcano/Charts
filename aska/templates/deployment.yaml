@@ -47,6 +47,7 @@ spec:
           volumeMounts:
             - name: aska-data
               mountPath: /aska/resources
+              subPath: aska/resources
       volumes:
         - name: aska-data
           persistentVolumeClaim:
