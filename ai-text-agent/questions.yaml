@@ -1,0 +1,172 @@
+categories:
+  - AI text agent
+
+questions:
+
+  # ─────────────────────────────────────────────
+  # NAMESPACE
+  # ─────────────────────────────────────────────
+  - variable: namespace
+    label: "Namespace Kubernetes"
+    description: "Namespace dans lequel déployer le chart."
+    type: string
+    default: "ai-text-agent"
+    required: true
+    group: "Général"
+
+  # ─────────────────────────────────────────────
+  # ACR / REGISTRY
+  # ─────────────────────────────────────────────
+  - variable: registry.server
+    label: "Serveur de registre (ACR)"
+    description: "URL du registre de conteneurs Azure (ex: monacr.azurecr.io)."
+    type: string
+    default: "staffngoacr.azurecr.io"
+    required: true
+    group: "Registre (ACR)"
+
+  - variable: acrSecret.username
+    label: "Nom d'utilisateur ACR"
+    description: "Service principal ou nom d'utilisateur ACR pour l'authentification."
+    type: string
+    default: "staffngoacr"
+    required: true
+    group: "Registre (ACR)"
+
+  - variable: acrSecret.password
+    label: "Mot de passe ACR"
+    description: "Mot de passe ou token du service principal ACR."
+    type: password
+    required: true
+    group: "Registre (ACR)"
+
+  # ─────────────────────────────────────────────
+  # SERVICE / IMAGE
+  # ─────────────────────────────────────────────
+  - variable: services.ai-text-agent.tag
+    label: "Tag de l'image ai-text-agent"
+    description: "Tag Docker à déployer (ex: v1.9, latest)."
+    type: string
+    default: "2026.02.18"
+    required: true
+    group: "Application"
+
+  - variable: services.ai-text-agent.replicaCount
+    label: "Nombre de replicas"
+    description: "Nombre de pods à démarrer."
+    type: int
+    default: 1
+    min: 1
+    max: 10
+    required: true
+    group: "Application"
+
+  - variable: services.ai-text-agent.pullPolicy
+    label: "Image Pull Policy"
+    description: "Politique de téléchargement de l'image."
+    type: enum
+    options:
+      - "IfNotPresent"
+      - "Always"
+      - "Never"
+    default: "IfNotPresent"
+    required: true
+    group: "Application"
+
+  # ─────────────────────────────────────────────
+  # TRAEFIK / INGRESS
+  # ─────────────────────────────────────────────
+  - variable: traefik.hostname
+    label: "Nom de domaine (hostname)"
+    description: "FQDN exposé via Traefik (ex: kpi.mondomaine.com)."
+    type: hostname
+    default: "ai.staffngo.com"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.gateway.name
+    label: "Nom de la Gateway Traefik"
+    type: string
+    default: "traefik-gateway"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.gateway.namespace
+    label: "Namespace de la Gateway Traefik"
+    type: string
+    default: "traefik"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.gateway.sectionName
+    label: "Section de la Gateway (entrypoint)"
+    description: "Nom de la section listener dans la Gateway (ex: websecure, web)."
+    type: string
+    default: "websecure"
+    required: true
+    group: "Exposition / Traefik"
+
+  # ─────────────────────────────────────────────
+  # SECRET
+  # ─────────────────────────────────────────────
+  - variable: secret.ai-text-agent-sec.AZURE_API_KEY
+    label: "API Key Azure"
+    type: password
+    required: true
+    group: "Azure"
+
+  - variable: secret.ai-text-agent-sec.AZURE_ENDPOINT
+    label: "Endpoint Azure"
+    default: "https://ai-staffngoaihub495628601771.cognitiveservices.azure.com"
+    type: string
+    required: true
+    group: "Azure"
+
+  - variable: secret.ai-text-agent-sec.AZURE_MODEL
+    label: "Model Azure"
+    type: string
+    default: "gpt-4o"
+    required: true
+    group: "Azure"
+
+  - variable: secret.ai-text-agent-sec.MAX_RETRIES
+    label: "Nombre de retries"
+    type: string
+    default: "3"
+    required: true
+    group: "Azure"
+
+  - variable: secret.ai-text-agent-sec.EMBEDDING_MODEL
+    label: "Model d'embedding"
+    type: string
+    default: "intfloat/multilingual-e5-base"
+    required: true
+    group: "Azure"
+
+  - variable: secret.ai-text-agent-sec.BASE_URL
+    label: "URL de base"
+    type: string
+    default: "https://support.staffngo.com"
+    required: true
+    group: "Azure"
+
+  - variable: secret.ai-text-agent-sec.CHROMA_COLLECTION_NAME
+    label: "Nom de la collection Chroma"
+    type: string
+    default: "staffngo-support-v2"
+    required: true
+    group: "Azure"
+
+  - variable: secret.ai-text-agent-sec.NB_DOCS_RETRIEVED
+    label: "Nombre de documents récupérés"
+    type: string
+    default: "5"
+    required: true
+    group: "Azure"
+
+  - variable: secret.ai-text-agent-sec.API_TOKEN
+    label: "Token API"
+    type: password
+    default: ""
+    required: true
+    group: "Azure"

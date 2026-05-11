@@ -1,0 +1,43 @@
+namespace: "ai-text-agent"
+
+registry:
+  server: "staffngoacr.azurecr.io"
+  secretName: "acr-pull-secret"
+acrSecret:
+  name: "acr-pull-secret"
+  username: "staffngoacr"
+  password: ""
+
+#----------------------------------------------------
+traefik:
+  gateway:
+    name: "traefik-gateway"
+    namespace: "traefik"
+    sectionName: "websecure"
+  hostname: "ai.staffngo.com"
+  backend:
+    service: "ai-text-agent"
+
+services:
+  ai-text-agent:
+    image: "ai-text-agent"
+    tag: "2026.02.18"
+    replicaCount: 1
+    pullPolicy: "IfNotPresent"
+    service:
+      type: "ClusterIP"
+    ports:
+      - port: 8000
+        name: http
+
+# Secret
+secret:
+  ai-text-agent-sec:
+    AZURE_API_KEY: ""
+    AZURE_ENDPOINT: "https://ai-staffngoaihub495628601771.cognitiveservices.azure.com"
+    AZURE_MODEL: "gpt-4o"
+    MAX_RETRIES: "3"
+    EMBEDDING_MODEL: intfloat/multilingual-e5-base
+    BASE_URL: "https://support.staffngo.com"
+    CHROMA_COLLECTION_NAME: "staffngo-support-v2"
+    NB_DOCS_RETRIEVED: "5"

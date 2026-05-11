@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-text-agent
+  namespace: {{ .Values.namespace }}
+spec:
+  type: {{ .Values.services.ai-text-agent.service.type }}
+  selector:
+    app: ai-text-agent
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8000
+      targetPort: http

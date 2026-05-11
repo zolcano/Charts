@@ -1,0 +1,47 @@
+{{- with .Values.services.kpi }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-text-agent
+  namespace: {{ $.Values.namespace }}
+  labels:
+    app: ai-text-agent
+    app.kubernetes.io/name: ai-text-agent
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    helm.sh/chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      app: ai-text-agent
+  template:
+    metadata:
+      labels:
+        app: ai-text-agent
+        app.kubernetes.io/name: ai-text-agent
+        app.kubernetes.io/instance: {{ $.Release.Name }}
+    spec:
+      imagePullSecrets:
+        - name: {{ $.Values.registry.secretName }}
+      containers:
+        - name: ai-text-agent
+          image: "{{ $.Values.registry.server }}/{{ .image }}:{{ .tag }}"
+          imagePullPolicy: {{ .pullPolicy }}
+          ports:
+            {{- range .ports }}
+            - name: {{ .name }}
+              containerPort: {{ .port }}
+              protocol: TCP
+            {{- end }}
+          env:
+            {{- range $secretName, $secretData := $.Values.secret }}
+            {{- range $key, $val := $secretData }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $secretName }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+{{- end }}
