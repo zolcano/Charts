@@ -1,0 +1,123 @@
+categories:
+  - mcp gitlab
+
+questions:
+
+  # ─────────────────────────────────────────────
+  # NAMESPACE
+  # ─────────────────────────────────────────────
+  - variable: namespace
+    label: "Namespace Kubernetes"
+    description: "Namespace dans lequel déployer le chart."
+    type: string
+    default: "mcp-gitlab"
+    required: true
+    group: "Général"
+
+  # ─────────────────────────────────────────────
+  # ACR / REGISTRY
+  # ─────────────────────────────────────────────
+  - variable: registry.server
+    label: "Serveur de registre (ACR)"
+    type: string
+    default: "staffngoacr.azurecr.io"
+    required: true
+    group: "Registre (ACR)"
+
+  - variable: acrSecret.username
+    label: "Nom d'utilisateur ACR"
+    type: string
+    default: "staffngoacr"
+    required: true
+    group: "Registre (ACR)"
+
+  - variable: acrSecret.password
+    label: "Mot de passe ACR"
+    type: password
+    required: true
+    group: "Registre (ACR)"
+
+  # ─────────────────────────────────────────────
+  # SERVICE / IMAGE
+  # ─────────────────────────────────────────────
+  - variable: services.mcp.tag
+    label: "Tag de l'image aska"
+    type: string
+    default: "18062025.1"
+    required: true
+    group: "Application"
+
+  - variable: services.mcp.replicaCount
+    label: "Nombre de replicas"
+    type: int
+    default: 1
+    min: 1
+    max: 10
+    required: true
+    group: "Application"
+
+  - variable: services.mcp.pullPolicy
+    label: "Image Pull Policy"
+    type: enum
+    options:
+      - "IfNotPresent"
+      - "Always"
+      - "Never"
+    default: "IfNotPresent"
+    required: true
+    group: "Application"
+
+  # ─────────────────────────────────────────────
+  # TRAEFIK / INGRESS
+  # ─────────────────────────────────────────────
+  - variable: traefik.hostname
+    label: "Nom de domaine (hostname)"
+    type: hostname
+    default: "mcp.staffngo.com"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.subPath
+    description: "hostname/subpath"
+    label: "Subpath"
+    type: string
+    default: "gitlab"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.gateway.name
+    label: "Nom de la Gateway Traefik"
+    type: string
+    default: "traefik-gateway"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.gateway.namespace
+    label: "Namespace de la Gateway Traefik"
+    type: string
+    default: "traefik"
+    required: true
+    group: "Exposition / Traefik"
+
+  - variable: traefik.gateway.sectionName
+    label: "Section de la Gateway (entrypoint)"
+    description: "Nom de la section listener dans la Gateway (ex: websecure, web)."
+    type: string
+    default: "websecure"
+    required: true
+    group: "Exposition / Traefik"
+
+  # ─────────────────────────────────────────────
+  # SECRET
+  # ─────────────────────────────────────────────
+  - variable: secret.aska-sec.REMOTE_GITLAB_MCP_GITLAB_TOKEN
+    label: "Mot de passe du tableau de bord"
+    type: password
+    required: true
+    group: "Secret"
+
+  - variable: secret.aska-sec.REMOTE_GITLAB_MCP_PUBLIC_KEY
+    label: "API Key CustomGPT"
+    type: password
+    required: true
+    group: "Secret"

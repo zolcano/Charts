@@ -1,0 +1,38 @@
+namespace: "mcp-gitlab"
+
+registry:
+  server: "staffngoacr.azurecr.io"
+  secretName: "acr-pull-secret"
+acrSecret:
+  name: "acr-pull-secret"
+  username: "staffngoacr"
+  password: ""
+
+#----------------------------------------------------
+traefik:
+  gateway:
+    name: "traefik-gateway"
+    namespace: "traefik"
+    sectionName: "websecure"
+  hostname: "mcp.staffngo.com"
+  subPath: "gitlab"
+  backend:
+    service: "aska"
+
+services:
+  mcp:
+    image: "mcp.gitlab"
+    tag: "18062025.1"
+    replicaCount: 1
+    pullPolicy: "IfNotPresent"
+    service:
+      type: "ClusterIP"
+    ports:
+      - port: 3000
+        name: http
+
+# Secret
+secret:
+  mcp-gitlab-sec:
+    REMOTE_GITLAB_MCP_GITLAB_TOKEN: ""
+    REMOTE_GITLAB_MCP_PUBLIC_KEY: ""
