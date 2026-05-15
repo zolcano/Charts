@@ -21,7 +21,7 @@ traefik:
 services:
   aska:
     image: "aska"
-    tag: "270426"
+    tag: "130526"
     replicaCount: 1
     pullPolicy: "IfNotPresent"
     service:
@@ -37,7 +37,9 @@ secret:
   aska-sec:
     DASHBOARD_PASSWORD: ""
     CUSTOMGPT_API_KEY: ""
-    PROJECT_ID: "74661"
+    RESOLUTION_PROJECT_ID: "95474"
+    CLASSIFIER_PROJECT_ID: "95515"
+    UTILITY_PROJECT_ID: "95517"
     HUBSPOT_API_KEY: ""
     HUBSPOT_PIPELINE_ID: "0"
     ASKA_AGENT_ID: "A-30171857"
