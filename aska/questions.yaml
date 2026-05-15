@@ -114,21 +114,21 @@ questions:
     group: "Secret"
 
   - variable: secret.aska-sec.RESOLUTION_PROJECT_ID
-    label: "Project ID"
+    label: "ID du projet de résolution"
     type: string
     default: "95474"
     required: true
     group: "Secret"
 
   - variable: secret.aska-sec.CLASSIFIER_PROJECT_ID
-    label: "Project ID"
+    label: "ID du projet de classification"
     type: string
     default: "95515"
     required: true
     group: "Secret"
 
   - variable: secret.aska-sec.UTILITY_PROJECT_ID
-    label: "Project ID"
+    label: "ID du projet d'utilité"
     type: string
     default: "95517"
     required: true
