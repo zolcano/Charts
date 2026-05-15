@@ -2,7 +2,6 @@ categories:
   - KPI Dashboard
 
 questions:
-
   # ─────────────────────────────────────────────
   # NAMESPACE
   # ─────────────────────────────────────────────
@@ -114,10 +113,24 @@ questions:
     required: true
     group: "Secret"
 
-  - variable: secret.aska-sec.PROJECT_ID
+  - variable: secret.aska-sec.RESOLUTION_PROJECT_ID
     label: "Project ID"
     type: string
-    default: "74661"
+    default: "95474"
+    required: true
+    group: "Secret"
+
+  - variable: secret.aska-sec.CLASSIFIER_PROJECT_ID
+    label: "Project ID"
+    type: string
+    default: "95515"
+    required: true
+    group: "Secret"
+
+  - variable: secret.aska-sec.UTILITY_PROJECT_ID
+    label: "Project ID"
+    type: string
+    default: "95517"
     required: true
     group: "Secret"
 
