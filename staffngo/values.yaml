@@ -47,6 +47,8 @@ configMap:
 
 #----------------------------------------------------
 redis:
+  heal:
+    schedule: "*/1 * * * *"
   enabled: true
   tag: "8.6"
   replicaCount: 3
