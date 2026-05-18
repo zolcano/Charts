@@ -35,6 +35,7 @@ services:
 # Secret
 secret:
   aska-sec:
+    CLAUDE_KEY: ""
     DASHBOARD_PASSWORD: ""
     CUSTOMGPT_API_KEY: ""
     RESOLUTION_PROJECT_ID: "95474"

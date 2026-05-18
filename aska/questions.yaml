@@ -101,6 +101,13 @@ questions:
   # ─────────────────────────────────────────────
   # SECRET
   # ─────────────────────────────────────────────
+
+  - variable: secret.aska-sec.CLAUDE_KEY
+    label: "claude key"
+    type: password
+    required: true
+    group: "Secret"
+
   - variable: secret.aska-sec.DASHBOARD_PASSWORD
     label: "Mot de passe du tableau de bord"
     type: password
