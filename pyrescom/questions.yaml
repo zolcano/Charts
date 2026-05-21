@@ -2,7 +2,6 @@ categories:
   - Pyrescom
 
 questions:
-
   - variable: namespace
     label: "Namespace"
     description: "Namespace Kubernetes pour le déploiement."
@@ -295,61 +294,6 @@ questions:
   # ────────────────────────────────────────────
   # LIBHTTP2
   # ────────────────────────────────────────────
-  - variable: configmap.libhttp2.OAuth_2_0_ServerName
-    label: "OAuth_2_0_ServerName"
-    description: "Hostname of the OAuth 2.0 authorization server | default empty"
-    type: string
-    default: ""
-    group: "LibHTTP2"
-
-  - variable: configmap.libhttp2.OAuth_2_0_ServerPort
-    label: "OAuth_2_0_ServerPort"
-    description: "Port of the OAuth 2.0 server | default 443"
-    type: int
-    default: 443
-    group: "LibHTTP2"
-
-  - variable: configmap.libhttp2.OAuth_2_0_TokenPath
-    label: "OAuth_2_0_TokenPath"
-    description: "URL path to the OAuth 2.0 token endpoint | default empty"
-    type: string
-    default: ""
-    group: "LibHTTP2"
-
-  - variable: configmap.libhttp2.OAuth_2_0_TokenTimeout
-    label: "OAuth_2_0_TokenTimeout"
-    description: "Timeout in ms for token requests"
-    type: int
-    default: 10000
-    group: "LibHTTP2"
-
-  - variable: configmap.libhttp2.OAuth_2_0_Username
-    label: "OAuth_2_0_Username"
-    description: "Username for OAuth 2.0 authentication | default empty"
-    type: string
-    default: ""
-    group: "LibHTTP2"
-
-  - variable: configmap.libhttp2.OAuth_2_0_Password
-    label: "OAuth_2_0_Password"
-    description: "Password for OAuth 2.0 authentication | default empty"
-    type: password
-    default: ""
-    group: "LibHTTP2"
-
-  - variable: configmap.libhttp2.OAuth_2_0_Id
-    label: "OAuth_2_0_Id"
-    description: "Client ID for OAuth 2.0 | default empty"
-    type: string
-    default: ""
-    group: "LibHTTP2"
-
-  - variable: configmap.libhttp2.OAuth_2_0_Secret
-    label: "OAuth_2_0_Secret"
-    description: "Client secret for OAuth 2.0 | default empty"
-    type: password
-    default: ""
-    group: "LibHTTP2"
 
   - variable: configmap.libhttp2.HttpServerName
     label: "HttpServerName"
@@ -585,4 +529,60 @@ questions:
     description: "Receive timeout in ms for dialog endpoint"
     type: int
     default: 10000
+    group: "LibHTTP2"
+
+  - variable: configmap.libhttp2.OAuth_2_0_ServerName
+    label: "OAuth_2_0_ServerName"
+    description: "Hostname of the OAuth 2.0 authorization server | default empty"
+    type: string
+    default: ""
+    group: "LibHTTP2"
+
+  - variable: configmap.libhttp2.OAuth_2_0_ServerPort
+    label: "OAuth_2_0_ServerPort"
+    description: "Port of the OAuth 2.0 server | default 443"
+    type: int
+    default: 443
+    group: "LibHTTP2"
+
+  - variable: configmap.libhttp2.OAuth_2_0_TokenPath
+    label: "OAuth_2_0_TokenPath"
+    description: "URL path to the OAuth 2.0 token endpoint | default empty"
+    type: string
+    default: ""
+    group: "LibHTTP2"
+
+  - variable: configmap.libhttp2.OAuth_2_0_TokenTimeout
+    label: "OAuth_2_0_TokenTimeout"
+    description: "Timeout in ms for token requests"
+    type: int
+    default: 10000
+    group: "LibHTTP2"
+
+  - variable: configmap.libhttp2.OAuth_2_0_Username
+    label: "OAuth_2_0_Username"
+    description: "Username for OAuth 2.0 authentication | default empty"
+    type: string
+    default: ""
+    group: "LibHTTP2"
+
+  - variable: configmap.libhttp2.OAuth_2_0_Password
+    label: "OAuth_2_0_Password"
+    description: "Password for OAuth 2.0 authentication | default empty"
+    type: password
+    default: ""
+    group: "LibHTTP2"
+
+  - variable: configmap.libhttp2.OAuth_2_0_Id
+    label: "OAuth_2_0_Id"
+    description: "Client ID for OAuth 2.0 | default empty"
+    type: string
+    default: ""
+    group: "LibHTTP2"
+
+  - variable: configmap.libhttp2.OAuth_2_0_Secret
+    label: "OAuth_2_0_Secret"
+    description: "Client secret for OAuth 2.0 | default empty"
+    type: password
+    default: ""
     group: "LibHTTP2"

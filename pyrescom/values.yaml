@@ -68,14 +68,6 @@ configmap:
     MultiClient: 1
 
   libhttp2:
-    OAuth_2_0_ServerName: ""
-    OAuth_2_0_ServerPort: 443
-    OAuth_2_0_TokenPath: ""
-    OAuth_2_0_TokenTimeout: 10000
-    OAuth_2_0_Username: ""
-    OAuth_2_0_Password: ""
-    OAuth_2_0_Id: ""
-    OAuth_2_0_Secret: ""
     HttpServerName: ""
     HttpServerPort: 80
     HttpServerHttps: 0
@@ -109,3 +101,11 @@ configmap:
     HttpTimeoutRxTimeout: 10000
     HttpDialogPath: ""
     HttpDialogRxTimeout: 10000
+    OAuth_2_0_ServerName: ""
+    OAuth_2_0_ServerPort: 443
+    OAuth_2_0_TokenPath: ""
+    OAuth_2_0_TokenTimeout: 10000
+    OAuth_2_0_Username: ""
+    OAuth_2_0_Password: ""
+    OAuth_2_0_Id: ""
+    OAuth_2_0_Secret: ""

@@ -3,7 +3,7 @@ entries:
   ai-text-agent:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-18T14:46:02.022909701+02:00"
+    created: "2026-05-21T15:24:58.492889451+02:00"
     description: Déploiement du text agent IA
     digest: ddc95f27ee9eda4e39998fd6823eb836778732225fb83746bddf0638a9031f42
     icon: https://cdn-icons-png.magnific.com/512/4632/4632890.png
@@ -15,7 +15,7 @@ entries:
   aska:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-18T14:46:02.039109001+02:00"
+    created: "2026-05-21T15:24:58.51029138+02:00"
     description: Déploiement de Aska
     digest: b31df2f4d2e4ed6f123fbbf12777674766bfbf47cc63dd9cb4dfdacff55848ff
     name: aska
@@ -25,7 +25,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-18T14:46:02.031758601+02:00"
+    created: "2026-05-21T15:24:58.501843518+02:00"
     description: Déploiement de Aska
     digest: 87f4a8a6e3162356f358814ce2acc925962f4aef7aad0c03d1c9eff0a6545d73
     name: aska
@@ -36,7 +36,7 @@ entries:
   kpi:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-18T14:46:02.048070601+02:00"
+    created: "2026-05-21T15:24:58.518175838+02:00"
     description: Déploiement du kpi
     digest: 969060521451adb7b3a3e04e1bee9c0776ae5d79ac279cde0ad6d4fdac35718c
     icon: https://cdn-icons-png.flaticon.com/512/4680/4680226.png
@@ -48,7 +48,7 @@ entries:
   mailind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-18T14:46:02.057411301+02:00"
+    created: "2026-05-21T15:24:58.526179897+02:00"
     description: A Helm chart for Kubernetes
     digest: ffce81d5c71cc025ddd3305c2c65596467fe18086d77914802b81178ec23e9d1
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
@@ -60,7 +60,7 @@ entries:
   mcp-gitlab:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-18T14:46:02.065549201+02:00"
+    created: "2026-05-21T15:24:58.53458076+02:00"
     description: A Helm chart for Kubernetes
     digest: 5c564b8c387199c1b800030dc514d6eaed0fcc6c2e9785cb94707a9d8f6d9451
     name: mcp-gitlab
@@ -71,9 +71,9 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-18T14:46:02.075025501+02:00"
+    created: "2026-05-21T15:24:58.545007637+02:00"
     description: Déploiement du service Pyrescom
-    digest: f9215a578d9b8696052cb035d0156643bae7dabd226fb055291626586660478e
+    digest: 1bde2500bbd03250919c61fe76f7a5b202f49be18cf13fe3aba6b69a835aee0a
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
     name: pyrescom
     type: application
@@ -83,7 +83,7 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-18T14:46:02.096615301+02:00"
+    created: "2026-05-21T15:24:58.565477488+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -98,7 +98,7 @@ entries:
     version: 1.1.0
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-18T14:46:02.086324201+02:00"
+    created: "2026-05-21T15:24:58.556175219+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -111,4 +111,4 @@ entries:
     urls:
     - https://github.com/zolcano/Charts/staffngo-1.0.2.tgz
     version: 1.0.2
-generated: "2026-05-18T14:46:02.010154702+02:00"
+generated: "2026-05-21T15:24:58.481122464+02:00"
