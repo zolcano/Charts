@@ -286,10 +286,10 @@ services:
         cpu: "10m"
         memory: "256Mi"
     env:
-      API_BASE_PATH: "signature"
+      API_BASE_PATH: "subscription"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "signature"
+        configMapKey: "subscription"
     enabled: true
 
   vault:
