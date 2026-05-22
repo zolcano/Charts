@@ -305,10 +305,9 @@ services:
       requests:
         cpu: "10m"
         memory: "256Mi"
-
     env:
-      API_BASE_PATH: "signature"
+      API_BASE_PATH: "vault"
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "signature"
+        configMapKey: "vault"
     enabled: true
