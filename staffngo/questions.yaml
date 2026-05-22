@@ -117,6 +117,12 @@ questions:
     default: true
     group: "Digidoc"
 
+  - variable: services.digidoc.image
+    label: "Image"
+    type: string
+    default: "digidoc.api"
+    group: "Digidoc"
+
   - variable: services.digidoc.tag
     label: "Tag"
     type: string
@@ -143,6 +149,12 @@ questions:
     default: true
     group: "External"
 
+  - variable: services.external.image
+    label: "Image"
+    type: string
+    default: "external.api"
+    group: "External"
+
   - variable: services.external.tag
     label: "Tag"
     type: string
@@ -167,6 +179,12 @@ questions:
     label: "Déployer ?"
     type: bool
     default: true
+    group: "Identity"
+
+  - variable: services.identity.image
+    label: "Image"
+    type: string
+    default: "identity.api"
     group: "Identity"
 
   - variable: services.identity.tag
@@ -210,6 +228,12 @@ questions:
     default: true
     group: "LaborRegister"
 
+  - variable: services.laborregister.image
+    label: "Image"
+    type: string
+    default: "laborregister.api"
+    group: "LaborRegister"
+
   - variable: services.laborregister.tag
     label: "Tag"
     type: string
@@ -236,6 +260,12 @@ questions:
     default: true
     group: "Monitoring"
 
+  - variable: services.monitoring.image
+    label: "Image"
+    type: string
+    default: "monitoring.api"
+    group: "Monitoring"
+
   - variable: services.monitoring.tag
     label: "Tag"
     type: string
@@ -260,6 +290,12 @@ questions:
     label: "Déployer ?"
     type: bool
     default: true
+    group: "Notification"
+
+  - variable: services.notification.image
+    label: "Image"
+    type: string
+    default: "notification.api"
     group: "Notification"
 
   - variable: services.notification.tag
@@ -298,6 +334,12 @@ questions:
     default: true
     group: "Postal"
 
+  - variable: services.postal.image
+    label: "Image"
+    type: string
+    default: "postal.api"
+    group: "Postal"
+
   - variable: services.postal.tag
     label: "Tag"
     type: string
@@ -322,6 +364,12 @@ questions:
     label: "Déployer ?"
     type: bool
     default: true
+    group: "Scheduler"
+
+  - variable: services.scheduler.image
+    label: "Image"
+    type: string
+    default: "scheduler.api"
     group: "Scheduler"
 
   - variable: services.scheduler.tag
@@ -350,6 +398,12 @@ questions:
     default: true
     group: "Signature"
 
+  - variable: services.signature.image
+    label: "Image"
+    type: string
+    default: "signature.api"
+    group: "Signature"
+
   - variable: services.signature.tag
     label: "Tag"
     type: string
@@ -374,6 +428,12 @@ questions:
     label: "Déployer ?"
     type: bool
     default: true
+    group: "Staffngo"
+
+  - variable: services.staffngo.image
+    label: "Image"
+    type: string
+    default: "staffngo.api"
     group: "Staffngo"
 
   - variable: services.staffngo.tag
@@ -417,6 +477,12 @@ questions:
     default: true
     group: "Subscription"
 
+  - variable: services.subscription.image
+    label: "Image"
+    type: string
+    default: "subscription.api"
+    group: "Subscription"
+
   - variable: services.subscription.tag
     label: "Tag"
     type: string
@@ -441,6 +507,12 @@ questions:
     label: "Déployer ?"
     type: bool
     default: true
+    group: "Vault"
+
+  - variable: services.vault.image
+    label: "Image"
+    type: string
+    default: "vault.api"
     group: "Vault"
 
   - variable: services.vault.tag
@@ -479,7 +551,8 @@ questions:
     group: "Secrets"
 
   - variable: secret.secretValues.AZURE_STORAGE_CONNECTION_STRING
-    description: "azurePortal > namespace > (blob)storage > security > accessKeys >
+    description:
+      "azurePortal > namespace > (blob)storage > security > accessKeys >
       ConnectionString"
     label: "Azure Storage"
     type: string
