@@ -26,75 +26,75 @@ spec:
                   value: {{ .Values.redis.replicaCount | quote }}
                 - name: CLUSTER_REPLICAS
                   value: {{ .Values.redis.clusterReplicas | quote }}
-                  command:
-                    - sh
-                    - '-c'
-                    - |
-                      set -e
-                      echo "=== Redis Cluster Heal (RESET + create) ==="
+              command:
+                - sh
+                - '-c'
+                - |
+                  set -e
+                  echo "=== Redis Cluster Heal (RESET + create) ==="
 
-                      # Construire la liste des pods dynamiquement
-                      PODS=""
-                      i=0
-                      while [ $i -lt $REPLICA_COUNT ]; do
-                        PODS="$PODS redis-${i}.redis.${NAMESPACE}.svc.cluster.local"
-                        i=$((i + 1))
-                      done
+                  # Construire la liste des pods dynamiquement
+                  PODS=""
+                  i=0
+                  while [ $i -lt $REPLICA_COUNT ]; do
+                    PODS="$PODS redis-${i}.redis.${NAMESPACE}.svc.cluster.local"
+                    i=$((i + 1))
+                  done
 
-                      # 1. Attendre que tous les noeuds soient joignables
-                      echo "Waiting for all nodes to be reachable..."
-                      for HOST in $PODS; do
-                        RETRIES=0
-                        until redis-cli -h "$HOST" ping 2>/dev/null | grep -q PONG; do
-                          RETRIES=$((RETRIES + 1))
-                          if [ $RETRIES -ge 30 ]; then
-                            echo "ERROR: $HOST not reachable after 30 attempts, aborting."
-                            exit 1
-                          fi
-                          echo "  $HOST not ready yet (attempt $RETRIES/30), retrying in 5s..."
-                          sleep 5
-                        done
-                        echo "  $HOST OK"
-                      done
-                      echo "All nodes reachable."
-
-                      # 2. Vérifier l'état du cluster sur le premier nœud
-                      FIRST_HOST="redis-0.redis.${NAMESPACE}.svc.cluster.local"
-                      STATE=$(redis-cli -h "$FIRST_HOST" cluster info 2>/dev/null \
-                        | grep cluster_state | cut -d: -f2 | tr -d '\r')
-
-                      if [ "$STATE" = "ok" ]; then
-                        echo "Cluster healthy, nothing to do."
-                        exit 0
-                      fi
-
-                      echo "Cluster FAIL detected — FLUSHALL + RESET on all nodes."
-
-                      # 3. FLUSHALL + CLUSTER RESET HARD sur chaque nœud
-                      for HOST in $PODS; do
-                        echo "FLUSHALL on $HOST..."
-                        redis-cli -h "$HOST" FLUSHALL || true
-                        echo "CLUSTER RESET HARD on $HOST..."
-                        redis-cli -h "$HOST" CLUSTER RESET HARD || true
-                      done
-
-                      sleep 3
-
-                      # 4. Valider le nombre de nœuds minimum requis
-                      MIN_NODES=$(( (CLUSTER_REPLICAS + 1) * 3 ))
-                      if [ $REPLICA_COUNT -lt $MIN_NODES ]; then
-                        echo "ERROR: $REPLICA_COUNT nodes is not enough for --cluster-replicas $CLUSTER_REPLICAS (minimum $MIN_NODES required)"
+                  # 1. Attendre que tous les noeuds soient joignables
+                  echo "Waiting for all nodes to be reachable..."
+                  for HOST in $PODS; do
+                    RETRIES=0
+                    until redis-cli -h "$HOST" ping 2>/dev/null | grep -q PONG; do
+                      RETRIES=$((RETRIES + 1))
+                      if [ $RETRIES -ge 30 ]; then
+                        echo "ERROR: $HOST not reachable after 30 attempts, aborting."
                         exit 1
                       fi
+                      echo "  $HOST not ready yet (attempt $RETRIES/30), retrying in 5s..."
+                      sleep 5
+                    done
+                    echo "  $HOST OK"
+                  done
+                  echo "All nodes reachable."
 
-                      # 5. Recréer le cluster
-                      NODES=""
-                      for HOST in $PODS; do
-                        NODES="$NODES $HOST:6379"
-                      done
+                  # 2. Vérifier l'état du cluster sur le premier nœud
+                  FIRST_HOST="redis-0.redis.${NAMESPACE}.svc.cluster.local"
+                  STATE=$(redis-cli -h "$FIRST_HOST" cluster info 2>/dev/null \
+                    | grep cluster_state | cut -d: -f2 | tr -d '\r')
 
-                      echo "Recreating cluster with: $NODES"
-                      yes yes | redis-cli --cluster create $NODES --cluster-replicas $CLUSTER_REPLICAS
+                  if [ "$STATE" = "ok" ]; then
+                    echo "Cluster healthy, nothing to do."
+                    exit 0
+                  fi
 
-                      echo "=== Heal complete ==="
+                  echo "Cluster FAIL detected — FLUSHALL + RESET on all nodes."
+
+                  # 3. FLUSHALL + CLUSTER RESET HARD sur chaque nœud
+                  for HOST in $PODS; do
+                    echo "FLUSHALL on $HOST..."
+                    redis-cli -h "$HOST" FLUSHALL || true
+                    echo "CLUSTER RESET HARD on $HOST..."
+                    redis-cli -h "$HOST" CLUSTER RESET HARD || true
+                  done
+
+                  sleep 3
+
+                  # 4. Valider le nombre de nœuds minimum requis
+                  MIN_NODES=$(( (CLUSTER_REPLICAS + 1) * 3 ))
+                  if [ $REPLICA_COUNT -lt $MIN_NODES ]; then
+                    echo "ERROR: $REPLICA_COUNT nodes is not enough for --cluster-replicas $CLUSTER_REPLICAS (minimum $MIN_NODES required)"
+                    exit 1
+                  fi
+
+                  # 5. Recréer le cluster
+                  NODES=""
+                  for HOST in $PODS; do
+                    NODES="$NODES $HOST:6379"
+                  done
+
+                  echo "Recreating cluster with: $NODES"
+                  yes yes | redis-cli --cluster create $NODES --cluster-replicas $CLUSTER_REPLICAS
+
+                  echo "=== Heal complete ==="
 {{- end }}
