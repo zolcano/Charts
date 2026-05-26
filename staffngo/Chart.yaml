@@ -5,7 +5,7 @@ description: |
   (digidoc, external, identity, laborregister, monitoring, notification, postal,
   scheduler, signature, staffngo, subscription, vault) ainsi que le cluster Redis.
 type: application
-version: 1.2.1
+version: 1.2.3
 appVersion: "2026"
 icon: https://consumersiteimages.trustpilot.net/business-units/6298624a4338fd60e3e2454e-198x149-1x.jpg
 home: https://www.staffngo.com
