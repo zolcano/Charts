@@ -85,30 +85,44 @@ spec:
                   done
                   echo "All nodes reachable."
 
-                  # 2. Vérifier l'état du cluster
-                  FIRST_HOST="redis-0.redis.${NAMESPACE}.svc.cluster.local"
-                  STATE=$(redis-cli $AUTH -h "$FIRST_HOST" cluster info 2>/dev/null \
-                    | grep cluster_state | cut -d: -f2 | tr -d '\r\n ')
+                  # 2. Vérifier l'état du cluster sur chaque noeud
+                  echo "Checking cluster state on all nodes..."
 
-                  echo "Cluster state: $STATE"
+                  CLUSTER_OK=true
 
-                  if [ "$STATE" = "ok" ]; then
+                  for HOST in $PODS; do
+                    STATE=$(redis-cli $AUTH -h "$HOST" cluster info 2>/dev/null \
+                      | grep cluster_state | cut -d: -f2 | tr -d '\r\n ')
+
+                    echo "  $HOST => cluster_state=$STATE"
+
+                    if [ "$STATE" != "ok" ]; then
+                      CLUSTER_OK=false
+                    fi
+                  done
+
+                  if [ "$CLUSTER_OK" = "true" ]; then
                     # 3a. Heal doux : retirer les noeuds morts
-                    echo "Cluster healthy — removing failed nodes..."
-                    redis-cli $AUTH -h "$FIRST_HOST" cluster nodes 2>/dev/null \
-                      | grep -i fail \
-                      | awk '{print $1}' \
-                      | while read NODE_ID; do
-                          echo "  Forgetting failed node: $NODE_ID"
-                          for HOST in $PODS; do
-                            redis-cli $AUTH -h "$HOST" cluster forget "$NODE_ID" 2>/dev/null || true
+                    echo "Cluster healthy on all nodes — removing failed nodes..."
+
+                    for HOST in $PODS; do
+                      redis-cli $AUTH -h "$HOST" cluster nodes 2>/dev/null \
+                        | grep -i fail \
+                        | awk '{print $1}' \
+                        | while read NODE_ID; do
+                            echo "  [$HOST] Forgetting failed node: $NODE_ID"
+
+                            for TARGET in $PODS; do
+                              redis-cli $AUTH -h "$TARGET" cluster forget "$NODE_ID" 2>/dev/null || true
+                            done
                           done
-                        done
+                    done
+
                     echo "=== Heal complete (soft) ==="
                     exit 0
                   fi
 
-                  # 3b. Heal hard : FLUSHALL + RESET
+                  # 3. Heal hard : FLUSHALL + RESET
                   echo "Cluster FAIL detected — resetting all nodes..."
                   for HOST in $PODS; do
                     echo "  FLUSHALL + CLUSTER RESET HARD on $HOST..."
