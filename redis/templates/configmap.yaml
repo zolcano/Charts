@@ -1,0 +1,61 @@
+{{- if .Values.redis.cluster.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "0"
+data:
+  redis.conf: |
+    port 6379
+
+    # Cluster
+    cluster-enabled yes
+    cluster-config-file nodes.conf
+    cluster-node-timeout {{ .Values.redis.cluster.timeout }}
+
+    # Persistance
+    appendonly {{ if .Values.redis.persistency.enabled }}yes{{ else }}no{{ end }}
+    appendfsync everysec
+
+    # Auth
+    {{- if .Values.redis.auth.enabled }}
+    requirepass {{ .Values.redis.auth.password }}
+    {{- end }}
+
+{{- else }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "0"
+data:
+  redis.conf: |
+    port 6379
+
+    # Cluster désactivé
+    cluster-enabled no
+
+    # Persistance
+    appendonly {{ if .Values.redis.persistency.enabled }}yes{{ else }}no{{ end }}
+    appendfsync everysec
+
+    # Auth
+    {{- if .Values.redis.auth.enabled }}
+    requirepass {{ .Values.redis.auth.password }}
+    {{- end }}
+
+{{- end }}

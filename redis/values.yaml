@@ -1,0 +1,45 @@
+namespace: redis
+
+redis:
+  image:
+    repository: redis
+    tag: "8.6"
+  cluster:
+    enabled: true
+    nodes: 6
+    timeout: 2000
+    failover: true
+  heal:
+    enabled: true
+    schedule: "*/1 * * * *"
+    restartPolicy: OnFailure
+  persistency:
+    enabled: true
+    storageClassName: managed-csi
+    storage: 5Gi
+    accessModes:
+      - ReadWriteOnce
+  resources:
+    requests:
+      enabled: true
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      enabled: false
+      cpu: 500m
+      memory: 512Mi
+  healthChecks:
+    enabled: true
+    livenessProbe:
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      timeoutSeconds: 2
+      failureThreshold: 5
+    readinessProbe:
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      timeoutSeconds: 2
+      failureThreshold: 3
+  auth:
+    enabled: false
+    password: ""

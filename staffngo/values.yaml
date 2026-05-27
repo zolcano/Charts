@@ -46,19 +46,6 @@ configMap:
     vault: ""
 
 #----------------------------------------------------
-redis:
-  heal:
-    schedule: "*/1 * * * *"
-  enabled: true
-  tag: "8.6"
-  replicaCount: 3
-  clusterReplicas: 0
-  storageClassName: "managed-csi"
-  storage: 5Gi
-  resources:
-    requests:
-      cpu: "250m"
-      memory: "256Mi"
 
 services:
   digidoc:

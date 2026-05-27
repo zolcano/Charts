@@ -9,9 +9,6 @@ metadata:
     app: redis
     app.kubernetes.io/managed-by: Helm
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-  annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-weight: "1"
 spec:
   serviceName: redis
   replicas: {{ .Values.redis.replicaCount }}

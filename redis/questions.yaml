@@ -1,0 +1,117 @@
+questions:
+  - variable: redis.image.repository
+    label: Repository/Image
+    type: string
+    default: "redis"
+    group: "Image"
+
+  - variable: redis.image.tag
+    label: Tag
+    type: string
+    default: "8.6"
+    group: "Image"
+
+  - variable: redis.cluster.enabled
+    label: Cluster Redis
+    type: boolean
+    default: true
+    group: "Cluster"
+
+  - variable: redis.cluster.nodes
+    label: Nombre de nœuds
+    type: enum
+    default: 6
+    options:
+      - value: 3
+        label: "3 masters, 0 replicas"
+      - value: 6
+        label: "3 masters, 3 replicas"
+      - value: 9
+        label: "3 masters, 6 replicas"
+    group: "Cluster"
+
+  - variable: redis.cluster.timeout
+    label: Timeout du cluster
+    type: int
+    default: 2000
+    group: "Cluster"
+
+  - variable: redis.cluster.failover
+    label: Failover automatique
+    type: boolean
+    default: true
+    group: "Cluster"
+
+  - variable: redis.heal.enabled
+    label: Heal CronJob
+    description: Active un cronjob de monitoring pour le cluster
+    type: boolean
+    default: true
+    group: "Monitoring"
+
+  - variable: redis.heal.schedule
+    description: Fréquence d'execution du monitoring
+    label: Cron schedule
+    type: string
+    default: "*/1 * * * *"
+    group: "Monitoring"
+
+  - variable: redis.persistency.enabled
+    label: Persistance
+    type: boolean
+    default: true
+    group: "Persistence"
+
+  - variable: redis.persistency.storageClassName
+    label: StorageClass
+    type: string
+    default: "managed-csi"
+    group: "Persistence"
+
+  - variable: redis.persistency.storage
+    label: Taille du volume
+    type: string
+    default: "5Gi"
+    group: "Persistence"
+
+  - variable: redis.resources.requests.cpu
+    label: CPU Requests
+    type: string
+    default: "250m"
+    group: "Ressources"
+
+  - variable: redis.resources.requests.memory
+    label: Memory Requests
+    type: string
+    default: "256Mi"
+    group: "Ressources"
+
+  - variable: redis.resources.limits.enabled
+    label: Activer les limits
+    type: boolean
+    default: false
+    group: "Ressources"
+
+  - variable: redis.resources.limits.cpu
+    label: CPU Limit
+    type: string
+    default: "500m"
+    group: "Ressources"
+
+  - variable: redis.resources.limits.memory
+    label: Memory Limit
+    type: string
+    default: "512Mi"
+    group: "Ressources"
+
+  - variable: redis.auth.enabled
+    label: Auth Redis
+    type: boolean
+    default: false
+    group: "Auth"
+
+  - variable: redis.auth.password
+    label: Mot de passe Redis
+    type: password
+    default: ""
+    group: "Auth"
