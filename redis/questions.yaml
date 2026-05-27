@@ -18,7 +18,7 @@ questions:
     group: "Cluster"
 
   - variable: redis.cluster.nodes
-    label: Nombre de nœuds
+    label: Amount of node
     type: enum
     default: 6
     options:
@@ -31,26 +31,26 @@ questions:
     group: "Cluster"
 
   - variable: redis.cluster.timeout
-    label: Timeout du cluster
+    label: Cluster timeout
     type: int
     default: 2000
     group: "Cluster"
 
   - variable: redis.cluster.failover
-    label: Failover automatique
+    label: Automatic failover
     type: boolean
     default: true
     group: "Cluster"
 
   - variable: redis.heal.enabled
     label: Heal CronJob
-    description: Active un cronjob de monitoring pour le cluster
+    description:
     type: boolean
     default: true
     group: "Monitoring"
 
   - variable: redis.heal.schedule
-    description: Fréquence d'execution du monitoring
+    description: cluster monitoring execution frequency
     label: Cron schedule
     type: string
     default: "*/1 * * * *"
@@ -74,6 +74,12 @@ questions:
     default: "5Gi"
     group: "Persistence"
 
+  - variable: redis.resources.requests.enabled
+    label: Enable ressource reservation
+    type: boolean
+    default: true
+    group: "Ressources"
+
   - variable: redis.resources.requests.cpu
     label: CPU Requests
     type: string
@@ -87,7 +93,7 @@ questions:
     group: "Ressources"
 
   - variable: redis.resources.limits.enabled
-    label: Activer les limits
+    label: Enable ressources limitation
     type: boolean
     default: false
     group: "Ressources"
