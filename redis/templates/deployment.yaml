@@ -1,4 +1,4 @@
-{{- if not .Values.redis.cluster.enabled }}
+{{- if not (toBool .Values.redis.cluster.enabled) }}
 ---
 apiVersion: apps/v1
 kind: Deployment
