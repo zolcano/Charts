@@ -90,4 +90,87 @@ spec:
         resources:
           requests:
             storage: {{ .Values.redis.persistency.storage }}
+{{ else }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: redis
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: {{ .Values.redis.image.repository }}:{{ .Values.redis.image.tag }}
+          command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+          ports:
+            - containerPort: 6379
+              name: client
+          resources:
+            {{- if .Values.redis.resources.requests.enabled }}
+            requests:
+              cpu: {{ .Values.redis.resources.requests.cpu }}
+              memory: {{ .Values.redis.resources.requests.memory }}
+            {{- end }}
+            {{- if .Values.redis.resources.limits.enabled }}
+            limits:
+              cpu: {{ .Values.redis.resources.limits.cpu }}
+              memory: {{ .Values.redis.resources.limits.memory }}
+            {{- end }}
+          {{- if .Values.redis.healthChecks.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: client
+            initialDelaySeconds: {{ .Values.redis.healthChecks.livenessProbe.initialDelaySeconds }}
+            periodSeconds:       {{ .Values.redis.healthChecks.livenessProbe.periodSeconds }}
+            timeoutSeconds:      {{ .Values.redis.healthChecks.livenessProbe.timeoutSeconds }}
+            failureThreshold:    {{ .Values.redis.healthChecks.livenessProbe.failureThreshold }}
+          readinessProbe:
+            tcpSocket:
+              port: client
+            initialDelaySeconds: {{ .Values.redis.healthChecks.readinessProbe.initialDelaySeconds }}
+            periodSeconds:       {{ .Values.redis.healthChecks.readinessProbe.periodSeconds }}
+            timeoutSeconds:      {{ .Values.redis.healthChecks.readinessProbe.timeoutSeconds }}
+            failureThreshold:    {{ .Values.redis.healthChecks.readinessProbe.failureThreshold }}
+          {{- end }}
+          {{- if .Values.redis.auth.enabled }}
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-auth
+                  key: password
+          {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+            - name: config
+              mountPath: /usr/local/etc/redis
+      volumes:
+        - name: config
+          configMap:
+            name: redis-config
+        {{- if .Values.redis.persistency.enabled }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: redis-data
+        {{- else }}
+        - name: data
+          emptyDir: {}
+        {{- end }}
 {{- end }}
