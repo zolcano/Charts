@@ -42,19 +42,12 @@ questions:
     default: true
     group: "Cluster"
 
-  - variable: redis.heal.enabled
-    label: Heal CronJob
-    description:
-    type: boolean
-    default: true
-    group: "Monitoring"
-
   - variable: redis.heal.schedule
     description: cluster monitoring execution frequency
     label: Cron schedule
     type: string
     default: "*/1 * * * *"
-    group: "Monitoring"
+    group: "Cluster"
 
   - variable: redis.persistency.enabled
     label: Persistance

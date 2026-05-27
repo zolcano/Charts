@@ -10,7 +10,6 @@ redis:
     timeout: 2000
     failover: true
   heal:
-    enabled: true
     schedule: "*/1 * * * *"
     restartPolicy: OnFailure
   persistency:
