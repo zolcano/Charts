@@ -159,4 +159,24 @@ spec:
           persistentVolumeClaim:
             claimName: redis-data
         {{- end }}
+
+{{- if .Values.redis.persistency.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-data
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: redis
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+spec:
+  accessModes:
+    {{- toYaml .Values.redis.persistency.accessModes | nindent 4 }}
+  storageClassName: {{ .Values.redis.persistency.storageClassName }}
+  resources:
+    requests:
+      storage: {{ .Values.redis.persistency.storage }}
+{{- end }}
 {{- end }}
