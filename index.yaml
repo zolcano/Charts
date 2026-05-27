@@ -3,87 +3,87 @@ entries:
   ai-text-agent:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-27T09:21:27.151577468+02:00"
+    created: "2026-05-27T11:49:31.754908693+02:00"
     description: Déploiement du text agent IA
     digest: ddc95f27ee9eda4e39998fd6823eb836778732225fb83746bddf0638a9031f42
     icon: https://cdn-icons-png.magnific.com/512/4632/4632890.png
     name: ai-text-agent
     type: application
     urls:
-    - https://github.com/zolcano/Charts/ai-text-agent-0.1.0.tgz
+    - https://zolcano.github.io/Charts/ai-text-agent-0.1.0.tgz
     version: 0.1.0
   aska:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-27T09:21:27.190573516+02:00"
+    created: "2026-05-27T11:49:31.786679744+02:00"
     description: Déploiement de Aska
     digest: b31df2f4d2e4ed6f123fbbf12777674766bfbf47cc63dd9cb4dfdacff55848ff
     name: aska
     type: application
     urls:
-    - https://github.com/zolcano/Charts/aska-0.3.0.tgz
+    - https://zolcano.github.io/Charts/aska-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-27T09:21:27.171591741+02:00"
+    created: "2026-05-27T11:49:31.767136558+02:00"
     description: Déploiement de Aska
     digest: 87f4a8a6e3162356f358814ce2acc925962f4aef7aad0c03d1c9eff0a6545d73
     name: aska
     type: application
     urls:
-    - https://github.com/zolcano/Charts/aska-0.2.0.tgz
+    - https://zolcano.github.io/Charts/aska-0.2.0.tgz
     version: 0.2.0
   kpi:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-27T09:21:27.21009939+02:00"
+    created: "2026-05-27T11:49:31.800870888+02:00"
     description: Déploiement du kpi
     digest: 969060521451adb7b3a3e04e1bee9c0776ae5d79ac279cde0ad6d4fdac35718c
     icon: https://cdn-icons-png.flaticon.com/512/4680/4680226.png
     name: kpi
     type: application
     urls:
-    - https://github.com/zolcano/Charts/kpi-1.1.0.tgz
+    - https://zolcano.github.io/Charts/kpi-1.1.0.tgz
     version: 1.1.0
   mailind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-27T09:21:27.230593562+02:00"
+    created: "2026-05-27T11:49:31.810114086+02:00"
     description: A Helm chart for Kubernetes
     digest: ffce81d5c71cc025ddd3305c2c65596467fe18086d77914802b81178ec23e9d1
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
     name: mailind
     type: application
     urls:
-    - https://github.com/zolcano/Charts/mailind-0.1.0.tgz
+    - https://zolcano.github.io/Charts/mailind-0.1.0.tgz
     version: 0.1.0
   mcp-gitlab:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-27T09:21:27.249058437+02:00"
+    created: "2026-05-27T11:49:31.826995601+02:00"
     description: A Helm chart for Kubernetes
     digest: 5c564b8c387199c1b800030dc514d6eaed0fcc6c2e9785cb94707a9d8f6d9451
     name: mcp-gitlab
     type: application
     urls:
-    - https://github.com/zolcano/Charts/mcp-gitlab-0.1.0.tgz
+    - https://zolcano.github.io/Charts/mcp-gitlab-0.1.0.tgz
     version: 0.1.0
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-27T09:21:27.26923731+02:00"
+    created: "2026-05-27T11:49:31.837621884+02:00"
     description: Déploiement du service Pyrescom
     digest: 1bde2500bbd03250919c61fe76f7a5b202f49be18cf13fe3aba6b69a835aee0a
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
     name: pyrescom
     type: application
     urls:
-    - https://github.com/zolcano/Charts/pyrescom-1.0.0.tgz
+    - https://zolcano.github.io/Charts/pyrescom-1.0.0.tgz
     version: 1.0.0
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-27T09:21:27.40365863+02:00"
+    created: "2026-05-27T11:49:31.920808371+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -94,11 +94,11 @@ entries:
     name: staffngo
     type: application
     urls:
-    - https://github.com/zolcano/Charts/staffngo-1.3.0.tgz
+    - https://zolcano.github.io/Charts/staffngo-1.3.0.tgz
     version: 1.3.0
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-27T09:21:27.381462023+02:00"
+    created: "2026-05-27T11:49:31.907434518+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -109,11 +109,11 @@ entries:
     name: staffngo
     type: application
     urls:
-    - https://github.com/zolcano/Charts/staffngo-1.2.3.tgz
+    - https://zolcano.github.io/Charts/staffngo-1.2.3.tgz
     version: 1.2.3
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-27T09:21:27.361784016+02:00"
+    created: "2026-05-27T11:49:31.895679447+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -124,11 +124,11 @@ entries:
     name: staffngo
     type: application
     urls:
-    - https://github.com/zolcano/Charts/staffngo-1.2.1.tgz
+    - https://zolcano.github.io/Charts/staffngo-1.2.1.tgz
     version: 1.2.1
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-27T09:21:27.337119708+02:00"
+    created: "2026-05-27T11:49:31.884358171+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -139,11 +139,11 @@ entries:
     name: staffngo
     type: application
     urls:
-    - https://github.com/zolcano/Charts/staffngo-1.2.0.tgz
+    - https://zolcano.github.io/Charts/staffngo-1.2.0.tgz
     version: 1.2.0
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-27T09:21:27.311558999+02:00"
+    created: "2026-05-27T11:49:31.872936397+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -154,11 +154,11 @@ entries:
     name: staffngo
     type: application
     urls:
-    - https://github.com/zolcano/Charts/staffngo-1.1.0.tgz
+    - https://zolcano.github.io/Charts/staffngo-1.1.0.tgz
     version: 1.1.0
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-27T09:21:27.290315792+02:00"
+    created: "2026-05-27T11:49:31.856803274+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices (digidoc, external, identity, laborregister, monitoring, notification,
       postal, scheduler, signature, staffngo, subscription, vault) ainsi que le cluster
@@ -169,6 +169,6 @@ entries:
     name: staffngo
     type: application
     urls:
-    - https://github.com/zolcano/Charts/staffngo-1.0.2.tgz
+    - https://zolcano.github.io/Charts/staffngo-1.0.2.tgz
     version: 1.0.2
-generated: "2026-05-27T09:21:27.129217798+02:00"
+generated: "2026-05-27T11:49:31.730496961+02:00"
