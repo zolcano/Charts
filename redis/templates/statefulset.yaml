@@ -10,9 +10,6 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
   annotations:
-    {{- if .Values.redis.auth.enabled }}
-    checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
-    {{- end }}
     checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
 spec:
   serviceName: redis
@@ -24,6 +21,8 @@ spec:
     metadata:
       labels:
         app: redis
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       containers:
         - name: redis
@@ -61,25 +60,18 @@ spec:
             timeoutSeconds:      {{ .Values.redis.healthChecks.readinessProbe.timeoutSeconds }}
             failureThreshold:    {{ .Values.redis.healthChecks.readinessProbe.failureThreshold }}
           {{- end }}
-
-          {{- if .Values.redis.auth.enabled }}
-          env:
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: redis-sec
-                  key: password
-          {{- end }}
-
           volumeMounts:
-            - name: data
-              mountPath: /data
             - name: config
               mountPath: /usr/local/etc/redis
+            {{- if .Values.redis.persistency.enabled }}
+            - name: data
+              mountPath: /data
+            {{- end }}
       volumes:
         - name: config
           configMap:
             name: redis-config
+  {{- if .Values.redis.persistency.enabled }}
   volumeClaimTemplates:
     - metadata:
         name: data
@@ -90,7 +82,9 @@ spec:
         resources:
           requests:
             storage: {{ .Values.redis.persistency.storage }}
-{{ else }}
+  {{- end }}
+
+{{- else }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -102,8 +96,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
   annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-weight: "1"
+    checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
 spec:
   replicas: 1
   selector:
@@ -113,6 +106,8 @@ spec:
     metadata:
       labels:
         app: redis
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       containers:
         - name: redis
@@ -148,19 +143,13 @@ spec:
             timeoutSeconds:      {{ .Values.redis.healthChecks.readinessProbe.timeoutSeconds }}
             failureThreshold:    {{ .Values.redis.healthChecks.readinessProbe.failureThreshold }}
           {{- end }}
-          {{- if .Values.redis.auth.enabled }}
-          env:
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: redis-auth
-                  key: password
-          {{- end }}
           volumeMounts:
-            - name: data
-              mountPath: /data
             - name: config
               mountPath: /usr/local/etc/redis
+            {{- if .Values.redis.persistency.enabled }}
+            - name: data
+              mountPath: /data
+            {{- end }}
       volumes:
         - name: config
           configMap:
@@ -169,8 +158,5 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: redis-data
-        {{- else }}
-        - name: data
-          emptyDir: {}
         {{- end }}
 {{- end }}

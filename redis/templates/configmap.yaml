@@ -27,6 +27,7 @@ data:
     # Auth
     {{- if .Values.redis.auth.enabled }}
     requirepass {{ .Values.redis.auth.password }}
+    masterauth {{ .Values.redis.auth.password }}
     {{- end }}
 
 {{- else }}
