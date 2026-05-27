@@ -463,6 +463,11 @@ questions:
     type: string
     group: "Staffngo"
 
+  - variable: services.staffngo.env.HUBSPOT_ACCESS_TOKEN
+    label: "Hubspot access token"
+    type: string
+    group: "Staffngo"
+
   - variable: services.staffngo.healthCheckPath
     label: "Health Check Path"
     description: "Chemin HTTP pour les probes liveness/readiness."

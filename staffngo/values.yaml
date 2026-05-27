@@ -267,6 +267,7 @@ services:
       UBIQOD_API_KEY: ""
       REDIS_WS_CONNECTION_STRING: ""
       SPEECH_TO_ACTION_API_KEY: ""
+      HUBSPOT_ACCESS_TOKEN: ""
     configKeys:
       - envVar: "DB_CONNECTION_STRING"
         configMapKey: "staffngo"
