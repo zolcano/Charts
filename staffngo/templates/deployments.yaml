@@ -23,7 +23,7 @@ spec:
         - name: {{ $.Values.registry.secretName }}
       containers:
         - name: {{ $name }}
-          image: "{{ $.Values.registry.server }}/{{ $svc.repository }}:{{ $svc.tag }}"
+          image: "{{ $.Values.registry.server }}/{{ $svc.image }}:{{ $svc.tag }}"
           imagePullPolicy: {{ $svc.pullPolicy }}
           ports:
             - containerPort: {{ $svc.service.targetPort }}
