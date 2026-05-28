@@ -1,4 +1,4 @@
-{{- if .Values.redis.cluster.enabled }}
+{{- if and .Values.redis.heal.enabled .Values.redis.cluster.enabled }}
 {{- $clusterReplicas := int (sub (div .Values.redis.cluster.nodes 3) 1) }}
 ---
 apiVersion: batch/v1
@@ -30,13 +30,6 @@ spec:
                   value: {{ .Values.redis.cluster.nodes | quote }}
                 - name: CLUSTER_REPLICAS
                   value: {{ $clusterReplicas | quote }}
-                {{- if .Values.redis.auth.enabled }}
-                - name: REDIS_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .Values.redis.auth.existingSecret | default "redis-sec" }}
-                      key: {{ .Values.redis.auth.secretKey | default "password" }}
-                {{- end }}
               resources:
                 {{- if .Values.redis.resources.requests.enabled }}
                 requests:
@@ -48,6 +41,12 @@ spec:
                   cpu: {{ .Values.redis.resources.limits.cpu }}
                   memory: {{ .Values.redis.resources.limits.memory }}
                 {{- end }}
+              {{- if .Values.redis.auth.enabled }}
+              volumeMounts:
+                - name: secret
+                  mountPath: /etc/redis/secret
+                  readOnly: true
+              {{- end }}
               command:
                 - sh
                 - -c
@@ -55,7 +54,9 @@ spec:
                   set -e
                   echo "=== Redis Cluster Heal ==="
 
+                  # Auth depuis le fichier monté
                   {{- if .Values.redis.auth.enabled }}
+                  REDIS_PASSWORD=$(cat /etc/redis/secret/password)
                   AUTH="-a $REDIS_PASSWORD"
                   {{- else }}
                   AUTH=""
@@ -87,15 +88,11 @@ spec:
 
                   # 2. Vérifier l'état du cluster sur chaque noeud
                   echo "Checking cluster state on all nodes..."
-
                   CLUSTER_OK=true
-
                   for HOST in $PODS; do
                     STATE=$(redis-cli $AUTH -h "$HOST" cluster info 2>/dev/null \
                       | grep cluster_state | cut -d: -f2 | tr -d '\r\n ')
-
                     echo "  $HOST => cluster_state=$STATE"
-
                     if [ "$STATE" != "ok" ]; then
                       CLUSTER_OK=false
                     fi
@@ -103,26 +100,23 @@ spec:
 
                   if [ "$CLUSTER_OK" = "true" ]; then
                     # 3a. Heal doux : retirer les noeuds morts
-                    echo "Cluster healthy on all nodes — removing failed nodes..."
-
+                    echo "Cluster healthy — removing failed nodes..."
                     for HOST in $PODS; do
                       redis-cli $AUTH -h "$HOST" cluster nodes 2>/dev/null \
                         | grep -i fail \
                         | awk '{print $1}' \
                         | while read NODE_ID; do
                             echo "  [$HOST] Forgetting failed node: $NODE_ID"
-
                             for TARGET in $PODS; do
                               redis-cli $AUTH -h "$TARGET" cluster forget "$NODE_ID" 2>/dev/null || true
                             done
                           done
                     done
-
                     echo "=== Heal complete (soft) ==="
                     exit 0
                   fi
 
-                  # 3. Heal hard : FLUSHALL + RESET
+                  # 3b. Heal hard : FLUSHALL + RESET
                   echo "Cluster FAIL detected — resetting all nodes..."
                   for HOST in $PODS; do
                     echo "  FLUSHALL + CLUSTER RESET HARD on $HOST..."
@@ -148,4 +142,10 @@ spec:
                     --cluster-replicas $CLUSTER_REPLICAS --cluster-yes
 
                   echo "=== Heal complete (hard reset) ==="
+          {{- if .Values.redis.auth.enabled }}
+          volumes:
+            - name: secret
+              secret:
+                secretName: redis-sec
+          {{- end }}
 {{- end }}

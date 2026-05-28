@@ -9,9 +9,6 @@ metadata:
     app: redis
     app.kubernetes.io/managed-by: Helm
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-  annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-weight: "2"
 spec:
   clusterIP: None
   ports:
@@ -35,9 +32,6 @@ metadata:
     app: redis
     app.kubernetes.io/managed-by: Helm
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-  annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-weight: "2"
 spec:
   type: ClusterIP
   ports:
