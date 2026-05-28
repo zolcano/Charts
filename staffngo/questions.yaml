@@ -6,7 +6,7 @@ questions:
 
   - variable: namespace
     label: "Namespace"
-    description: "Namespace Kubernetes pour le déploiement."
+    description: "Namespace pour le déploiement."
     type: string
     default: "staffngo"
     required: true
@@ -14,26 +14,105 @@ questions:
 
   - variable: environment
     label: "Environnement"
-    description: "Environnement applicatif (dev, staging, production)."
+    description: "Environnement applicatif (sensible à la case)."
     type: string
-    default: "demo"
+    default: "Demo"
     required: true
     group: "Déploiement"
 
-  - variable: ENABLE_INSTALLERS
-    label: "enable installers"
-    description: "set to true if it is the first deployment."
+  - variable: enableInstallers
+    label: "enabled Installers"
+    description: "Mettre à true uniquement lors du premier déploiement."
     type: string
     default: "false"
     required: true
     group: "Déploiement"
 
-  # ────────────────────────────────────────────
-  # TRAEFIK
-  # ────────────────────────────────────────────
+  - variable: redisNamespace
+    label: "Redis Namespace"
+    description: "Namespace dans lequel Redis est déployé."
+    type: string
+    default: "redis"
+    required: true
+    group: "Déploiement"
+
+  - variable: services.digidoc.enabled
+    label: "digidoc"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.external.enabled
+    label: "external"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.identity.enabled
+    label: "identity"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.laborregister.enabled
+    label: "laborregister"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.monitoring.enabled
+    label: "monitoring"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.notification.enabled
+    label: "notification"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.postal.enabled
+    label: "postal"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.scheduler.enabled
+    label: "scheduler"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.signature.enabled
+    label: "signature"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.staffngo.enabled
+    label: "staffngo"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.subscription.enabled
+    label: "subscription"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  - variable: services.vault.enabled
+    label: "vault"
+    type: boolean
+    default: true
+    group: "Déploiement"
+
+  # TRAEFIK -----------------------------------------------------------------
+
   - variable: traefik.gateway.name
     label: "Gateway Name"
-    description: "Name of the Traefik Gateway object"
+    description: "Nom de l'objet Gateway Traefik."
     type: string
     default: "traefik-gateway"
     required: true
@@ -41,13 +120,22 @@ questions:
 
   - variable: traefik.gateway.namespace
     label: "Gateway Namespace"
-    description: "Namespace where the Traefik Gateway is deployed"
+    description: "Namespace où Traefik est déployé."
     type: string
     default: "traefik"
     required: true
     group: "Traefik"
 
-  # REGISTRY ---------------------------------------------------------
+  - variable: traefik.gateway.sectionName
+    label: "Section Name"
+    description: "Section du Gateway à utiliser (ex: websecure)."
+    type: string
+    default: "websecure"
+    required: true
+    group: "Traefik"
+
+  # REGISTRY ----------------------------------------------------------------
+
   - variable: registry.server
     label: "Registry Docker"
     description: "URL de l'Azure Container Registry."
@@ -72,11 +160,6 @@ questions:
   # SERVICES ----------------------------------------------------------------
 
   # ---------------- DIGIDOC ----------------
-  - variable: services.digidoc.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Digidoc"
 
   - variable: services.digidoc.image
     label: "Image"
@@ -87,28 +170,148 @@ questions:
   - variable: services.digidoc.tag
     label: "Tag"
     type: string
-    default: "20260324.1915"
+    default: "20260526.2056"
     group: "Digidoc"
 
-  - variable: services.digidoc.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.digidoc.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Digidoc"
 
-  - variable: services.digidoc.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.digidoc.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.digidoc.resources.requests.cpu
+        label: "CPU"
+        description: "Quantité de CPU (millicores)."
+        type: string
+        default: "100m"
+      - variable: services.digidoc.resources.requests.memory
+        label: "Memory"
+        description: "Quantité de mémoire (Mebibytes)."
+        type: string
+        default: "512Mi"
+    group: "Digidoc"
+
+  - variable: services.digidoc.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.digidoc.resources.limits.cpu
+        label: "CPU"
+        description: "Limite CPU (millicores)."
+        type: string
+        default: "500m"
+      - variable: services.digidoc.resources.limits.memory
+        label: "Memory"
+        description: "Limite mémoire (Mebibytes)."
+        type: string
+        default: "1024Mi"
+    group: "Digidoc"
+
+  - variable: services.digidoc.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.digidoc.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.digidoc.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.digidoc.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.digidoc.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.digidoc.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.digidoc.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Digidoc"
+
+  - variable: services.digidoc.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.digidoc.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.digidoc.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.digidoc.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.digidoc.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.digidoc.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.digidoc.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Digidoc"
+
+  - variable: services.digidoc.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.digidoc.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.digidoc.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.digidoc.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Digidoc"
 
   # ---------------- EXTERNAL ----------------
-  - variable: services.external.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "External"
 
   - variable: services.external.image
     label: "Image"
@@ -119,28 +322,144 @@ questions:
   - variable: services.external.tag
     label: "Tag"
     type: string
-    default: "20260331.1610"
+    default: "20260526.1954"
     group: "External"
 
-  - variable: services.external.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.external.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "External"
 
-  - variable: services.external.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.external.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.external.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "20m"
+      - variable: services.external.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "256Mi"
+    group: "External"
+
+  - variable: services.external.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.external.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "100m"
+      - variable: services.external.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "512Mi"
+    group: "External"
+
+  - variable: services.external.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.external.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.external.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.external.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.external.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.external.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.external.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "External"
+
+  - variable: services.external.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.external.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.external.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.external.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.external.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.external.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.external.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "External"
+
+  - variable: services.external.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.external.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.external.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.external.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "External"
 
   # ---------------- IDENTITY ----------------
-  - variable: services.identity.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Identity"
 
   - variable: services.identity.image
     label: "Image"
@@ -151,43 +470,162 @@ questions:
   - variable: services.identity.tag
     label: "Tag"
     type: string
-    default: "20260324.1919"
+    default: "20260526.2052"
     group: "Identity"
 
-  - variable: services.identity.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.identity.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Identity"
 
   - variable: services.identity.env.AZURE_CLIENT_ID
     label: "Azure Client ID"
     type: string
+    required: true
     group: "Identity"
 
   - variable: services.identity.env.AZURE_TENANT_ID
     label: "Azure Tenant ID"
     type: string
+    required: true
     group: "Identity"
 
   - variable: services.identity.env.AZURE_CLIENT_SECRET
     label: "Azure Client Secret"
-    type: string
+    type: password
+    required: true
     group: "Identity"
 
-  - variable: services.identity.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.identity.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.identity.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "150m"
+      - variable: services.identity.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "512Mi"
+    group: "Identity"
+
+  - variable: services.identity.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.identity.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "750m"
+      - variable: services.identity.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "1024Mi"
+    group: "Identity"
+
+  - variable: services.identity.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.identity.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.identity.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.identity.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.identity.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.identity.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.identity.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Identity"
+
+  - variable: services.identity.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.identity.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.identity.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.identity.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.identity.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.identity.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.identity.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Identity"
+
+  - variable: services.identity.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.identity.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.identity.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.identity.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Identity"
 
   # ---------------- LABORREGISTER ----------------
-  - variable: services.laborregister.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "LaborRegister"
 
   - variable: services.laborregister.image
     label: "Image"
@@ -198,28 +636,144 @@ questions:
   - variable: services.laborregister.tag
     label: "Tag"
     type: string
-    default: "20260324.1905"
+    default: "20260526.1954"
     group: "LaborRegister"
 
-  - variable: services.laborregister.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.laborregister.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "LaborRegister"
 
-  - variable: services.laborregister.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.laborregister.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.laborregister.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "10m"
+      - variable: services.laborregister.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "384Mi"
+    group: "LaborRegister"
+
+  - variable: services.laborregister.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.laborregister.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "50m"
+      - variable: services.laborregister.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "512Mi"
+    group: "LaborRegister"
+
+  - variable: services.laborregister.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.laborregister.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.laborregister.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.laborregister.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.laborregister.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.laborregister.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.laborregister.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "LaborRegister"
+
+  - variable: services.laborregister.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.laborregister.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.laborregister.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.laborregister.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.laborregister.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.laborregister.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.laborregister.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "LaborRegister"
+
+  - variable: services.laborregister.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.laborregister.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.laborregister.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.laborregister.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "LaborRegister"
 
   # ---------------- MONITORING ----------------
-  - variable: services.monitoring.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Monitoring"
 
   - variable: services.monitoring.image
     label: "Image"
@@ -230,28 +784,144 @@ questions:
   - variable: services.monitoring.tag
     label: "Tag"
     type: string
-    default: "20251006.2114"
+    default: "20260512.1039"
     group: "Monitoring"
 
-  - variable: services.monitoring.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.monitoring.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Monitoring"
 
-  - variable: services.monitoring.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.monitoring.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.monitoring.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "20m"
+      - variable: services.monitoring.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "128Mi"
+    group: "Monitoring"
+
+  - variable: services.monitoring.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.monitoring.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "100m"
+      - variable: services.monitoring.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "512Mi"
+    group: "Monitoring"
+
+  - variable: services.monitoring.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.monitoring.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.monitoring.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.monitoring.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.monitoring.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.monitoring.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.monitoring.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Monitoring"
+
+  - variable: services.monitoring.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.monitoring.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.monitoring.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.monitoring.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.monitoring.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.monitoring.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.monitoring.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Monitoring"
+
+  - variable: services.monitoring.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.monitoring.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.monitoring.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.monitoring.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Monitoring"
 
   # ---------------- NOTIFICATION ----------------
-  - variable: services.notification.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Notification"
 
   - variable: services.notification.image
     label: "Image"
@@ -262,13 +932,20 @@ questions:
   - variable: services.notification.tag
     label: "Tag"
     type: string
-    default: "20260324.1910"
+    default: "20260526.1954"
     group: "Notification"
 
-  - variable: services.notification.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.notification.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Notification"
 
   - variable: services.notification.env.NDR_CREDENTIALS
@@ -278,22 +955,131 @@ questions:
 
   - variable: services.notification.env.BREVO_API_KEY
     label: "Brevo API Key"
-    type: string
+    type: password
     group: "Notification"
 
-  - variable: services.notification.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.notification.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.notification.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "10m"
+      - variable: services.notification.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "384Mi"
+    group: "Notification"
+
+  - variable: services.notification.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.notification.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "150m"
+      - variable: services.notification.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "512Mi"
+    group: "Notification"
+
+  - variable: services.notification.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.notification.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.notification.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.notification.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.notification.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.notification.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.notification.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Notification"
+
+  - variable: services.notification.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.notification.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.notification.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.notification.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.notification.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.notification.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.notification.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Notification"
+
+  - variable: services.notification.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.notification.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.notification.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.notification.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Notification"
 
   # ---------------- POSTAL ----------------
-  - variable: services.postal.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Postal"
 
   - variable: services.postal.image
     label: "Image"
@@ -304,28 +1090,144 @@ questions:
   - variable: services.postal.tag
     label: "Tag"
     type: string
-    default: "20260302.0955"
+    default: "20260526.2036"
     group: "Postal"
 
-  - variable: services.postal.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.postal.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Postal"
 
-  - variable: services.postal.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.postal.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.postal.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "20m"
+      - variable: services.postal.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "256Mi"
+    group: "Postal"
+
+  - variable: services.postal.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.postal.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "100m"
+      - variable: services.postal.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "512Mi"
+    group: "Postal"
+
+  - variable: services.postal.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.postal.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.postal.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.postal.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.postal.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.postal.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.postal.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Postal"
+
+  - variable: services.postal.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.postal.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.postal.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.postal.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.postal.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.postal.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.postal.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Postal"
+
+  - variable: services.postal.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.postal.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.postal.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.postal.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Postal"
 
   # ---------------- SCHEDULER ----------------
-  - variable: services.scheduler.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Scheduler"
 
   - variable: services.scheduler.image
     label: "Image"
@@ -336,28 +1238,144 @@ questions:
   - variable: services.scheduler.tag
     label: "Tag"
     type: string
-    default: "20260302.0754"
+    default: "20260526.1959"
     group: "Scheduler"
 
-  - variable: services.scheduler.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.scheduler.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Scheduler"
 
-  - variable: services.scheduler.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.scheduler.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.scheduler.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "10m"
+      - variable: services.scheduler.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "384Mi"
+    group: "Scheduler"
+
+  - variable: services.scheduler.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.scheduler.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "50m"
+      - variable: services.scheduler.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "512Mi"
+    group: "Scheduler"
+
+  - variable: services.scheduler.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.scheduler.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.scheduler.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.scheduler.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.scheduler.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.scheduler.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.scheduler.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Scheduler"
+
+  - variable: services.scheduler.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.scheduler.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.scheduler.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.scheduler.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.scheduler.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.scheduler.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.scheduler.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Scheduler"
+
+  - variable: services.scheduler.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.scheduler.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.scheduler.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.scheduler.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Scheduler"
 
   # ---------------- SIGNATURE ----------------
-  - variable: services.signature.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Signature"
 
   - variable: services.signature.image
     label: "Image"
@@ -368,28 +1386,144 @@ questions:
   - variable: services.signature.tag
     label: "Tag"
     type: string
-    default: "20260217.1734"
+    default: "20260526.2033"
     group: "Signature"
 
-  - variable: services.signature.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.signature.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Signature"
 
-  - variable: services.signature.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.signature.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.signature.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "30m"
+      - variable: services.signature.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "384Mi"
+    group: "Signature"
+
+  - variable: services.signature.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.signature.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "200m"
+      - variable: services.signature.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "512Mi"
+    group: "Signature"
+
+  - variable: services.signature.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.signature.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.signature.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.signature.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.signature.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.signature.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.signature.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Signature"
+
+  - variable: services.signature.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.signature.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.signature.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.signature.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.signature.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.signature.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.signature.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Signature"
+
+  - variable: services.signature.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.signature.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.signature.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.signature.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Signature"
 
   # ---------------- STAFFNGO ----------------
-  - variable: services.staffngo.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Staffngo"
 
   - variable: services.staffngo.image
     label: "Image"
@@ -400,48 +1534,164 @@ questions:
   - variable: services.staffngo.tag
     label: "Tag"
     type: string
-    default: "20260331.1614"
+    default: "20260526.2018"
     group: "Staffngo"
 
-  - variable: services.staffngo.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.staffngo.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Staffngo"
 
   - variable: services.staffngo.env.OODRIVE_TOKEN
     label: "Oodrive Token"
-    type: string
+    type: password
     group: "Staffngo"
 
   - variable: services.staffngo.env.UBIQOD_API_KEY
     label: "Ubiqod API Key"
-    type: string
+    type: password
     group: "Staffngo"
 
   - variable: services.staffngo.env.SPEECH_TO_ACTION_API_KEY
     label: "Speech-to-Action API Key"
-    type: string
+    type: password
     group: "Staffngo"
 
   - variable: services.staffngo.env.HUBSPOT_ACCESS_TOKEN
-    label: "Hubspot access token"
-    type: string
+    label: "HubSpot Access Token"
+    type: password
     group: "Staffngo"
 
-  - variable: services.staffngo.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.staffngo.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.staffngo.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "100m"
+      - variable: services.staffngo.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "250Mi"
+    group: "Staffngo"
+
+  - variable: services.staffngo.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.staffngo.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "500m"
+      - variable: services.staffngo.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "1024Mi"
+    group: "Staffngo"
+
+  - variable: services.staffngo.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.staffngo.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.staffngo.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.staffngo.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.staffngo.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.staffngo.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.staffngo.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Staffngo"
+
+  - variable: services.staffngo.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.staffngo.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.staffngo.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.staffngo.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.staffngo.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.staffngo.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.staffngo.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Staffngo"
+
+  - variable: services.staffngo.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.staffngo.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.staffngo.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.staffngo.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Staffngo"
 
   # ---------------- SUBSCRIPTION ----------------
-  - variable: services.subscription.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Subscription"
 
   - variable: services.subscription.image
     label: "Image"
@@ -452,28 +1702,144 @@ questions:
   - variable: services.subscription.tag
     label: "Tag"
     type: string
-    default: "20260302.0946"
+    default: "20260512.1103"
     group: "Subscription"
 
-  - variable: services.subscription.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.subscription.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Subscription"
 
-  - variable: services.subscription.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.subscription.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.subscription.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "10m"
+      - variable: services.subscription.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "256Mi"
+    group: "Subscription"
+
+  - variable: services.subscription.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.subscription.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "100m"
+      - variable: services.subscription.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "512Mi"
+    group: "Subscription"
+
+  - variable: services.subscription.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.subscription.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.subscription.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.subscription.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.subscription.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.subscription.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.subscription.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Subscription"
+
+  - variable: services.subscription.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.subscription.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.subscription.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.subscription.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.subscription.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.subscription.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.subscription.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Subscription"
+
+  - variable: services.subscription.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.subscription.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.subscription.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.subscription.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Subscription"
 
   # ---------------- VAULT ----------------
-  - variable: services.vault.enabled
-    label: "Déployer ?"
-    type: bool
-    default: true
-    group: "Vault"
 
   - variable: services.vault.image
     label: "Image"
@@ -484,23 +1850,145 @@ questions:
   - variable: services.vault.tag
     label: "Tag"
     type: string
-    default: "20260217.1605"
+    default: "20260526.2004"
     group: "Vault"
 
-  - variable: services.vault.replicaCount
-    label: "Réplicas"
-    type: int
-    default: 1
+  - variable: services.vault.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Vault"
 
-  - variable: services.vault.healthCheckPath
-    label: "Health Check Path"
-    description: "Chemin HTTP pour les probes liveness/readiness."
-    type: string
-    default: "/api/v1/health"
+  - variable: services.vault.resources.requests.enabled
+    label: "Requests"
+    description: "Activer la réservation de ressources (requis par HPA)."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.vault.resources.requests.cpu
+        label: "CPU"
+        type: string
+        default: "20m"
+      - variable: services.vault.resources.requests.memory
+        label: "Memory"
+        type: string
+        default: "768Mi"
+    group: "Vault"
+
+  - variable: services.vault.resources.limits.enabled
+    label: "Limits"
+    description: "Activer la limite de ressources."
+    type: boolean
+    default: false
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.vault.resources.limits.cpu
+        label: "CPU"
+        type: string
+        default: "100m"
+      - variable: services.vault.resources.limits.memory
+        label: "Memory"
+        type: string
+        default: "1024Mi"
+    group: "Vault"
+
+  - variable: services.vault.livenessProbe.enabled
+    label: "Liveness Probe"
+    description: "Activer la liveness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.vault.livenessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.vault.livenessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.vault.livenessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.vault.livenessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.vault.livenessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.vault.livenessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 3
+    group: "Vault"
+
+  - variable: services.vault.readinessProbe.enabled
+    label: "Readiness Probe"
+    description: "Activer la readiness probe."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.vault.readinessProbe.httpGet.path
+        label: "Route"
+        type: string
+        default: "/api/v1/health"
+      - variable: services.vault.readinessProbe.initialDelaySeconds
+        label: "Initial Delay (s)"
+        type: int
+        default: 10
+      - variable: services.vault.readinessProbe.periodSeconds
+        label: "Period (s)"
+        type: int
+        default: 10
+      - variable: services.vault.readinessProbe.timeoutSeconds
+        label: "Timeout (s)"
+        type: int
+        default: 1
+      - variable: services.vault.readinessProbe.successThreshold
+        label: "Success Threshold"
+        type: int
+        default: 1
+      - variable: services.vault.readinessProbe.failureThreshold
+        label: "Failure Threshold"
+        type: int
+        default: 10
+    group: "Vault"
+
+  - variable: services.vault.autoscaling.enabled
+    label: "Autoscaling (HPA)"
+    description: "Activer le Horizontal Pod Autoscaler."
+    type: boolean
+    default: true
+    show_subquestion_if: true
+    subquestions:
+      - variable: services.vault.autoscaling.minReplicas
+        label: "Min Replicas"
+        type: int
+        default: 2
+      - variable: services.vault.autoscaling.maxReplicas
+        label: "Max Replicas"
+        type: int
+        default: 5
+      - variable: services.vault.autoscaling.targetCPUUtilizationPercentage
+        label: "Target CPU Utilization (%)"
+        type: int
+        default: 70
     group: "Vault"
 
   # SECRETS COMMUNS ---------------------------------------------------------
+
   - variable: secret.secretValues.API_BASE_URL
     label: "API Base URL"
     type: string
@@ -509,18 +1997,15 @@ questions:
     group: "Secrets"
 
   - variable: secret.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
-    label: "Azure ServiceBus"
-    description: "azurePortal > namespace > servicebus > settings >
-      SharedAccessPolicy > ConnectionString"
+    label: "Azure ServiceBus Connection String"
+    description: "Azure Portal > Namespace > Service Bus > Settings > Shared Access Policy > ConnectionString"
     type: string
     required: true
     group: "Secrets"
 
   - variable: secret.secretValues.AZURE_STORAGE_CONNECTION_STRING
-    description:
-      "azurePortal > namespace > (blob)storage > security > accessKeys >
-      ConnectionString"
-    label: "Azure Storage"
+    label: "Azure Storage Connection String"
+    description: "Azure Portal > Namespace > (Blob) Storage > Security > Access Keys > ConnectionString"
     type: string
     required: true
     group: "Secrets"
@@ -532,74 +2017,75 @@ questions:
     group: "Secrets"
 
   # DATABASE CONNECTIONS ----------------------------------------------------
+
   - variable: configMap.values.digidoc
-    label: "Digidoc DB access ConnexionString"
+    label: "Digidoc - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.external
-    label: "External DB access ConnexionString"
+    label: "External - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.identity
-    label: "Identity DB access ConnexionString"
+    label: "Identity - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.laborregister
-    label: "LaborRegister DB access ConnexionString"
+    label: "LaborRegister - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.monitoring
-    label: "Monitoring DB access ConnexionString"
+    label: "Monitoring - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.notification
-    label: "Notification DB access ConnexionString"
+    label: "Notification - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.postal
-    label: "Postal DB access ConnexionString"
+    label: "Postal - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.scheduler
-    label: "Scheduler DB access ConnexionString"
+    label: "Scheduler - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.signature
-    label: "Signature DB access ConnexionString"
+    label: "Signature - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.staffngo
-    label: "Staffngo DB access ConnexionString"
+    label: "Staffngo - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.subscription
-    label: "Subscription DB access ConnexionString"
+    label: "Subscription - Connection String"
     type: string
     required: true
     group: "Database"
 
   - variable: configMap.values.vault
-    label: "Vault DB access ConnexionString"
+    label: "Vault - Connection String"
     type: string
     required: true
     group: "Database"

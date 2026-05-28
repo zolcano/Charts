@@ -1,13 +1,14 @@
 namespace: "staffngo"
+redisNamespace: redis
 environment: "Demo"
-ENABLE_INSTALLERS: "false"
+enableInstallers: "false"
 
 #----------------------------------------------------
 traefik:
   gateway:
     name: "traefik-gateway"
     namespace: "traefik"
-    sectionName: "web"
+    sectionName: "websecure"
 
 registry:
   server: "staffngoacr.azurecr.io"
@@ -19,7 +20,6 @@ acrSecret:
   password: ""
 
 #----------------------------------------------------
-
 secret:
   name: "common"
   secretValues:
@@ -50,57 +50,125 @@ configMap:
 services:
   digidoc:
     image: "digidoc.api"
-    tag: "20260420.1719"
+    tag: "20260526.2056"
+    pullPolicy: IfNotPresent
     replicaCount: 1
-    pullPolicy: "IfNotPresent"
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
+        enabled: true
         cpu: "100m"
         memory: "512Mi"
+      limits:
+        enabled: false
+        cpu: "500m"
+        memory: "1024Mi"
     env:
       API_BASE_PATH: "digidoc"
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "digidoc"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: digidoc
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   external:
     image: "external.api"
-    tag: "20260421.1031"
-    replicaCount: 1
+    tag: "20260526.1954"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
+        enabled: true
         cpu: "20m"
-        memory: "128Mi"
+        memory: "256Mi"
+      limits:
+        enabled: false
+        cpu: "100m"
+        memory: "512Mi"
     env:
       API_BASE_PATH: "external"
     configKeys:
       - envVar: DB_CONNECTION_STRING
-        configMapKey: "external"
+        configMapKey: external
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   identity:
     image: "identity.api"
-    tag: "20260420.1724"
-    replicaCount: 1
+    tag: "20260526.2052"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
-        cpu: "50m"
-        memory: "256Mi"
+        enabled: true
+        cpu: "150m"
+        memory: "512Mi"
+      limits:
+        enabled: false
+        cpu: "750m"
+        memory: "1024Mi"
     env:
       AZURE_CLIENT_ID: ""
       AZURE_TENANT_ID: ""
@@ -108,145 +176,362 @@ services:
       REDIS_CONNECTION_STRING: ""
       API_BASE_PATH: "identity"
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "identity"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: identity
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   laborregister:
     image: "laborregister.api"
-    tag: "20260324.1905"
-    replicaCount: 1
+    tag: "20260526.1954"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
+        enabled: true
         cpu: "10m"
-        memory: "128Mi"
+        memory: "384Mi"
+      limits:
+        enabled: false
+        cpu: "50m"
+        memory: "512Mi"
     env:
       API_BASE_PATH: "laborregister"
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "laborregister"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: laborregister
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   monitoring:
     image: "monitoring.api"
-    tag: "20251006.2114"
-    replicaCount: 1
+    tag: "20260512.1039"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
+        enabled: true
         cpu: "20m"
-        memory: "256Mi"
+        memory: "128Mi"
+      limits:
+        enabled: false
+        cpu: "100m"
+        memory: "512Mi"
     env:
       API_BASE_PATH: "monitoring"
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "monitoring"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: monitoring
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   notification:
     image: "notification.api"
-    tag: "20260421.0857"
-    replicaCount: 1
+    tag: "20260526.1954"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
-        cpu: "50m"
+        enabled: true
+        cpu: 10m"
+        memory: "384Mi"
+      limits:
+        enabled: false
+        cpu: "150m"
         memory: "512Mi"
     env:
       API_BASE_PATH: "notification"
       NDR_CREDENTIALS: ""
       BREVO_API_KEY: ""
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "notification"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: notification
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   postal:
     image: "postal.api"
-    tag: "20260302.0955"
-    replicaCount: 1
+    tag: "20260526.2036"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
-        cpu: "10m"
-        memory: "128Mi"
+        enabled: true
+        cpu: "20m"
+        memory: "256Mi"
+      limits:
+        enabled: false
+        cpu: "100m"
+        memory: "512Mi"
     env:
       API_BASE_PATH: "postal"
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "postal"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: postal
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   scheduler:
     image: "scheduler.api"
-    tag: "20260420.1714"
-    replicaCount: 1
+    tag: "20260526.1959"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
+        enabled: true
         cpu: "10m"
-        memory: "128Mi"
+        memory: "384Mi"
+      limits:
+        enabled: false
+        cpu: "50m"
+        memory: "512Mi"
     env:
       API_BASE_PATH: "scheduler"
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "scheduler"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: scheduler
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   signature:
     image: "signature.api"
-    tag: "20260217.1734"
-    replicaCount: 1
+    tag: "20260526.2033"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
-        cpu: "10m"
-        memory: "256Mi"
+        enabled: true
+        cpu: "30m"
+        memory: "384Mi"
+      limits:
+        enabled: false
+        cpu: "200m"
+        memory: "512Mi"
     env:
       API_BASE_PATH: "signature"
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "signature"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: signature
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   staffngo:
     image: "staffngo.api"
-    tag: "20260422.1541"
-    replicaCount: 1
+    tag: "20260526.2018"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
-        cpu: "250m"
-        memory: "2048Mi"
+        enabled: true
+        cpu: "100m"
+        memory: "250Mi"
+      limits:
+        enabled: false
+        cpu: "500m"
+        memory: "1024Mi"
     env:
       API_BASE_PATH: "staffngo"
       OODRIVE_TOKEN: ""
@@ -256,46 +541,133 @@ services:
       SPEECH_TO_ACTION_API_KEY: ""
       HUBSPOT_ACCESS_TOKEN: ""
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "staffngo"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: staffngo
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   subscription:
     image: "subscription.api"
-    tag: "20260421.1846"
-    replicaCount: 1
+    tag: "20260512.1103"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
+        enabled: true
         cpu: "10m"
         memory: "256Mi"
+      limits:
+        enabled: false
+        cpu: "100m"
+        memory: "512Mi"
     env:
       API_BASE_PATH: "subscription"
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "subscription"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: subscription
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true
 
   vault:
     image: "vault.api"
-    tag: "20260217.1605"
-    replicaCount: 1
+    tag: "20260526.2004"
     pullPolicy: "IfNotPresent"
+    replicaCount: 1
     healthCheckPath: "/api/v1/health"
     service:
-      type: "ClusterIP"
+      type: ClusterIP
       port: 80
+      targetPort: 80
     resources:
       requests:
-        cpu: "10m"
-        memory: "256Mi"
+        enabled: true
+        cpu: "20m"
+        memory: "768Mi"
+      limits:
+        enabled: false
+        cpu: "100m"
+        memory: "1024Mi"
     env:
       API_BASE_PATH: "vault"
     configKeys:
-      - envVar: "DB_CONNECTION_STRING"
-        configMapKey: "vault"
+      - envVar: DB_CONNECTION_STRING
+        configMapKey: vault
+    livenessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 3
+    readinessProbe:
+      enabled: true
+      httpGet:
+        path: /api/v1/health
+        port: 80
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      timeoutSeconds: 1
+      successThreshold: 1
+      failureThreshold: 10
+    autoscaling:
+      enabled: true
+      minReplicas: 2
+      maxReplicas: 5
+      targetCPUUtilizationPercentage: 70
     enabled: true

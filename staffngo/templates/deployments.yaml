@@ -21,39 +21,25 @@ spec:
     spec:
       imagePullSecrets:
         - name: {{ $.Values.registry.secretName }}
-      {{- if $.Values.redis.enabled }}
-      initContainers:
-        - name: wait-for-redis
-          image: redis:{{ $.Values.redis.tag }}
-          command:
-            - sh
-            - -c
-            - |
-              until redis-cli -c \
-                -h redis-0.redis.{{ $.Values.namespace }}.svc.cluster.local \
-                ping | grep -q PONG; do
-                echo "Waiting for Redis cluster..."; sleep 3;
-              done
-      {{- end }}
       containers:
         - name: {{ $name }}
-          image: "{{ $.Values.registry.server }}/{{ $svc.image }}:{{ $svc.tag }}"
+          image: "{{ $.Values.registry.server }}/{{ $svc.repository }}:{{ $svc.tag }}"
           imagePullPolicy: {{ $svc.pullPolicy }}
           ports:
-            - containerPort: {{ $svc.service.port }}
+            - containerPort: {{ $svc.service.targetPort }}
           envFrom:
             - secretRef:
                 name: {{ $.Values.secret.name }}
           {{- if or $svc.env $svc.configKeys }}
           env:
             - name: ENABLE_INSTALLERS
-              value: {{ $.Values.ENABLE_INSTALLERS | quote }}
+              value: {{ $.Values.enableInstallers | quote }}
             {{- if $svc.env }}
             {{- range $key, $value := $svc.env }}
             {{- if or (eq $key "REDIS_CONNECTION_STRING") (eq $key "REDIS_WS_CONNECTION_STRING") }}
             - name: {{ $key }}
-              value: {{ printf "redis.%s.svc.cluster.local:6379" $.Values.namespace | quote}}
-            {{- else}}
+              value: {{ printf "redis.%s.svc.cluster.local:6379" $.Values.redisNamespace | quote }}
+            {{- else }}
             - name: {{ $key }}
               value: {{ $value | quote }}
             {{- end }}
@@ -69,17 +55,43 @@ spec:
             {{- end }}
             {{- end }}
           {{- end }}
+          {{- if $svc.livenessProbe }}
+          {{- if $svc.livenessProbe.enable }}
+          livenessProbe:
+            httpGet:
+              path: {{ $svc.livenessProbe.httpGet.path }}
+              port: {{ $svc.livenessProbe.httpGet.port }}
+            initialDelaySeconds: {{ $svc.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $svc.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ $svc.livenessProbe.timeoutSeconds }}
+            successThreshold: {{ $svc.livenessProbe.successThreshold }}
+            failureThreshold: {{ $svc.livenessProbe.failureThreshold }}
+          {{- end }}
+          {{- end }}
+          {{- if $svc.readinessProbe }}
+          {{- if $svc.readinessProbe.enable }}
           readinessProbe:
             httpGet:
-              path: {{ $svc.healthCheckPath }}
-              port: {{ $svc.service.port }}
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 1
-            successThreshold: 1
-            failureThreshold: 10
+              path: {{ $svc.readinessProbe.httpGet.path }}
+              port: {{ $svc.readinessProbe.httpGet.port }}
+            initialDelaySeconds: {{ $svc.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $svc.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ $svc.readinessProbe.timeoutSeconds }}
+            successThreshold: {{ $svc.readinessProbe.successThreshold }}
+            failureThreshold: {{ $svc.readinessProbe.failureThreshold }}
+          {{- end }}
+          {{- end }}
           resources:
-            {{- toYaml ($svc.resources) | nindent 12 }}
+            {{- if $svc.resources.requests.enabled }}
+            requests:
+              cpu: {{ $svc.resources.requests.cpu }}
+              memory: {{ $svc.resources.requests.memory }}
+            {{- end }}
+            {{- if $svc.resources.limits.enabled }}
+            limits:
+              cpu: {{ $svc.resources.limits.cpu }}
+              memory: {{ $svc.resources.limits.memory }}
+            {{- end }}
 ---
 apiVersion: v1
 kind: Service
@@ -89,13 +101,35 @@ metadata:
   labels:
     app: {{ $name }}
 spec:
-  type: ClusterIP
+  type: {{ $svc.service.type }}
   ports:
     - name: http
       port: {{ $svc.service.port }}
-      targetPort: {{ $svc.port }}
+      targetPort: {{ $svc.service.targetPort }}
       protocol: TCP
   selector:
     app: {{ $name }}
+{{- if and $svc.autoscaling.enabled $svc.resources.requests.enabled}}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $name }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $name }}
+  minReplicas: {{ $svc.autoscaling.minReplicas }}
+  maxReplicas: {{ $svc.autoscaling.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ $svc.autoscaling.targetCPUUtilizationPercentage }}
+{{- end }}
 {{- end }}
 {{- end }}
