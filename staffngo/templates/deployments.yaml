@@ -8,7 +8,7 @@ metadata:
   namespace: {{ $.Values.namespace }}
   labels:
     app.kubernetes.io/managed-by: Helm
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
     app: {{ $name }}
 spec:
   replicas: {{ $svc.replicaCount }}
@@ -103,7 +103,7 @@ metadata:
   namespace: {{ $.Values.namespace }}
   labels:
     app.kubernetes.io/managed-by: Helm
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
 spec:
   type: {{ $svc.service.type }}
   ports:
@@ -122,7 +122,7 @@ metadata:
   namespace: {{ $.Values.namespace }}
   labels:
     app.kubernetes.io/managed-by: Helm
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
