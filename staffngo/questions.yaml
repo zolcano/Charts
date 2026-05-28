@@ -140,7 +140,7 @@ questions:
     type: string
     default: "api.staffngo.com"
     required: true
-    group: "Secrets"
+    group: "Traefik"
 
   # REGISTRY ----------------------------------------------------------------
 
