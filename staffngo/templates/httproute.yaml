@@ -13,7 +13,7 @@ spec:
       namespace: {{ .Values.traefik.gateway.namespace }}
       sectionName: {{ .Values.traefik.gateway.sectionName }}
   hostnames:
-    - "{{ .Values.secret.secretValues.API_BASE_URL }}"
+    - "{{ .Values.traefik.httproute.url }}"
   rules:
     {{- range $name, $svc := .Values.services }}
     {{- if and $svc.enabled $svc.env.API_BASE_PATH }}

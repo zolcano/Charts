@@ -9,6 +9,8 @@ traefik:
     name: "traefik-gateway"
     namespace: "traefik"
     sectionName: "websecure"
+  httproute:
+    url: "api.staffngo.com"
 
 registry:
   server: "staffngoacr.azurecr.io"
@@ -23,7 +25,6 @@ acrSecret:
 secret:
   name: "common"
   secretValues:
-    API_BASE_URL: "https://api.staffngo.com"
     ASPNETCORE_HTTP_PORTS: "80"
     AZURE_SERVICEBUS_CONNECTION_STRING: ""
     AZURE_STORAGE_CONNECTION_STRING: ""
@@ -320,7 +321,7 @@ services:
     resources:
       requests:
         enabled: true
-        cpu: 10m"
+        cpu: "10m"
         memory: "384Mi"
       limits:
         enabled: false

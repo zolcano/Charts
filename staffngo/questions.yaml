@@ -134,6 +134,14 @@ questions:
     required: true
     group: "Traefik"
 
+  - variable: .Values.traefik.httproute.url
+    label: "API Base URL"
+    description: "ne pas inscrire le protocole ( ex: https:// )"
+    type: string
+    default: "api.staffngo.com"
+    required: true
+    group: "Secrets"
+
   # REGISTRY ----------------------------------------------------------------
 
   - variable: registry.server
@@ -1988,13 +1996,6 @@ questions:
     group: "Vault"
 
   # SECRETS COMMUNS ---------------------------------------------------------
-
-  - variable: secret.secretValues.API_BASE_URL
-    label: "API Base URL"
-    type: string
-    default: "https://api.staffngo.com"
-    required: true
-    group: "Secrets"
 
   - variable: secret.secretValues.AZURE_SERVICEBUS_CONNECTION_STRING
     label: "Azure ServiceBus Connection String"

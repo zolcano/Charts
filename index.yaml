@@ -3,7 +3,7 @@ entries:
   ai-text-agent:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-28T12:19:52.21980436+02:00"
+    created: "2026-05-28T12:36:41.6740257+02:00"
     description: Déploiement du text agent IA
     digest: ddc95f27ee9eda4e39998fd6823eb836778732225fb83746bddf0638a9031f42
     icon: https://cdn-icons-png.magnific.com/512/4632/4632890.png
@@ -15,7 +15,7 @@ entries:
   aska:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-28T12:19:52.238844869+02:00"
+    created: "2026-05-28T12:36:41.6888728+02:00"
     description: Déploiement de Aska
     digest: b31df2f4d2e4ed6f123fbbf12777674766bfbf47cc63dd9cb4dfdacff55848ff
     name: aska
@@ -25,7 +25,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-28T12:19:52.230672765+02:00"
+    created: "2026-05-28T12:36:41.6815571+02:00"
     description: Déploiement de Aska
     digest: 87f4a8a6e3162356f358814ce2acc925962f4aef7aad0c03d1c9eff0a6545d73
     name: aska
@@ -36,7 +36,7 @@ entries:
   kpi:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T12:19:52.246439372+02:00"
+    created: "2026-05-28T12:36:41.6964508+02:00"
     description: Déploiement du kpi
     digest: 969060521451adb7b3a3e04e1bee9c0776ae5d79ac279cde0ad6d4fdac35718c
     icon: https://cdn-icons-png.flaticon.com/512/4680/4680226.png
@@ -48,7 +48,7 @@ entries:
   mailind:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-28T12:19:52.253301375+02:00"
+    created: "2026-05-28T12:36:41.7045133+02:00"
     description: A Helm chart for Kubernetes
     digest: ffce81d5c71cc025ddd3305c2c65596467fe18086d77914802b81178ec23e9d1
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
@@ -60,7 +60,7 @@ entries:
   mcp-gitlab:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-28T12:19:52.260543379+02:00"
+    created: "2026-05-28T12:36:41.7121736+02:00"
     description: A Helm chart for Kubernetes
     digest: 5c564b8c387199c1b800030dc514d6eaed0fcc6c2e9785cb94707a9d8f6d9451
     name: mcp-gitlab
@@ -71,7 +71,7 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T12:19:52.269390283+02:00"
+    created: "2026-05-28T12:36:41.7204269+02:00"
     description: Déploiement du service Pyrescom
     digest: 1bde2500bbd03250919c61fe76f7a5b202f49be18cf13fe3aba6b69a835aee0a
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
@@ -83,7 +83,7 @@ entries:
   redis:
   - apiVersion: v2
     appVersion: "8.6"
-    created: "2026-05-28T12:19:52.276958586+02:00"
+    created: "2026-05-28T12:36:41.7283789+02:00"
     description: Helm chart to deploy Redis standalone or cluster
     digest: e363db52aefdd06a2644032976619e022a90a3cd5ca354de5de70a084bb4b15a
     icon: https://cdn.iconscout.com/icon/free/png-256/free-redis-logo-icon-svg-download-png-3030242.png?f=webp&w=256
@@ -95,7 +95,20 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T12:19:52.286616191+02:00"
+    created: "2026-05-28T12:36:41.7565363+02:00"
+    description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
+      microservices. '
+    digest: 36d4dd8d40122a4d0e25d3c56c2772f1dfd049e31d306f0345f2e68c8e09682f
+    home: https://www.staffngo.com
+    icon: https://consumersiteimages.trustpilot.net/business-units/6298624a4338fd60e3e2454e-198x149-1x.jpg
+    name: staffngo
+    type: application
+    urls:
+    - https://zolcano.github.io/Charts/staffngo-2.0.1.tgz
+    version: 2.0.1
+  - apiVersion: v2
+    appVersion: "2026"
+    created: "2026-05-28T12:36:41.7452562+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices. '
     digest: 3ea47adfd7d590f6d62a8d9f8008646a15f1e4201fa279cd8070d2a40952cc66
@@ -106,4 +119,4 @@ entries:
     urls:
     - https://zolcano.github.io/Charts/staffngo-2.0.0.tgz
     version: 2.0.0
-generated: "2026-05-28T12:19:52.208869955+02:00"
+generated: "2026-05-28T12:36:41.6657317+02:00"
