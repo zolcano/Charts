@@ -3,7 +3,7 @@ entries:
   ai-text-agent:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-28T16:59:46.435842514+02:00"
+    created: "2026-05-28T17:33:12.5497423+02:00"
     description: Déploiement du text agent IA
     digest: be27490093774ee46154680b09bef3e96b03d899cb92589ac657eb51634aba3c
     icon: https://cdn-icons-png.magnific.com/512/4632/4632890.png
@@ -15,7 +15,7 @@ entries:
   aska:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-28T16:59:46.444068325+02:00"
+    created: "2026-05-28T17:33:12.5573722+02:00"
     description: Déploiement de Aska
     digest: 40362b66846bed87d46e674bfe5d7c4ce08acf9f4f0124ae90457a1fdaa83fee
     name: aska
@@ -26,7 +26,7 @@ entries:
   kpi:
   - apiVersion: v2
     appVersion: v1.9
-    created: "2026-05-28T16:59:46.451929735+02:00"
+    created: "2026-05-28T17:33:12.565849+02:00"
     description: Déploiement du service kpi
     digest: e699c53c04814a3c633a12e1ed21f380a0fe2c455f80d4f812b691c6a06fe665
     icon: https://cdn-icons-png.flaticon.com/512/4680/4680226.png
@@ -38,7 +38,7 @@ entries:
   mailind:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T16:59:46.460964647+02:00"
+    created: "2026-05-28T17:33:12.5764013+02:00"
     description: Déploiement du service Mailind
     digest: 2915d4b4c129f9ba56a5e3dd20976d230ec05653fe9f0d3b69780d1c0b040b6a
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
@@ -50,7 +50,7 @@ entries:
   mcp-gitlab:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T16:59:46.469016158+02:00"
+    created: "2026-05-28T17:33:12.5850231+02:00"
     description: Déploiement du MCP Gitlab
     digest: aaac78bee1fdec6ed4ca0ad97a3e304a3bd038242476b2ae4ec9540489830f4f
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/GitLab_icon.svg/1280px-GitLab_icon.svg.png
@@ -62,7 +62,7 @@ entries:
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T16:59:46.478004269+02:00"
+    created: "2026-05-28T17:33:12.5959309+02:00"
     description: Déploiement du service Pyrescom
     digest: da2cc891509bb1be2ee281b4010abcbffb674ea68074013e46cf15911488d5aa
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
@@ -74,7 +74,18 @@ entries:
   redis:
   - apiVersion: v2
     appVersion: "8.6"
-    created: "2026-05-28T16:59:46.485600079+02:00"
+    created: "2026-05-28T17:33:12.6134928+02:00"
+    description: Déploiement de Redis Standalone/Cluster
+    digest: 34c48e4841bd05fc81bd329d84079e87314a2cafa882913877b36db9ac2973cf
+    icon: https://cdn.iconscout.com/icon/free/png-256/free-redis-logo-icon-svg-download-png-3030242.png?f=webp&w=256
+    name: redis
+    type: application
+    urls:
+    - https://zolcano.github.io/Charts/redis-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: "8.6"
+    created: "2026-05-28T17:33:12.6044117+02:00"
     description: Déploiement de Redis Standalone/Cluster
     digest: 25de95b4f591656f6443006492bc0950135fd4502a33107e0296b4eabb90d2a6
     icon: https://cdn.iconscout.com/icon/free/png-256/free-redis-logo-icon-svg-download-png-3030242.png?f=webp&w=256
@@ -86,7 +97,7 @@ entries:
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T16:59:46.497046694+02:00"
+    created: "2026-05-28T17:33:12.6247104+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices. '
     digest: 897e8e86b3903803e95f40236aef896ca5fa5a4dd9f1bf9ca10c38cdec5bda91
@@ -97,4 +108,4 @@ entries:
     urls:
     - https://zolcano.github.io/Charts/staffngo-2.1.1.tgz
     version: 2.1.1
-generated: "2026-05-28T16:59:46.427245703+02:00"
+generated: "2026-05-28T17:33:12.5370966+02:00"
