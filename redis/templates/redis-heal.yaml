@@ -1,4 +1,4 @@
-{{- if and .Values.redis.heal.enabled .Values.redis.cluster.enabled }}
+{{- if .Values.redis.cluster.enabled }}
 {{- $clusterReplicas := int (sub (div .Values.redis.cluster.nodes 3) 1) }}
 ---
 apiVersion: batch/v1
