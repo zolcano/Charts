@@ -1,14 +1,14 @@
-{{- $service := .Values.services.pyrescom }}
+{ { - $service := .Values.services.pyrescom } }
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pyrescom
-  namespace: {{ .Values.namespace }}
+  namespace: { { .Values.namespace } }
   labels:
     app: pyrescom
 spec:
-  replicas: {{ $service.replicaCount }}
+  replicas: { { $service.replicaCount } }
   selector:
     matchLabels:
       app: pyrescom
@@ -18,25 +18,25 @@ spec:
         app: pyrescom
     spec:
       imagePullSecrets:
-        - name: {{ .Values.registry.secretName }}
+        - name: { { .Values.registry.secretName } }
       containers:
         - name: pyrescom
           image: "{{ .Values.registry.server }}/{{ $service.image }}:{{ $service.tag }}"
-          imagePullPolicy: {{ $service.pullPolicy }}
+          imagePullPolicy: { { $service.pullPolicy } }
           ports:
             - name: tnview
-              containerPort: {{ .Values.configmap.ternet.ServicePort }}
+              containerPort: { { .Values.configmap.ternet.ServicePort } }
               protocol: TCP
             - name: config
-              containerPort: {{ .Values.configmap.ternet.CfgSrvPort }}
+              containerPort: { { .Values.configmap.ternet.CfgSrvPort } }
               protocol: TCP
             - name: https
-              containerPort: {{ .Values.configmap.ternet.SslPort }}
+              containerPort: { { .Values.configmap.ternet.SslPort } }
               protocol: TCP
           resources:
             requests:
-              cpu: {{ $service.resources.requests.cpu }}
-              memory: {{ $service.resources.requests.memory }}
+              cpu: { { $service.resources.requests.cpu } }
+              memory: { { $service.resources.requests.memory } }
           volumeMounts:
             - name: pyrescom-data
               mountPath: /compil/usr/ternet/client

@@ -1,11 +1,11 @@
-{{- $namespace := .Values.namespace }}
+{ { - $namespace := .Values.namespace } }
 ---
 # PVC - Data
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pyrescom-data-pvc
-  namespace: {{ .Values.namespace }}
+  namespace: { { .Values.namespace } }
 spec:
   accessModes:
     - ReadWriteMany

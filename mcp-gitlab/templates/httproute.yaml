@@ -6,7 +6,7 @@ metadata:
   namespace: {{ .Values.namespace }}
   labels:
     app.kubernetes.io/managed-by: Helm
-    chart: {{ .Chart.Name }}-{{ .Chart.version }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 spec:
   parentRefs:
     - name: {{ .Values.traefik.gateway.name }}

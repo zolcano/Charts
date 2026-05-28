@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.configMap.name}}
   labels:
     app.kubernetes.io/managed-by: Helm
-    chart: {{ .Chart.name }}-{{ .Chart.version }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 data:
   digidoc: {{ .Values.configMap.values.digidoc }}
   external: {{ .Values.configMap.values.external }}

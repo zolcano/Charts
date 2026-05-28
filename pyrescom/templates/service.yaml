@@ -1,26 +1,26 @@
-{{- $service := .Values.services.pyrescom }}
+{ { - $service := .Values.services.pyrescom } }
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: pyrescom
-  namespace: {{ .Values.namespace }}
+  namespace: { { .Values.namespace } }
   labels:
     app: pyrescom
 spec:
-  type: {{ $service.service.type }}
+  type: { { $service.service.type } }
   selector:
     app: pyrescom
   ports:
     - name: tnview
       protocol: TCP
-      port: {{ .Values.configmap.ternet.ServicePort }}
-      targetPort: {{ .Values.configmap.ternet.ServicePort }}
+      port: { { .Values.configmap.ternet.ServicePort } }
+      targetPort: { { .Values.configmap.ternet.ServicePort } }
     - name: config
       protocol: TCP
-      port: {{ .Values.configmap.ternet.CfgSrvPort }}
-      targetPort: {{ .Values.configmap.ternet.CfgSrvPort }}
+      port: { { .Values.configmap.ternet.CfgSrvPort } }
+      targetPort: { { .Values.configmap.ternet.CfgSrvPort } }
     - name: https
       protocol: TCP
-      port: {{ .Values.configmap.ternet.SslPort }}
-      targetPort: {{ .Values.configmap.ternet.SslPort }}
+      port: { { .Values.configmap.ternet.SslPort } }
+      targetPort: { { .Values.configmap.ternet.SslPort } }

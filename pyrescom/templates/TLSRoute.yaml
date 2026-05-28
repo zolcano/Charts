@@ -3,7 +3,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: TLSRoute
 metadata:
   name: pyrescom
-  namespace: {{ .Values.namespace }}
+  namespace: { { .Values.namespace } }
   annotations:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-weight: "5"
@@ -12,15 +12,15 @@ spec:
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: {{ .Values.traefik.gateway.name }}
-      namespace: {{ .Values.traefik.gateway.namespace }}
-      sectionName: {{ .Values.traefik.gateway.sectionName }}
+      name: { { .Values.traefik.gateway.name } }
+      namespace: { { .Values.traefik.gateway.namespace } }
+      sectionName: { { .Values.traefik.gateway.sectionName } }
   hostnames:
-    - {{ .Values.traefik.hostname | quote }}
+    - { { .Values.traefik.hostname | quote } }
   rules:
     - backendRefs:
-        - group: ''
+        - group: ""
           kind: Service
-          name: {{ .Values.traefik.backend.service }}
-          port: {{ .Values.configmap.ternet.SslPort }}
+          name: { { .Values.traefik.backend.service } }
+          port: { { .Values.configmap.ternet.SslPort } }
           weight: 1
