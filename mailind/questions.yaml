@@ -1,8 +1,7 @@
 categories:
-  - Email
+  - Mailind
 
 questions:
-
   # ─────────────────────────────────────────────────────────────
   # GROUPE 1 — Déploiement
   # ─────────────────────────────────────────────────────────────
@@ -42,7 +41,7 @@ questions:
   # ─────────────────────────────────────────────────────────────
   # GROUPE 3 — Traefik
   # ─────────────────────────────────────────────────────────────
-  - variable: traefik.hostname
+  - variable: traefik.httproute.url
     label: "Hostname public (FQDN)"
     description: "Nom de domaine exposé par Traefik Gateway pour accéder à mailind."
     type: hostname
@@ -69,12 +68,33 @@ questions:
   # ─────────────────────────────────────────────────────────────
   # GROUPE 4 — Service mailind
   # ─────────────────────────────────────────────────────────────
+  - variable: services.mailind.image
+    label: "Image de l'image mailind"
+    description: "image à déployer."
+    type: string
+    default: "mailind"
+    required: true
+    group: "mailind"
+
   - variable: services.mailind.tag
     label: "Tag de l'image mailind"
     description: "Tag/version de l'image à déployer."
     type: string
     default: "13042026"
     required: true
+    group: "mailind"
+
+  - variable: services.mailind.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "mailind"
 
   - variable: services.mailind.replicaCount

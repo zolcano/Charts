@@ -26,11 +26,9 @@ spec:
           image: "{{ $.Values.registry.server }}/{{ .image }}:{{ .tag }}"
           imagePullPolicy: {{ .pullPolicy }}
           ports:
-            {{- range .ports }}
-            - name: {{ .name }}
-              containerPort: {{ .port }}
+            - name: {{ .service.portName }}
+              containerPort: {{ .service.port }}
               protocol: TCP
-            {{- end }}
           env:
             {{- range $secretName, $secretData := $.Values.secret }}
             {{- range $key, $val := $secretData }}

@@ -3,9 +3,9 @@ entries:
   ai-text-agent:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-28T15:16:44.7337861+02:00"
+    created: "2026-05-28T16:59:46.435842514+02:00"
     description: Déploiement du text agent IA
-    digest: ddc95f27ee9eda4e39998fd6823eb836778732225fb83746bddf0638a9031f42
+    digest: be27490093774ee46154680b09bef3e96b03d899cb92589ac657eb51634aba3c
     icon: https://cdn-icons-png.magnific.com/512/4632/4632890.png
     name: ai-text-agent
     type: application
@@ -15,119 +15,86 @@ entries:
   aska:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2026-05-28T15:16:44.749531+02:00"
+    created: "2026-05-28T16:59:46.444068325+02:00"
     description: Déploiement de Aska
-    digest: b31df2f4d2e4ed6f123fbbf12777674766bfbf47cc63dd9cb4dfdacff55848ff
+    digest: 40362b66846bed87d46e674bfe5d7c4ce08acf9f4f0124ae90457a1fdaa83fee
     name: aska
     type: application
     urls:
     - https://zolcano.github.io/Charts/aska-0.3.0.tgz
     version: 0.3.0
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2026-05-28T15:16:44.7418617+02:00"
-    description: Déploiement de Aska
-    digest: 87f4a8a6e3162356f358814ce2acc925962f4aef7aad0c03d1c9eff0a6545d73
-    name: aska
-    type: application
-    urls:
-    - https://zolcano.github.io/Charts/aska-0.2.0.tgz
-    version: 0.2.0
   kpi:
   - apiVersion: v2
-    appVersion: "2026"
-    created: "2026-05-28T15:16:44.7584936+02:00"
-    description: Déploiement du kpi
-    digest: 969060521451adb7b3a3e04e1bee9c0776ae5d79ac279cde0ad6d4fdac35718c
+    appVersion: v1.9
+    created: "2026-05-28T16:59:46.451929735+02:00"
+    description: Déploiement du service kpi
+    digest: e699c53c04814a3c633a12e1ed21f380a0fe2c455f80d4f812b691c6a06fe665
     icon: https://cdn-icons-png.flaticon.com/512/4680/4680226.png
     name: kpi
     type: application
     urls:
-    - https://zolcano.github.io/Charts/kpi-1.1.0.tgz
-    version: 1.1.0
+    - https://zolcano.github.io/Charts/kpi-1.2.0.tgz
+    version: 1.2.0
   mailind:
   - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2026-05-28T15:16:44.7657251+02:00"
-    description: A Helm chart for Kubernetes
-    digest: ffce81d5c71cc025ddd3305c2c65596467fe18086d77914802b81178ec23e9d1
+    appVersion: "2026"
+    created: "2026-05-28T16:59:46.460964647+02:00"
+    description: Déploiement du service Mailind
+    digest: 2915d4b4c129f9ba56a5e3dd20976d230ec05653fe9f0d3b69780d1c0b040b6a
     icon: https://i.ibb.co/5WPLX4Hv/v914-ning-27-removebg-preview.png
     name: mailind
     type: application
     urls:
-    - https://zolcano.github.io/Charts/mailind-0.1.0.tgz
-    version: 0.1.0
+    - https://zolcano.github.io/Charts/mailind-1.0.0.tgz
+    version: 1.0.0
   mcp-gitlab:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T15:16:44.7883783+02:00"
+    created: "2026-05-28T16:59:46.469016158+02:00"
     description: Déploiement du MCP Gitlab
-    digest: 08a65bf340c5f6dbe9344a9ee7152caa66df2eb8b0a6d2229cffa3937576324c
+    digest: aaac78bee1fdec6ed4ca0ad97a3e304a3bd038242476b2ae4ec9540489830f4f
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/GitLab_icon.svg/1280px-GitLab_icon.svg.png
     name: mcp-gitlab
     type: application
     urls:
-    - https://zolcano.github.io/Charts/mcp-gitlab-1.0.1.tgz
-    version: 1.0.1
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2026-05-28T15:16:44.7804688+02:00"
-    description: A Helm chart for Kubernetes
-    digest: 5c564b8c387199c1b800030dc514d6eaed0fcc6c2e9785cb94707a9d8f6d9451
-    name: mcp-gitlab
-    type: application
-    urls:
-    - https://zolcano.github.io/Charts/mcp-gitlab-0.1.0.tgz
-    version: 0.1.0
+    - https://zolcano.github.io/Charts/mcp-gitlab-1.0.2.tgz
+    version: 1.0.2
   pyrescom:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T15:16:44.7969652+02:00"
+    created: "2026-05-28T16:59:46.478004269+02:00"
     description: Déploiement du service Pyrescom
-    digest: 1bde2500bbd03250919c61fe76f7a5b202f49be18cf13fe3aba6b69a835aee0a
+    digest: da2cc891509bb1be2ee281b4010abcbffb674ea68074013e46cf15911488d5aa
     icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670
     name: pyrescom
     type: application
     urls:
-    - https://zolcano.github.io/Charts/pyrescom-1.0.0.tgz
-    version: 1.0.0
+    - https://zolcano.github.io/Charts/pyrescom-1.1.0.tgz
+    version: 1.1.0
   redis:
   - apiVersion: v2
     appVersion: "8.6"
-    created: "2026-05-28T15:16:44.8045772+02:00"
-    description: Helm chart to deploy Redis standalone or cluster
-    digest: e363db52aefdd06a2644032976619e022a90a3cd5ca354de5de70a084bb4b15a
+    created: "2026-05-28T16:59:46.485600079+02:00"
+    description: Déploiement de Redis Standalone/Cluster
+    digest: 25de95b4f591656f6443006492bc0950135fd4502a33107e0296b4eabb90d2a6
     icon: https://cdn.iconscout.com/icon/free/png-256/free-redis-logo-icon-svg-download-png-3030242.png?f=webp&w=256
     name: redis
     type: application
     urls:
-    - https://zolcano.github.io/Charts/redis-0.1.5.tgz
-    version: 0.1.5
+    - https://zolcano.github.io/Charts/redis-1.0.0.tgz
+    version: 1.0.0
   staffngo:
   - apiVersion: v2
     appVersion: "2026"
-    created: "2026-05-28T15:16:44.8283126+02:00"
+    created: "2026-05-28T16:59:46.497046694+02:00"
     description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
       microservices. '
-    digest: db3825ff380815dc9f95c918ba020475fbaf46e6923b13ca619268731a902517
+    digest: 897e8e86b3903803e95f40236aef896ca5fa5a4dd9f1bf9ca10c38cdec5bda91
     home: https://www.staffngo.com
     icon: https://consumersiteimages.trustpilot.net/business-units/6298624a4338fd60e3e2454e-198x149-1x.jpg
     name: staffngo
     type: application
     urls:
-    - https://zolcano.github.io/Charts/staffngo-2.1.0.tgz
-    version: 2.1.0
-  - apiVersion: v2
-    appVersion: "2026"
-    created: "2026-05-28T15:16:44.8171792+02:00"
-    description: 'Déploiement de la plateforme StaffNGO — orchestration complète des
-      microservices. '
-    digest: 8505df280b9dbe0e44b59d1a63dfe01eee8f6b609355be1cf43a90fc4242a678
-    home: https://www.staffngo.com
-    icon: https://consumersiteimages.trustpilot.net/business-units/6298624a4338fd60e3e2454e-198x149-1x.jpg
-    name: staffngo
-    type: application
-    urls:
-    - https://zolcano.github.io/Charts/staffngo-2.0.3.tgz
-    version: 2.0.3
-generated: "2026-05-28T15:16:44.7249408+02:00"
+    - https://zolcano.github.io/Charts/staffngo-2.1.1.tgz
+    version: 2.1.1
+generated: "2026-05-28T16:59:46.427245703+02:00"

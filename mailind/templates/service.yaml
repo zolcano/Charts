@@ -6,10 +6,8 @@ metadata:
   name: mailind
   namespace: {{ $.Values.namespace }}
   labels:
-    app: mailind
-    app.kubernetes.io/name: mailind
-    app.kubernetes.io/instance: {{ $.Release.Name }}
-    helm.sh/chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
 spec:
   type: {{ .service.type }}
   selector:
@@ -17,7 +15,7 @@ spec:
   ports:
     {{- range .ports }}
     - name: {{ .name }}
-      port: {{ .port | int }}
+      port: 80
       targetPort: {{ .port | int }}
       protocol: TCP
     {{- end }}

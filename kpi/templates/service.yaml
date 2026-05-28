@@ -3,13 +3,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: kpi
-  namespace: { { .Values.namespace } }
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 spec:
-  type: { { .Values.services.kpi.service.type } }
+  type: {{ .Values.services.kpi.service.type }}
   selector:
     app: kpi
   ports:
     - name: http
       protocol: TCP
-      port: 3001
+      port: 80
       targetPort: http

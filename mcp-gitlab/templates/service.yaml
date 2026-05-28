@@ -15,4 +15,4 @@ spec:
     - name: http
       port: 80
       protocol: TCP
-      targetPort: {{ .Values.services.mcp.ports[0].name }}
+      targetPort: {{ .Values.services.mcp.service.port }}

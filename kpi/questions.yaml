@@ -2,7 +2,6 @@ categories:
   - KPI Dashboard
 
 questions:
-
   # ─────────────────────────────────────────────
   # NAMESPACE
   # ─────────────────────────────────────────────
@@ -43,9 +42,15 @@ questions:
   # ─────────────────────────────────────────────
   # SERVICE / IMAGE
   # ─────────────────────────────────────────────
+  - variable: services.jira-kpi.Image
+    label: "Image"
+    type: string
+    default: "jira-kpi"
+    required: true
+    group: "Application"
+
   - variable: services.jira-kpi.tag
-    label: "Tag de l'image jira-kpi"
-    description: "Tag Docker à déployer (ex: v1.9, latest)."
+    label: "Tag de l'image"
     type: string
     default: "v1.9"
     required: true
@@ -76,7 +81,7 @@ questions:
   # ─────────────────────────────────────────────
   # TRAEFIK / INGRESS
   # ─────────────────────────────────────────────
-  - variable: traefik.hostname
+  - variable: traefik.httproute.url
     label: "Nom de domaine (hostname)"
     description: "FQDN exposé via Traefik (ex: kpi.mondomaine.com)."
     type: hostname

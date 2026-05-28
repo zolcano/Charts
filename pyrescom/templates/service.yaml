@@ -1,26 +1,31 @@
-{ { - $service := .Values.services.pyrescom } }
+{{- with .Values.services.pyrescom }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: pyrescom
-  namespace: { { .Values.namespace } }
+  namespace: {{ $.Values.namespace }}
   labels:
     app: pyrescom
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
 spec:
-  type: { { $service.service.type } }
+  type: {{ .service.type }}
   selector:
     app: pyrescom
   ports:
+    {{- with $.Values.configmap.ternet }}
     - name: tnview
       protocol: TCP
-      port: { { .Values.configmap.ternet.ServicePort } }
-      targetPort: { { .Values.configmap.ternet.ServicePort } }
+      port: {{ .ServicePort }}
+      targetPort: {{ .ServicePort }}
     - name: config
       protocol: TCP
-      port: { { .Values.configmap.ternet.CfgSrvPort } }
-      targetPort: { { .Values.configmap.ternet.CfgSrvPort } }
+      port: {{ .CfgSrvPort }}
+      targetPort: {{ .CfgSrvPort }}
     - name: https
       protocol: TCP
-      port: { { .Values.configmap.ternet.SslPort } }
-      targetPort: { { .Values.configmap.ternet.SslPort } }
+      port: {{ .SslPort }}
+      targetPort: {{ .SslPort }}
+    {{ end }}
+{{ end }}

@@ -2,6 +2,6 @@ apiVersion: v2
 name: pyrescom
 description: Déploiement du service Pyrescom
 type: application
-version: 1.0.0
+version: 1.1.0
 appVersion: "2026"
 icon: https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/64x64/6e70bdf09103e23c681beb44b7b85670

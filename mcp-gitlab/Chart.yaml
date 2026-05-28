@@ -2,6 +2,6 @@ apiVersion: v2
 name: mcp-gitlab
 description: Déploiement du MCP Gitlab
 type: application
-version: 1.0.1
+version: 1.0.2
 appVersion: "2026"
 icon: https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/GitLab_icon.svg/1280px-GitLab_icon.svg.png

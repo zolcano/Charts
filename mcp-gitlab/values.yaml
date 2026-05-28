@@ -27,9 +27,8 @@ services:
     pullPolicy: "IfNotPresent"
     service:
       type: "ClusterIP"
-    ports:
-      - port: 3000
-        name: http
+      port: 3000
+      portName: http
 
 #----------------------------------------------------
 secret:

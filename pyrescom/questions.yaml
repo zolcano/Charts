@@ -35,6 +35,13 @@ questions:
   # ────────────────────────────────────────────
   # TRAEFIK
   # ────────────────────────────────────────────
+  - variable: traefik.tlsroute.url
+    label: "url"
+    type: hostname
+    default: "pyres.staffngo.com"
+    required: true
+    group: "Traefik"
+
   - variable: traefik.gateway.name
     label: "Gateway Name"
     description: "Name of the Traefik Gateway object"
@@ -60,6 +67,12 @@ questions:
     group: "Traefik"
 
   # ---------------- PYRESCOM ----------------
+  - variable: services.pyrescom.image
+    label: "image"
+    type: string
+    default: "pyrecom"
+    group: "Pyrescom"
+
   - variable: services.pyrescom.tag
     label: "Tag"
     type: string
@@ -71,6 +84,19 @@ questions:
     type: int
     default: 1
     group: "Pyrescom"
+
+  - variable: services.pyrescom.pullPolicy
+    label: "Pull Policy"
+    type: enum
+    default: "IfNotPresent"
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
+    group: "Pyrecom"
 
   - variable: services.pyrescom.ressources.storageClassName
     label: "storage class name"

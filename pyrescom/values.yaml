@@ -14,9 +14,8 @@ traefik:
     name: "traefik-gateway"
     namespace: "traefik"
     sectionName: "tlsroute"
-  hostname: "pyrescom.staffngo.com"
-  backend:
-    service: "pyrescom"
+  tlsroute:
+    url: "pyres.staffngo.com"
 
 services:
   pyrescom:
@@ -28,9 +27,6 @@ services:
       type: "ClusterIP"
     resources:
       storageClassName: "azurefile-csi"
-      requests:
-        cpu: "100m"
-        memory: "256Mi"
 
 # ConfigMap
 

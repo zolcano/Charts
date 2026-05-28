@@ -16,9 +16,8 @@ traefik:
     name: "traefik-gateway"
     namespace: "traefik"
     sectionName: "smtp"
-  hostname: "mailind.staffngo.com"
-  backend:
-    service: "mailind"
+  httproute:
+    url: "mailind.staffngo.com"
 
 # ── Services ─────────────────────────────────────────────────
 services:
@@ -34,10 +33,6 @@ services:
         name: http
       - port: 25
         name: smtp
-    resources:
-      requests:
-        cpu: "100m"
-        memory: "256Mi"
     env:
       EMAIL_DOMAIN: "m.staffngo.com"
       DB_PATH: "/app"

@@ -2,19 +2,18 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ .Values.traefik.backend.service }}
+  name: mailind
   namespace: {{ .Values.namespace }}
   labels:
-    app.kubernetes.io/name: {{ .Values.traefik.backend.service }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 spec:
   parentRefs:
     - name: {{ .Values.traefik.gateway.name }}
       namespace: {{ .Values.traefik.gateway.namespace }}
       sectionName: websecure
   hostnames:
-    - {{ .Values.traefik.hostname | quote }}
+    - {{ .Values.traefik.httproute.url | quote }}
   rules:
     - matches:
         - path:
@@ -23,4 +22,4 @@ spec:
       backendRefs:
         - name: mailind
           namespace: {{ .Values.namespace }}
-          port: {{ index .Values.services.mailind.ports 0 "port" | int }}
+          port: 80

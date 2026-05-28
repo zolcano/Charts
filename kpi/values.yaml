@@ -14,9 +14,8 @@ traefik:
     name: "traefik-gateway"
     namespace: "traefik"
     sectionName: "websecure"
-  hostname: "kpi.staffngo.com"
-  backend:
-    service: "kpi"
+  httproute:
+    url: "kpi.staffngo.com"
 
 services:
   kpi:
