@@ -134,7 +134,7 @@ questions:
     required: true
     group: "Traefik"
 
-  - variable: .Values.traefik.httproute.url
+  - variable: .traefik.httproute.url
     label: "API Base URL"
     description: "ne pas inscrire le protocole ( ex: https:// )"
     type: string
