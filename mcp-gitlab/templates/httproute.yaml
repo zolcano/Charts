@@ -4,22 +4,25 @@ kind: HTTPRoute
 metadata:
   name: mcp-gitlab
   namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 spec:
   parentRefs:
     - name: {{ .Values.traefik.gateway.name }}
       namespace: {{ .Values.traefik.gateway.namespace }}
       sectionName: {{ .Values.traefik.gateway.sectionName }}
   hostnames:
-    - {{ .Values.traefik.hostname }}
+    - {{ .Values.traefik.httproute.url }}
   rules:
     - backendRefs:
         - name: mcp-gitlab
           namespace: {{ .Values.namespace }}
-          port: 3000
+          port: 80
       matches:
         - path:
             type: PathPrefix
-            value: /{{ .Values.services.mcp.pathPrefix }}
+            value: /{{ .Values.traefik.httproute.subPath }}
       filters:
         - type: URLRewrite
           urlRewrite:

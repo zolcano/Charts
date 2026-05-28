@@ -2,7 +2,6 @@ categories:
   - mcp gitlab
 
 questions:
-
   # ─────────────────────────────────────────────
   # NAMESPACE
   # ─────────────────────────────────────────────
@@ -40,8 +39,15 @@ questions:
   # ─────────────────────────────────────────────
   # SERVICE / IMAGE
   # ─────────────────────────────────────────────
+  - variable: services.mcp.image
+    label: "image"
+    type: string
+    default: "mcp.gitlab"
+    required: true
+    group: "Application"
+
   - variable: services.mcp.tag
-    label: "Tag de l'image aska"
+    label: "tag"
     type: string
     default: "18062025.1"
     required: true
@@ -52,30 +58,32 @@ questions:
     type: int
     default: 1
     min: 1
-    max: 10
+    max: 5
     required: true
     group: "Application"
 
   - variable: services.mcp.pullPolicy
-    label: "Image Pull Policy"
+    label: "Pull Policy"
     type: enum
-    options:
-      - "IfNotPresent"
-      - "Always"
-      - "Never"
     default: "IfNotPresent"
-    required: true
+    options:
+      - value: "IfNotPresent"
+        label: "IfNotPresent"
+      - value: "Always"
+        label: "Always"
+      - value: "Never"
+        label: "Never"
     group: "Application"
 
   # ─────────────────────────────────────────────
   # TRAEFIK / INGRESS
   # ─────────────────────────────────────────────
-  - variable: traefik.hostname
-    label: "Nom de domaine (hostname)"
+  - variable: traefik.httproute.url
+    label: "url"
     type: hostname
     default: "mcp.staffngo.com"
     required: true
-    group: "Exposition / Traefik"
+    group: "Traefik"
 
   - variable: traefik.subPath
     description: "hostname/subpath"
@@ -83,21 +91,21 @@ questions:
     type: string
     default: "gitlab"
     required: true
-    group: "Exposition / Traefik"
+    group: "Traefik"
 
   - variable: traefik.gateway.name
     label: "Nom de la Gateway Traefik"
     type: string
     default: "traefik-gateway"
     required: true
-    group: "Exposition / Traefik"
+    group: "Traefik"
 
   - variable: traefik.gateway.namespace
     label: "Namespace de la Gateway Traefik"
     type: string
     default: "traefik"
     required: true
-    group: "Exposition / Traefik"
+    group: "Traefik"
 
   - variable: traefik.gateway.sectionName
     label: "Section de la Gateway (entrypoint)"
@@ -105,7 +113,7 @@ questions:
     type: string
     default: "websecure"
     required: true
-    group: "Exposition / Traefik"
+    group: "Traefik"
 
   # ─────────────────────────────────────────────
   # SECRET

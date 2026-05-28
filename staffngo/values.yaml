@@ -58,7 +58,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -109,7 +109,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -160,7 +160,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -215,7 +215,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -266,7 +266,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -317,7 +317,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -370,7 +370,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -421,7 +421,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -472,7 +472,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -523,7 +523,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -580,7 +580,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
@@ -631,7 +631,7 @@ services:
     service:
       type: ClusterIP
       port: 80
-      targetPort: 80
+      portName: "http"
     resources:
       requests:
         enabled: true
