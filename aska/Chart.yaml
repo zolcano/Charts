@@ -2,5 +2,6 @@ apiVersion: v2
 name: aska
 description: Déploiement de Aska
 type: application
-version: 0.3.0
-appVersion: "1.16.0"
+version: 1.0.0
+appVersion: "130526"
+icon: https://cdn-icons-png.magnific.com/512/4632/4632890.png

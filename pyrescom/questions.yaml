@@ -70,7 +70,7 @@ questions:
   - variable: services.pyrescom.image
     label: "image"
     type: string
-    default: "pyrecom"
+    default: "pyrescom"
     group: "Pyrescom"
 
   - variable: services.pyrescom.tag
@@ -96,7 +96,7 @@ questions:
         label: "Always"
       - value: "Never"
         label: "Never"
-    group: "Pyrecom"
+    group: "Pyrescom"
 
   - variable: services.pyrescom.ressources.storageClassName
     label: "storage class name"

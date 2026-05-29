@@ -7,9 +7,8 @@ metadata:
   namespace: {{ $.Values.namespace }}
   labels:
     app: aska
-    app.kubernetes.io/name: aska
-    app.kubernetes.io/instance: {{ $.Release.Name }}
-    helm.sh/chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version }}
 spec:
   replicas: {{ .replicaCount }}
   selector:
@@ -19,8 +18,6 @@ spec:
     metadata:
       labels:
         app: aska
-        app.kubernetes.io/name: aska
-        app.kubernetes.io/instance: {{ $.Release.Name }}
     spec:
       imagePullSecrets:
         - name: {{ $.Values.registry.secretName }}
@@ -29,11 +26,9 @@ spec:
           image: "{{ $.Values.registry.server }}/{{ .image }}:{{ .tag }}"
           imagePullPolicy: {{ .pullPolicy }}
           ports:
-            {{- range .ports }}
-            - name: {{ .name }}
-              containerPort: {{ .port }}
+            - name: {{ .ports.name }}
+              containerPort: {{ .ports.port }}
               protocol: TCP
-            {{- end }}
           env:
             {{- range $secretName, $secretData := $.Values.secret }}
             {{- range $key, $val := $secretData }}

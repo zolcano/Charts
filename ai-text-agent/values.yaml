@@ -14,9 +14,8 @@ traefik:
     name: "traefik-gateway"
     namespace: "traefik"
     sectionName: "websecure"
-  hostname: "ai.staffngo.com"
-  backend:
-    service: "ai-text-agent"
+  httproute:
+    url: "ai.staffngo.com"
 
 services:
   ai:

@@ -39,6 +39,13 @@ questions:
   # ─────────────────────────────────────────────
   # SERVICE / IMAGE
   # ─────────────────────────────────────────────
+  - variable: services.aska.image
+    label: "Image aska"
+    type: string
+    default: "aska"
+    required: true
+    group: "Application"
+
   - variable: services.aska.tag
     label: "Tag de l'image aska"
     type: string
@@ -69,7 +76,7 @@ questions:
   # ─────────────────────────────────────────────
   # TRAEFIK / INGRESS
   # ─────────────────────────────────────────────
-  - variable: traefik.hostname
+  - variable: traefik.httproute.url
     label: "Nom de domaine (hostname)"
     type: hostname
     default: "aska.staffngo.com"

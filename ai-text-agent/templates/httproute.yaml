@@ -3,16 +3,22 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: ai-text-agent
-  namespace: { { .Values.namespace } }
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
 spec:
   parentRefs:
-    - name: { { .Values.traefik.gateway.name } }
-      namespace: { { .Values.traefik.gateway.namespace } }
-      sectionName: { { .Values.traefik.gateway.sectionName } }
+    - name: {{ .Values.traefik.gateway.name }}
+      namespace: {{ .Values.traefik.gateway.namespace }}
+      sectionName: {{ .Values.traefik.gateway.sectionName }}
   hostnames:
-    - { { .Values.traefik.hostname } }
+    - {{ .Values.traefik.httproute.url }}
   rules:
     - backendRefs:
-        - name: { { .Values.traefik.backend.service } }
-          namespace: { { .Values.namespace } }
-          port: 8000
+        - name: ai-text-agent
+          namespace: {{ .Values.namespace }}
+          port: 80

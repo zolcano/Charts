@@ -14,9 +14,8 @@ traefik:
     name: "traefik-gateway"
     namespace: "traefik"
     sectionName: "websecure"
-  hostname: "aska.staffngo.com"
-  backend:
-    service: "aska"
+  httproute:
+    url: "aska.staffngo.com"
 
 services:
   aska:
@@ -27,8 +26,8 @@ services:
     service:
       type: "ClusterIP"
     ports:
-      - port: 8080
-        name: http
+      port: 8080
+      name: http
     resources:
       storageClassName: "azurefile-csi"
 

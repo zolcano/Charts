@@ -2,7 +2,6 @@ categories:
   - AI text agent
 
 questions:
-
   # ─────────────────────────────────────────────
   # NAMESPACE
   # ─────────────────────────────────────────────
@@ -43,11 +42,18 @@ questions:
   # ─────────────────────────────────────────────
   # SERVICE / IMAGE
   # ─────────────────────────────────────────────
+  - variable: services.ai.image
+    label: "Image ai-text-agent"
+    type: string
+    default: "ai-text-agent"
+    required: true
+    group: "Application"
+
   - variable: services.ai.tag
     label: "Tag de l'image ai-text-agent"
     description: "Tag Docker à déployer (ex: v1.9, latest)."
     type: string
-    default: "2026.02.18"
+    default: "2026.05.12"
     required: true
     group: "Application"
 
@@ -76,7 +82,7 @@ questions:
   # ─────────────────────────────────────────────
   # TRAEFIK / INGRESS
   # ─────────────────────────────────────────────
-  - variable: traefik.hostname
+  - variable: traefik.httproute.url
     label: "Nom de domaine (hostname)"
     type: hostname
     default: "ai.staffngo.com"
