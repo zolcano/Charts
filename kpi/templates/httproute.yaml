@@ -13,7 +13,7 @@ spec:
       namespace: {{ .Values.traefik.gateway.namespace }}
       sectionName: {{ .Values.traefik.gateway.sectionName }}
   hostnames:
-    - {{ .Values.traefik.hostname }}
+    - {{ .Values.traefik.httproute.url }}
   rules:
     - backendRefs:
         - name: kpi

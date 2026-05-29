@@ -28,4 +28,4 @@ spec:
           urlRewrite:
             path:
               type: ReplacePrefixMatch
-              replacePrefixMatch: /
+              replacePrefixMatch: /{{ .Values.traefik.httproute.subPath }}
